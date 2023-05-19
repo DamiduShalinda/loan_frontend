@@ -1,0 +1,13 @@
+.container{
+    @apply flex flex-col gap-10 items-center justify-center pt-10 
+    absolute my-auto top-0 bottom-0
+    left-0 right-0 mx-auto
+}
+
+.logoImage{
+    @apply w-[40vh] h-[40vh] rounded-full border-[12px] border-[#fee915]
+}
+
+.label{
+    @apply -text-hasaru-yellow text-[8vh] font-bold
+} 
