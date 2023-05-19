@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins&display=swap');
+
+.bg {
+    font-family: 'Poppins';
+    background-color: #16171D;
+    height: 100vh;
+    color: white;
+}
+
+.label{
+    @apply text-white border-2 h-[65vh] w-0 absolute my-auto top-0 bottom-0
+    mx-auto left-0 right-0 -border-hasaru-yellow
+}
+
+.container{
+    @apply flex flex-row
+}
+
+.logo{
+    @apply flex absolute -left-[15%] top-[47%] w-[100%] flex-1
+}
+
+.Inputfield{
+   @apply flex absolute left-[72%] top-[32%] flex-1
+}
+
+.line{
+    @apply flex absolute left-[67%] top-0 bottom-0 my-auto flex-1
+}

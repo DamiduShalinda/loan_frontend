@@ -3,7 +3,10 @@ import styles from './Inputfield.module.css'
 
 const Inputfield = () => {
 
-    const [inputs, setInputs] = useState({});
+    const [inputs, setInputs] = useState({
+        username: "",
+        password: ""
+    });
 
     const handleChange = (event) => {
         const name = event.target.name;
@@ -33,8 +36,8 @@ const Inputfield = () => {
             <label className={styles.label}>Password</label>
             <input className={styles.Inputfield}
                 type="text" 
-                name="age" 
-                value={inputs.age || ""} 
+                name="password" 
+                value={inputs.password || ""} 
                 onChange={handleChange}
                 placeholder='Enter your password'
             />

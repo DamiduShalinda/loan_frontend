@@ -1,8 +1,10 @@
-import Homelogo from "./Components/Homelogo"
+import Login from "./Pages/Login"
 
 const App = () => {
   return (
-    <div><Homelogo/></div>
+    <div>
+      <Login/>
+      </div>
   )
 }
 
