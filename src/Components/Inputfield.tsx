@@ -1,74 +1,47 @@
-import  { useState } from 'react'
 import styles from './Inputfield.module.css'
-import axios from 'axios';
+import { useForm } from "react-hook-form";
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from "yup";
 
-const Inputfield = () => {
 
-    const [inputs, setInputs] = useState({
-        username: "",
-        password: ""
+
+const schema = yup.object({
+    email: yup.string().required(),
+    password: yup.string().required(),
+  }).required();
+
+  export type FormData = yup.InferType<typeof schema>;
+
+  interface Props {
+    onSubmit:(data: FormData)=>void;
+}
+
+const Inputfield = ({onSubmit}:Props) => {
+
+    const { register, handleSubmit, formState: { errors } } = useForm<FormData>({
+        resolver: yupResolver(schema)
     });
-
-    const login = async ( username:string , password:string) => {
-
-        try {
-            const loginResponse = await axios.post('http://127.0.0.1:80/api/login', { username, password });
-            console.log(loginResponse.data , 'successful');
-        } catch (error) {
-            console.log(error);
-            
-        }
-    }
-
-    const getUserDetails = async () => {
-        try {
-            const userResponse = await axios.get ('http://127.0.0.1:80/api/user');
-            const userDetails = userResponse.data ;
-            console.log(userDetails);
-        } catch (error) {  
-            console.error();
-         }
-    }
-
-    const handleChange = (event) => {
-        const name = event.target.name;
-        const value = event.target.value;
-        setInputs(values => ({...values, [name]: value}))
-        }
-
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        console.log(inputs);
-        login(inputs.username , inputs.password)
-            .then(() => {
-                getUserDetails();
-            }
-            )
-
-        }
 
   return (
     <div className={styles.form}>
-    <form onSubmit={handleSubmit} >
+    <form onSubmit={handleSubmit(onSubmit)} >
         <div className={styles.field}>
             <label className={styles.label}>User name</label>
             <input className={styles.Inputfield}
+             {...register("email")}
             type="text" 
-            name="username" 
-            value={inputs.username || ""} 
-            onChange={handleChange}
             placeholder='Enter your username'
             />
+            {errors.email && <p className='text-red-600'>{errors.email?.message}</p>}
         </div>
         <div className={styles.field}> 
             <label className={styles.label}>Password</label>
             <input className={styles.Inputfield}
                 type="password" 
-                name="password" 
-                value={inputs.password || ""} 
-                onChange={handleChange}
+                {...register("password")}
                 placeholder='Enter your password'
             />
+             {errors.password && <p className='text-red-600'>{errors.password?.message}</p>}
         </div>
         <div className={styles.textlabel}>
             <p>Forgot Password?</p>

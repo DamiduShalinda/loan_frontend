@@ -1,0 +1,52 @@
+   
+
+    // const getToken = (token:string) => {
+    //     getData(token);
+    // }
+
+//    const baseURL = "http://127.0.0.1:8000/api/"
+
+//     const login = async ( username:string , password:string) => {
+
+//         try {
+//             const loginResponse = await axios.post( baseURL+'login', { username, password },{
+//                 withCredentials : true 
+//             });
+//             const token = loginResponse.data.jwt ;
+//             getToken(token);
+            
+//             localStorage.setItem('token' , token);
+//         } catch (error) {
+//             console.log(error);
+            
+//         }
+//     }
+
+//     const getUserDetails = () => {
+//         try {
+//             const token = localStorage.getItem('token')
+//             axios.get( baseURL+'user' , { 
+//                     headers:{
+//                        // 'authorization': token
+//                         Authorization: `Bearer ${token}`
+//                     }
+//                         })
+//                         .then ( res => {
+//                 console.log(res.data);
+//             })
+//         } catch (error) {  
+//             console.error();
+//          }
+//     }
+
+//     const handleChange = (event) => {
+//         const name = event.target.name;
+//         const value = event.target.value;
+//         setInputs(values => ({...values, [name]: value}))
+//         }
+
+//     const handleSubmit = (event) => {
+//         event.preventDefault();
+//         console.log(inputs);
+//         login(inputs.username , inputs.password);
+//         }
