@@ -4,23 +4,23 @@
     //     getData(token);
     // }
 
-//    const baseURL = "http://127.0.0.1:8000/api/"
+    const baseURL = "http://127.0.0.1:8000/api/"
 
-//     const login = async ( username:string , password:string) => {
+     const login = async ( username:string , password:string) => {
 
-//         try {
-//             const loginResponse = await axios.post( baseURL+'login', { username, password },{
-//                 withCredentials : true 
-//             });
-//             const token = loginResponse.data.jwt ;
-//             getToken(token);
+         try {
+             const loginResponse = await axios.post( baseURL+'login', { username, password },{
+                 withCredentials : true 
+             });
+             const token = loginResponse.data.jwt ;
+             getToken(token);
             
-//             localStorage.setItem('token' , token);
-//         } catch (error) {
-//             console.log(error);
+             localStorage.setItem('token' , token);
+        } catch (error) {
+            console.log(error);
             
-//         }
-//     }
+        }
+    }
 
 //     const getUserDetails = () => {
 //         try {

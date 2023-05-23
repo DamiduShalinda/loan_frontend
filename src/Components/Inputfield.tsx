@@ -6,7 +6,7 @@ import * as yup from "yup";
 
 
 const schema = yup.object({
-    email: yup.string().required(),
+    username: yup.string().required(),
     password: yup.string().required(),
   }).required();
 
@@ -28,11 +28,11 @@ const Inputfield = ({onSubmit}:Props) => {
         <div className={styles.field}>
             <label className={styles.label}>User name</label>
             <input className={styles.Inputfield}
-             {...register("email")}
+             {...register("username")}
             type="text" 
             placeholder='Enter your username'
             />
-            {errors.email && <p className='text-red-600'>{errors.email?.message}</p>}
+            {errors.username && <p className='text-red-600'>{errors.email?.message}</p>}
         </div>
         <div className={styles.field}> 
             <label className={styles.label}>Password</label>
