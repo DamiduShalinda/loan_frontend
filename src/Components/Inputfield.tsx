@@ -32,7 +32,7 @@ const Inputfield = ({onSubmit}:Props) => {
             type="text" 
             placeholder='Enter your username'
             />
-            {errors.username && <p className='text-red-600'>{errors.email?.message}</p>}
+            {errors.username && <p className='text-red-600'>{errors.username?.message}</p>}
         </div>
         <div className={styles.field}> 
             <label className={styles.label}>Password</label>
@@ -41,13 +41,13 @@ const Inputfield = ({onSubmit}:Props) => {
                 {...register("password")}
                 placeholder='Enter your password'
             />
-             {errors.password && <p className='text-red-600'>{errors.password?.message}</p>}
+             {errors.password && <p className='text-red-600 text-sm'>{errors.password?.message}</p>}
         </div>
         <div className={styles.textlabel}>
             <p>Forgot Password?</p>
         </div>
         <div className={styles.btn_submit}>
-            <input type="submit" className={styles.btn_submit_label} value={'Log In'}/>
+            <button type="submit" className={styles.btn_submit_label}>Sign In</button>
         </div>
     </form>
     </div>

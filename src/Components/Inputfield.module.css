@@ -17,11 +17,11 @@
 }
 
 .btn_submit{
-    @apply -bg-hasaru-yellow h-auto rounded-xl
+    @apply -bg-hasaru-yellow h-auto rounded-xl 
 }
 
 .btn_submit_label{
-    @apply text-[15.42px] text-matt-gray flex font-bold mx-auto flex-row p-2 
+    @apply text-[15.42px] text-matt-gray flex font-bold mx-auto flex-row p-2 w-full  justify-center self-center
 }
 
 .textlabel {

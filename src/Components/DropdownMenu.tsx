@@ -12,7 +12,7 @@ export const DropdownMenu: React.FC<{ item: MenuItem  }> = ({ item }) => {
   return (
     <div className="relative">
       <button
-        onMouseOver={toggleMenu}
+        onClick={toggleMenu}
         type="button"
         className="text-gray-300 hover:-text-hasaru-yellow px-3 py-2 rounded-md text-sm font-medium focus:outline-none focus:-text-hasaru-yellow"
       >

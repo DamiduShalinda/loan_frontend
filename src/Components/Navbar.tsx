@@ -3,10 +3,12 @@ import { Menu, X} from 'lucide-react';
 import { menuItems } from './Data/menuitems';
 import { DropdownMenu } from './DropdownMenu';
 import { MobileMenuItem } from './MobileMenuItem';
+import logo from '../assets/logo.png';
 
 
 export const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const name ='damidu';
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -17,8 +19,9 @@ export const Navbar: React.FC = () => {
       <div className="max-w-full mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
+          <img src={logo} alt='logo' className='h-8 w-8 mr-2 rounded-full'/>
             <div className="flex-shrink-0">
-              <span className="-text-hasaru-yellow font-bold tracking-widest">Hasaru Enterprices</span>
+              <span className="-text-hasaru-yellow font-bold tracking-widest"><a href='/homepage'>Hasaru Enterprices</a></span>
             </div>
             <div className="hidden md:block">
               <div className="ml-10 flex items-baseline space-x-4">
@@ -44,6 +47,10 @@ export const Navbar: React.FC = () => {
               )}
             </button>
           </div>
+          
+          <button className='rounded-md -bg-hasaru-yellow px-3 py-2 text-sm font-semibold text-black shadow-sm hover:bg-gray-400 hover:-text-hasaru-yellow focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black'>
+                Sign Out , {name}
+          </button>
         </div>
       </div>
       {isMenuOpen && (
