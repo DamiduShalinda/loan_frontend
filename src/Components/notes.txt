@@ -1,52 +1,109 @@
-   
+import { useState } from 'react'
+import { Menu, X , ChevronDown, ChevronRight} from 'lucide-react'
+import logo from '../assets/logo.png'
+import { menuItems } from './Data/menuitems'
 
-    const getToken = (token:string) => {
-        getData(token);
-     }
 
-    const baseURL = "http://127.0.0.1:8000/api/"
+export function Navbar() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
 
-     const login = async ( username:string , password:string) => {
+  const name = "damidu"
 
-         try {
-             const loginResponse = await axios.post( baseURL+'login', { username, password },{
-                 withCredentials : true 
-             });
-             const token = loginResponse.data.jwt ;
-             getToken(token);
-            
-             localStorage.setItem('token' , token);
-        } catch (error) {
-            console.log(error);
-            
-        }
-    }
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen)
+  }
 
-//     const getUserDetails = () => {
-//         try {
-//             const token = localStorage.getItem('token')
-//             axios.get( baseURL+'user' , { 
-//                     headers:{
-//                        // 'authorization': token
-//                         Authorization: `Bearer ${token}`
-//                     }
-//                         })
-//                         .then ( res => {
-//                 console.log(res.data);
-//             })
-//         } catch (error) {  
-//             console.error();
-//          }
-//     }
-
-//     const handleChange = (event) => {
-//         const name = event.target.name;
-//         const value = event.target.value;
-//         setInputs(values => ({...values, [name]: value}))
-//         }
-
-//     const handleSubmit = (event) => {
-//         event.preventDefault();
-//         console.log(inputs);
-//         login(inputs.username , inputs.password);
-//         }
+  return (
+    <div className="relative w-full bg-white">
+      <div className="mx-auto flex max-w-full items-center justify-between px-4 py-2 sm:px-6 lg:px-8 pt-4">
+        <div className="inline-flex items-center space-x-2">
+          <div>
+            <img src={logo} alt='logo' className="w-[35px] h-[35px] rounded-full border-[3px] border-[#fee915]" />
+          </div>
+          <span className="font-bold -text-hasaru-yellow">Hasaru Enterprices</span>
+        </div>
+        <div className="hidden grow items-start lg:flex">
+          <ul className="ml-12 inline-flex space-x-8">
+          {menuItems.map((item) => (
+              <li key={item.title}>
+                <a
+                  href={item.url}
+                  className="inline-flex items-center text-sm font-semibold text-gray-800 hover:text-gray-900"
+                >
+                  {item.title}
+                  <span>
+                    <ChevronDown className="ml-2 h-4 w-4" />
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className='p-4 text-white '>
+          <p>Hello , {name}</p>
+        </div>
+        <div className="hidden lg:block">
+          <button
+            type="button"
+            className="rounded-md -bg-hasaru-yellow px-3 py-2 text-sm font-semibold text-black shadow-sm hover:bg-yellow-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+          >
+            Sign Out
+          </button>
+        </div>
+        <div className="lg:hidden">
+          <Menu onClick={toggleMenu} className="h-6 w-6 cursor-pointer" />
+        </div>
+        {isMenuOpen && (
+          <div className="absolute inset-x-0 top-0 z-50 origin-top-right transform p-2 transition lg:hidden">
+            <div className="divide-y-2 divide-gray-50 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5">
+              <div className="px-5 pb-6 pt-5">
+                <div className="flex items-center justify-between">
+                  <div className="inline-flex items-center space-x-2">
+                  <div>
+                       <img src={logo} alt='logo' className="w-[35px] h-[35px] rounded-full border-[3px] border-[#fee915]" />
+                   </div>
+                    <span className="font-bold -text-hasaru-yellow">Hasaru Enterprices</span>
+                  </div>
+                  <div className="-mr-2">
+                    <button
+                      type="button"
+                      onClick={toggleMenu}
+                      className="inline-flex items-center justify-center rounded-md  p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+                    >
+                      <span className="sr-only">Close menu</span>
+                      <X className="h-6 w-6" aria-hidden="true" />
+                    </button>
+                  </div>
+                </div>
+                <div className="mt-6">
+                  <nav className="grid gap-y-4">
+                    {menuItems.map((item) => (
+                      <a
+                        key={item.title}
+                        href={item.url}
+                        className="-m-3 flex items-center rounded-md p-3 text-sm font-semibold text-white hover:-text-hasaru-yellow"
+                      >
+                        <span className="ml-3 text-base font-medium -text-white hover:-text-hasaru-yellow">
+                          {item.title}
+                        </span>
+                        <span>
+                          <ChevronRight className="ml-3 h-4 w-4" />
+                        </span>
+                      </a>
+                    ))}
+                  </nav>
+                </div>
+                <button
+                  type="button"
+                  className="mt-4 w-full rounded-md -bg-hasaru-yellow px-3 py-2 text-sm font-semibold text-black shadow-sm hover:bg-yellow-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+                >
+                  Sign Out
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}

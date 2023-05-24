@@ -1,9 +1,12 @@
-import styles from './Homepage.module.css';
+
+import { Navbar } from '../Components/Navbar';
 
 
 const Homepage = () => {
   return (
-    <div className={styles.text}>Homepage</div>
+    <div>
+      <Navbar/>
+    </div>
   )
 }
 

@@ -13,6 +13,7 @@ const Login = () => {
   const [token , setToken] = useState<FormData[]>([]);
   const baseURL = "http://127.0.0.1:8000/api/";
 
+
   function handleLogin(userDetails:FormData) {
     
        axios.post(baseURL+ 'login', {username: userDetails.username, password: userDetails.password})
@@ -26,7 +27,7 @@ const Login = () => {
           })
         .catch((error: AxiosError) => {
           const errorResponse = error.response?.data as ErrorResponse;
-        alert(errorResponse.detail);
+          alert(errorResponse.detail);
 
       });
   }

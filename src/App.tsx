@@ -1,6 +1,6 @@
 import Homepage from "./Pages/Homepage";
 import Login from "./Pages/Login"
-import  { Routes , Route } from "react-router-dom"; 
+import  { Routes , Route, Link } from "react-router-dom"; 
 
 
 const App = () => {
@@ -9,6 +9,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Login/>}/>
         <Route path="/homepage" element={<Homepage/>}/>
+        <Route path="/admin" element={<Homepage/>}/>
       </Routes>
       </div>
   )
