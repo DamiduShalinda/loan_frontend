@@ -3,29 +3,40 @@ import Homelogo from '../Components/Homelogo'
 import Inputfield from '../Components/Inputfield'
 import { useState } from 'react'
 import { FormData } from '../Components/Inputfield'
-import axios , { AxiosRequestConfig }  from "axios";
+import axios , { AxiosResponse , AxiosError }  from "axios";
 
 const Login = () => {
 
+  interface ErrorResponse {
+    detail: string;
+  }
   const [token , setToken] = useState<FormData[]>([]);
   const baseURL = "http://127.0.0.1:8000/api/";
 
-  async function handleLogin(userDetails:FormData) {
+  function handleLogin(userDetails:FormData) {
+    
+       axios.post(baseURL+ 'login', {username: userDetails.username, password: userDetails.password})
+        .then((response: AxiosResponse) => {
+          console.log('Response:', response.data.jwt);
+          localStorage.setItem('token', response.data.jwt);
+          console.log(localStorage.getItem('token'));
+          if (localStorage.getItem('token') != null) {
+            window.location.href = "/homepage";
+          }
+          })
+        .catch((error: AxiosError) => {
+          const errorResponse = error.response?.data as ErrorResponse;
+        alert(errorResponse.detail);
 
-    try {
-      const requestConfig : AxiosRequestConfig = {};
-      requestConfig.data = { username: userDetails.username , password : userDetails.password}
-      const { data } = await axios.get<FormData>(baseURL+'login' , requestConfig);
-      console.log(data);
-    } catch (error) {
-      console.error();
-    }
+      });
   }
   
+
   function handleSubmit(data: FormData) {
     console.log(data);
     handleLogin(data);
   }
+
 
   return (
     <div>
