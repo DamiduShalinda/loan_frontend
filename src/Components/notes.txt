@@ -1,109 +1,160 @@
-import { useState } from 'react'
-import { Menu, X , ChevronDown, ChevronRight} from 'lucide-react'
-import logo from '../assets/logo.png'
-import { menuItems } from './Data/menuitems'
+import { useForm } from "react-hook-form";
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from "yup";
+import { Navbar } from "../Components/Navbar"
+import { Inputbox } from '../Components/Inputbox';
+import { useRef } from "react";
 
+const schema = yup.object({
+    customername: yup.string().required(),
+    loandDate: yup.date().required(),
+    loandValue: yup.number().required(),
+    bikeNumber: yup.string().required(),
+    guarenteesName1: yup.string().required(),
+    guarenteesTele1: yup.number().required(),
+    guarenteesName2: yup.string().required(),
+    guarenteesTele2: yup.number().required(),
+    branchLocation: yup.string().required(),
+  }).required();
 
-export function Navbar() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  type LoanFormData = yup.InferType<typeof schema>;
 
-  const name = "damidu"
+const AddNewLoans = () => {
+    const { register, handleSubmit, formState: { errors } } = useForm<LoanFormData>({
+        resolver: yupResolver(schema)
+    });
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen)
-  }
+    const inputRef = useRef<HTMLInputElement>(null);
 
+    const onSubmit = (data: LoanFormData) => {
+        if (inputRef.current) {
+            inputRef.current.focus();
+          }
+        console.log(data)
+    }
   return (
-    <div className="relative w-full bg-white">
-      <div className="mx-auto flex max-w-full items-center justify-between px-4 py-2 sm:px-6 lg:px-8 pt-4">
-        <div className="inline-flex items-center space-x-2">
-          <div>
-            <img src={logo} alt='logo' className="w-[35px] h-[35px] rounded-full border-[3px] border-[#fee915]" />
-          </div>
-          <span className="font-bold -text-hasaru-yellow">Hasaru Enterprices</span>
+    <div>
+        <Navbar/>
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-3 mx-28 mt-7 " >
+        <div>
+            <h1 className="text-white text-4xl mb-6">Add New Loans</h1>
+            <hr  className="mb-5"/>
         </div>
-        <div className="hidden grow items-start lg:flex">
-          <ul className="ml-12 inline-flex space-x-8">
-          {menuItems.map((item) => (
-              <li key={item.title}>
-                <a
-                  href={item.url}
-                  className="inline-flex items-center text-sm font-semibold text-gray-800 hover:text-gray-900"
-                >
-                  {item.title}
-                  <span>
-                    <ChevronDown className="ml-2 h-4 w-4" />
-                  </span>
-                </a>
-              </li>
-            ))}
-          </ul>
+        <div className="flex flex-row gap-12">
+        <div>
+            <Inputbox 
+            label='Customer name'
+            placeholder='Enter your customer name'
+            className="bg-[#292929] w-[648px] h-[42px] rounded-xl  
+            placeholder:text-[13.71px] placeholder:pl-3 mb-3 placeholder:text-gray-400 focus:text-white "
+            {...register("customername")}
+            type='text'
+            ref={inputRef}
+            />
+            {errors.customername && <p className='text-red-500 text-sm m-0'>{'*' + errors.customername?.message}</p>}
         </div>
-        <div className='p-4 text-white '>
-          <p>Hello , {name}</p>
+        <div>
+            <Inputbox 
+            label='Branch Location'
+            placeholder='Enter your branch location'
+            {...register("branchLocation")}
+            type='text'
+            ref={inputRef}
+            />
+            {errors.branchLocation && <p className='text-red-500 text-sm'>{'*' + errors.branchLocation?.message}</p>}
         </div>
-        <div className="hidden lg:block">
-          <button
-            type="button"
-            className="rounded-md -bg-hasaru-yellow px-3 py-2 text-sm font-semibold text-black shadow-sm hover:bg-yellow-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
-          >
-            Sign Out
-          </button>
         </div>
-        <div className="lg:hidden">
-          <Menu onClick={toggleMenu} className="h-6 w-6 cursor-pointer" />
+        <div className="flex flex-row gap-12">
+        <div>
+            <Inputbox 
+            label='Loaned Date'
+            placeholder='Enter your loan given date'
+            {...register("loandDate")}
+            type='text'
+            ref={inputRef}
+            />
+            {errors.loandDate && <p className='text-red-500 text-sm'>{'*' +errors.loandDate?.message}</p>}
         </div>
-        {isMenuOpen && (
-          <div className="absolute inset-x-0 top-0 z-50 origin-top-right transform p-2 transition lg:hidden">
-            <div className="divide-y-2 divide-gray-50 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5">
-              <div className="px-5 pb-6 pt-5">
-                <div className="flex items-center justify-between">
-                  <div className="inline-flex items-center space-x-2">
-                  <div>
-                       <img src={logo} alt='logo' className="w-[35px] h-[35px] rounded-full border-[3px] border-[#fee915]" />
-                   </div>
-                    <span className="font-bold -text-hasaru-yellow">Hasaru Enterprices</span>
-                  </div>
-                  <div className="-mr-2">
-                    <button
-                      type="button"
-                      onClick={toggleMenu}
-                      className="inline-flex items-center justify-center rounded-md  p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
-                    >
-                      <span className="sr-only">Close menu</span>
-                      <X className="h-6 w-6" aria-hidden="true" />
-                    </button>
-                  </div>
-                </div>
-                <div className="mt-6">
-                  <nav className="grid gap-y-4">
-                    {menuItems.map((item) => (
-                      <a
-                        key={item.title}
-                        href={item.url}
-                        className="-m-3 flex items-center rounded-md p-3 text-sm font-semibold text-white hover:-text-hasaru-yellow"
-                      >
-                        <span className="ml-3 text-base font-medium -text-white hover:-text-hasaru-yellow">
-                          {item.title}
-                        </span>
-                        <span>
-                          <ChevronRight className="ml-3 h-4 w-4" />
-                        </span>
-                      </a>
-                    ))}
-                  </nav>
-                </div>
-                <button
-                  type="button"
-                  className="mt-4 w-full rounded-md -bg-hasaru-yellow px-3 py-2 text-sm font-semibold text-black shadow-sm hover:bg-yellow-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
-                >
-                  Sign Out
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
-      </div>
+        <div>
+            <Inputbox 
+            label='Loaned Value'
+            placeholder='Enter loaned value'
+            {...register("loandValue")}
+            type='text'
+            ref={inputRef}
+            />
+            {errors.loandValue && <p className='text-red-500 text-sm'>{'*' +errors.loandValue?.message}</p>}
+        </div>
+        </div>
+        <div>
+            <Inputbox 
+            label='Bike Number'
+            placeholder='Enter bike number'
+            {...register("bikeNumber")}
+            type='text'
+            ref={inputRef}
+            />
+            {errors.bikeNumber && <p className='text-red-500 text-sm'>{'*' +errors.bikeNumber?.message}</p>}
+        </div>
+        <div>
+         <div>
+            <p className="text-white">First Guarentee</p></div>
+        </div>
+        <div className="flex flex-row gap-12">
+        <div>
+            <Inputbox 
+            label='Name'
+            placeholder='Enter first guarentees name'
+            {...register("guarenteesName1")}
+            type='text'
+            ref={inputRef}
+            />
+            {errors.guarenteesName1 && <p className='text-red-500 text-sm'>{'*' +errors.guarenteesName1?.message}</p>}
+        </div>
+        <div>
+            <Inputbox 
+            label=' phone number'
+            placeholder='Enter first guarentees phone number'
+            {...register("guarenteesTele1")}
+            type='text'
+            ref={inputRef}
+            />
+            {errors.guarenteesTele1 && <p className='text-red-500 text-sm'>{'*' +errors.guarenteesTele1?.message}</p>}
+        </div>
+        </div>
+        <div  className="flex flex-row">
+            <p className="text-white">Second Guarentee</p>
+            {/* <div className="text-white border h-0 w-normla-width my-auto ml-4 left-0 right-0 border-white"></div> */}
+        </div>
+        <div className=" flex flex-row justify-between">
+        <div className="flex flex-row gap-12">
+        <div>
+            <Inputbox 
+            label='Name'
+            placeholder='Enter second guarentees name'
+            {...register("guarenteesName2")}
+            type='text'
+            ref={inputRef}
+            />
+            {errors.guarenteesName2 && <p className='text-red-500 text-sm'>{'*' +errors.guarenteesName2?.message}</p>}
+        </div>
+        <div>
+            <Inputbox 
+            label=' phone number'
+            placeholder='Enter second guarentees phone number'
+            {...register("guarenteesTele2")}
+            type='text'
+            ref={inputRef}
+            />
+            {errors.guarenteesTele2 && <p className='text-red-500 text-sm'>{'*' +errors.guarenteesTele2?.message}</p>}
+        </div>
+        </div>
+        <button type="submit" className='text-[15.42px] text-matt-gray font-bold h-[42px] p-2 w-normla-width -bg-hasaru-yellow rounded-xl mt-5'>Add New Loan</button>
+        </div>
+    </form>
+        
     </div>
   )
 }
+
+export default AddNewLoans

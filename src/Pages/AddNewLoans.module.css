@@ -1,0 +1,17 @@
+.inputField {
+    @apply bg-input-gray w-normla-width h-[42px] rounded-xl  
+    placeholder:text-[13.71px] placeholder:pl-3 mb-3 placeholder:text-gray-400 focus:text-white focus:pl-3
+}
+
+
+.labelField {
+    @apply text-[12px] text-input-label-color mb-1
+}
+
+.customInputField {
+    @apply w-[624px]
+}
+
+.buttonYellow {
+    @apply text-[15.42px] text-matt-gray font-bold h-[42px] p-2 w-normla-width -bg-hasaru-yellow rounded-xl mt-5
+}

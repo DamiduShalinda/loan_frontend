@@ -1,7 +1,7 @@
 import AddNewLoans from "./Pages/AddNewLoans";
 import Homepage from "./Pages/Homepage";
 import Login from "./Pages/Login"
-import  { Routes , Route, Link } from "react-router-dom"; 
+import  { Routes , Route} from "react-router-dom"; 
 
 
 const App = () => {

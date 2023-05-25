@@ -7,8 +7,10 @@ export default {
   theme: {
     extend: {
       colors: {
-        'matt-gray': '#1E1E1E',
-        '-hasaru-yellow': '#F5C249'
+        'matt-gray': '#1b1b1b',
+        '-hasaru-yellow': '#F5C249',
+        'input-gray': '#2b2b2b',
+        'input-label-color' : '#ffffff',
       },
       width: {
         'normla-width': '300px',
