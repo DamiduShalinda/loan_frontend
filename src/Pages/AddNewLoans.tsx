@@ -42,7 +42,7 @@ const AddNewLoans = () => {
             type="text" 
             placeholder='Enter your username'
             />
-            {errors.customername && <p className='text-red-600'>{errors.customername?.message}</p>}
+            {errors.customername && <p className='text-red-600 text-sm'>* required field</p>}
         </div>
          <div className='flex flex-col'> 
             <label className={styles.labelField}>
@@ -52,7 +52,7 @@ const AddNewLoans = () => {
                 {...register("branchLocation")}
                 placeholder='Enter your branch location'
             />
-             {errors.branchLocation && <p className='text-red-600 text-sm'>Error</p>}
+             {errors.branchLocation && <p className='text-red-600 text-sm'>* required field</p>}
         </div>
         </div>
         <div className="flex flex-row gap-6">
@@ -64,7 +64,7 @@ const AddNewLoans = () => {
                 {...register("loandDate")}
                 placeholder='Enter your password'
             />
-             {errors.loandDate && <p className='text-red-600 text-sm'>Error</p>}
+             {errors.loandDate && <p className='text-red-600 text-sm'>* required field</p>}
         </div>
         <div className='flex flex-col'> 
             <label className={styles.labelField}>
@@ -74,7 +74,7 @@ const AddNewLoans = () => {
                 {...register("loandValue")}
                 placeholder='Enter your loan Value'
             />
-             {errors.loandValue && <p className='text-red-600 text-sm'>Error</p>}
+             {errors.loandValue && <p className='text-red-600 text-sm'>* required field</p>}
         </div>
         </div>
         <div className='flex flex-col'> 
@@ -85,7 +85,7 @@ const AddNewLoans = () => {
                 {...register("bikeNumber")}
                 placeholder='Enter Bike Number'
             />
-             {errors.bikeNumber && <p className='text-red-600 text-sm'>Error</p>}
+             {errors.bikeNumber && <p className='text-red-600 text-sm'>* required field</p>}
         </div>
         <div><p className="text-white">First Guarantee</p></div>
         <div className="flex flex-row gap-6">
@@ -97,7 +97,7 @@ const AddNewLoans = () => {
                 {...register("guarenteesName1")}
                 placeholder='Enter first guarentees Name'
             />
-             {errors.guarenteesName1 && <p className='text-red-600 text-sm'>Error</p>}
+             {errors.guarenteesName1 && <p className='text-red-600 text-sm'>* required field</p>}
         </div>
         <div className='flex flex-col'> 
             <label className={styles.labelField}>
@@ -107,7 +107,7 @@ const AddNewLoans = () => {
                 {...register("guarenteesTele1")}
                 placeholder='Enter first guarentees Tele'
             />
-             {errors.guarenteesTele1 && <p className='text-red-600 text-sm'>Error</p>}
+             {errors.guarenteesTele1 && <p className='text-red-600 text-sm'>* required field</p>}
         </div>
         </div>
         <div><p className="text-white">Second Guarantee</p></div>
@@ -121,7 +121,7 @@ const AddNewLoans = () => {
                 {...register("guarenteesName2")}
                 placeholder='Enter second guarentees Name'
             />
-             {errors.guarenteesName2 && <p className='text-red-600 text-sm'>Error</p>}
+             {errors.guarenteesName2 && <p className='text-red-600 text-sm'>* required field</p>}
         </div>
         <div className='flex flex-col'> 
             <label className={styles.labelField}>
@@ -131,7 +131,7 @@ const AddNewLoans = () => {
                 {...register("guarenteesTele2")}
                 placeholder='Enter second guarentees Tele'
             />
-             {errors.guarenteesTele2 && <p className='text-red-600 text-sm'>Error</p>}
+             {errors.guarenteesTele2 && <p className='text-red-600 text-sm'>* required field</p>}
         </div>  
         </div>  
             <div>
