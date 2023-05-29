@@ -1,14 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState , useContext } from 'react';
 import { Menu, X} from 'lucide-react';
 import { menuItems } from './Data/menuitems';
 import { DropdownMenu } from './DropdownMenu';
 import { MobileMenuItem } from './MobileMenuItem';
 import logo from '../assets/logo.png';
+import AuthContext from '../Context/AuthContext';
 
 
 export const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const name ='damidu';
+
+  const authcontext = useContext(AuthContext);
+  const {name} = authcontext;
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);

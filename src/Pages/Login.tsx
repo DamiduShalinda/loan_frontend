@@ -1,7 +1,6 @@
 import styles from './Login.module.css'
 import Homelogo from '../Components/Homelogo'
 import Inputfield from '../Components/Inputfield'
-import { useState } from 'react'
 import { FormData } from '../Components/Inputfield'
 import axios , { AxiosResponse , AxiosError }  from "axios";
 
@@ -10,13 +9,13 @@ const Login = () => {
   interface ErrorResponse {
     detail: string;
   }
-  const [token , setToken] = useState<FormData[]>([]);
+
   const baseURL = "http://127.0.0.1:8000/api/";
 
 
   function handleLogin(userDetails:FormData) {
     
-       axios.post(baseURL+ 'login', {username: userDetails.username, password: userDetails.password})
+       axios.post(baseURL+ 'login', { userDetails})
         .then((response: AxiosResponse) => {
           console.log('Response:', response.data.jwt);
           localStorage.setItem('token', response.data.jwt);

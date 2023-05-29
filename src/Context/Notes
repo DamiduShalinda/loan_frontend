@@ -1,0 +1,25 @@
+import React ,{ createContext } from "react";
+
+interface AuthContextProps {
+    name: string;
+  }
+  
+  const AuthContext = createContext<AuthContextProps | null>(null);
+  
+export default AuthContext;
+
+type AuthProviderProps = {
+    children: React.ReactNode;
+}
+
+export const AuthProvider: React.FC<AuthProviderProps> = (AuthProviderProps) => {
+
+    const authData: AuthContextProps = {
+        name: "damidu"
+      };
+    return (
+        <AuthContext.Provider value={authData}>
+           <> {AuthProviderProps.children} </>
+        </AuthContext.Provider>
+    )
+}
