@@ -11,7 +11,7 @@ export const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const authcontext = useContext(AuthContext);
-  const {name} = authcontext;
+  const {contextData} = authcontext;
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -51,8 +51,8 @@ export const Navbar: React.FC = () => {
             </button>
           </div>
           
-          <button className='rounded-md -bg-hasaru-yellow px-3 py-2 text-sm font-semibold text-black shadow-sm hover:bg-gray-400 hover:-text-hasaru-yellow focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black'>
-                Sign Out , {name}
+          <button className='rounded-md -bg-hasaru-yellow px-3 py-2 text-sm font-semibold text-black shadow-sm hover:bg-gray-400 hover:-text-hasaru-yellow focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black' onClick={contextData.logOutUser}>
+                Sign Out , {contextData.user.username}
           </button>
         </div>
       </div>

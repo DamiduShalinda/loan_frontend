@@ -1,13 +1,16 @@
 import React from 'react'
 import { Navigate } from 'react-router-dom'
+import { useContext} from	'react'
+import AuthContext from '../Context/AuthContext'
 
 type PrivateRouteProps = {
-  isSigned: boolean;
   children: React.ReactNode;
 }
 
 const Protected: React.FC<PrivateRouteProps> = (PrivateRouteProps) => {
-  if (PrivateRouteProps.isSigned) {
+
+  const {contextData} = useContext(AuthContext)
+  if (contextData.user) {
     return <>{PrivateRouteProps.children}</>
   } else {
     
