@@ -42,7 +42,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({
   
 const loginUser = (data:FormData) => {
   axios
-    .post("http://localhost:8000/token", data)
+    .post("http://localhost:8000/api/token", data)
     .then((response) => {
 
       if (response.status == 200) {
@@ -71,7 +71,7 @@ const loginUser = (data:FormData) => {
   }
 
   const updateToken = async () => {
-    axios.post("http://localhost:8000/token/refresh" , { refresh: authTokens?.refresh })
+    axios.post("http://localhost:8000/api/token/refresh" , { refresh: authTokens?.refresh })
     .then((response) => {
   
         if (response.status == 200) {
