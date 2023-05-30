@@ -5,6 +5,7 @@ import  { Routes } from "react-router-dom";
 import { Route} from 'react-router-dom'
 import Protected from "./utils/Protected";
 import { AuthProvider } from "./Context/AuthContext";
+import { ViewLoans } from "./Pages/ViewLoans";
 
 const App = () => {
 
@@ -21,6 +22,12 @@ const App = () => {
         <Route path="/addnewloans" element={
               <Protected>
                 <AddNewLoans />
+              </Protected>
+            }
+          />
+        <Route path="/viewloans" element={
+              <Protected>
+                <ViewLoans/>
               </Protected>
             }
           />

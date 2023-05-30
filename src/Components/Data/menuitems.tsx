@@ -15,7 +15,7 @@ export const menuItems: MenuItem[] = [
       subItems :  [
                 {
                   name : 'View All Loans',
-                  href: '/loans'
+                  href: '/viewloans'
                 },
                 {
                   name : 'Add new Loans',

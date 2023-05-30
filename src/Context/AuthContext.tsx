@@ -10,6 +10,7 @@ type AuthContextProps = {
     user: any;
     loginUser: (data: FormData) => void;
     logOutUser: () => void;
+    authTokens: any;
   };
 };
 
@@ -107,12 +108,10 @@ const loginUser = (data:FormData) => {
  
    const contextData = {
     user: user,
+    authTokens: authTokens,
     loginUser: loginUser,
     logOutUser: logOutUser
  }
-
- 
-
 
   return (
     <AuthContext.Provider value={{ contextData }}>
