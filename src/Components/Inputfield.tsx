@@ -2,7 +2,7 @@ import styles from './Inputfield.module.css'
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
-
+import { Link } from 'react-router-dom';
 
 
 const schema = yup.object({
@@ -48,6 +48,9 @@ const Inputfield = ({onSubmit}:Props) => {
         </div>
         <div className={styles.btn_submit}>
             <button type="submit" className={styles.btn_submit_label}>Sign In</button>
+        </div>
+        <div>
+            <Link to='/loancalculator'><button type='button' className={styles.btn_calculator}>Loan Calculator</button></Link>
         </div>
     </form>
     </div>

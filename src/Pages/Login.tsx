@@ -14,9 +14,12 @@ const Login = () => {
       <div>
       <div className={styles.container}>
         <div className={styles.logo}><Homelogo/></div>
+        
         <div className={styles.line}><div className={styles.label}></div></div>
       
-      <div className={styles.Inputfield}> <Inputfield onSubmit={(data: FormData)=>contextData.loginUser(data)}/></div>
+      <div className={styles.Inputfield}>
+         <Inputfield onSubmit={(data: FormData)=>contextData.loginUser(data)}/>
+      </div>
      
       </div>
     </div>

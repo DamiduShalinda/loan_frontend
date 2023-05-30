@@ -1,0 +1,38 @@
+.Inputfield {
+    @apply bg-[#21242D] w-normla-width h-[42px] rounded-xl  
+    placeholder:text-[13.71px] placeholder:pl-10 text-white
+}
+.specialInputfield {
+    @apply bg-[#21242D] w-normla-width h-[42px] rounded-xl  
+    placeholder:text-[13.71px] placeholder:ml-10 mt-8 text-white
+}
+
+.label {
+    @apply text-[12px] text-[#A7AEBF] mb-1 mt-8
+}
+
+.field{
+    @apply flex flex-col
+}
+
+
+.form{
+    @apply flex flex-col ml-20 my-5
+}
+
+.btn_submit{
+    @apply -bg-hasaru-yellow h-auto rounded-xl 
+}
+
+.btn_submit_label{
+    @apply bg-white text-[15.42px] text-white flex font-bold flex-row p-2 w-normla-width  border border-white justify-center rounded-xl mt-8
+}
+
+.textlabel {
+    @apply text-[12px] -text-hasaru-yellow mb-8
+}
+
+.heading{
+    @apply text-5xl text-white mb-1 mt-8
+}
+

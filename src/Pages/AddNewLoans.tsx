@@ -32,7 +32,7 @@ const AddNewLoans = () => {
     <div>
         <Navbar/>
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-3 mx-28 mt-7 " >
-        <h1 className="text-white text-4xl font-bold">Add New Loans</h1>
+        <h1 className="text-white text-2xl font-bold">ADD NEW LOANS ....</h1>
         <hr className="mb-5"/>
         <div className="flex flex-row gap-6">
         <div className='flex flex-col'>

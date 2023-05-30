@@ -1,6 +1,7 @@
 import AddNewLoans from "./Pages/AddNewLoans";
 import Homepage from "./Pages/Homepage";
 import Login from "./Pages/Login"
+import LoanCalculator from "./Pages/LoanCalculator";
 import  { Routes } from "react-router-dom"; 
 import { Route} from 'react-router-dom'
 import Protected from "./utils/Protected";
@@ -13,6 +14,7 @@ const App = () => {
     <div>
       <AuthProvider>
       <Routes>
+        <Route path='/loancalculator' element={<LoanCalculator/>}/>
         <Route path="/" element={<Login/>}/>
         <Route path="/homepage" element={
           <Protected>
