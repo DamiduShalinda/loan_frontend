@@ -10,7 +10,7 @@ export default {
         'matt-gray': '#1b1b1b',
         '-hasaru-yellow': '#F5C249',
         'input-gray': '#2b2b2b',
-        'input-label-color' : '#ffffff',
+        'input-label-color' : '#8f989c',
       },
       width: {
         'normla-width': '300px',

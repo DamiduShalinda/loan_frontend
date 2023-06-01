@@ -7,6 +7,7 @@ import { Route} from 'react-router-dom'
 import Protected from "./utils/Protected";
 import { AuthProvider } from "./Context/AuthContext";
 import { ViewLoans } from "./Pages/ViewLoans";
+import AddNewCustomers from "./Pages/AddNewCustomers";
 
 const App = () => {
 
@@ -30,6 +31,12 @@ const App = () => {
         <Route path="/viewloans" element={
               <Protected>
                 <ViewLoans/>
+              </Protected>
+            }
+          />
+        <Route path="/addnewcustomers" element={
+              <Protected>
+                <AddNewCustomers/>
               </Protected>
             }
           />

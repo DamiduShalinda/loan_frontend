@@ -1,6 +1,6 @@
 .inputField {
-    @apply bg-input-gray w-normla-width h-[42px] rounded-xl  
-    placeholder:text-[13.71px] placeholder:pl-3 mb-3 placeholder:text-gray-400 focus:text-white focus:pl-3
+    @apply bg-input-gray w-normla-width h-[42px] rounded-xl text-white
+    placeholder:text-[13.71px] placeholder:pl-3 mb-3 placeholder:text-gray-400 focus:text-white focus:pl-3 
 }
 
 

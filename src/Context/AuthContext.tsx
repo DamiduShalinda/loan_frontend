@@ -97,7 +97,6 @@ const loginUser = (data:FormData) => {
     const interval = setInterval(() =>{
         if (authTokens) {
          updateToken()
-         console.log("updated token")
         }
     } , fourMinutes)
   
