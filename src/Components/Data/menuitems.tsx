@@ -47,8 +47,12 @@ export const menuItems: MenuItem[] = [
       },
       {
         name : 'report 2',
-        href: '/report'
+        href: '/loancalculator'
       },
     ]
   },
+  {
+    name: 'Loan Calculator',
+    href: '/loancalculator'
+  }
 ];

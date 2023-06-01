@@ -6,7 +6,7 @@ import AuthContext from '../Context/AuthContext'
 
 export const ViewLoans = () => {
 
-    let [loans , setLoans] = useState<loanType[]>([]);
+    const [loans , setLoans] = useState<loanType[]>([]);
     const { contextData } = useContext(AuthContext)
 
     type loanType = {
@@ -28,6 +28,7 @@ export const ViewLoans = () => {
             }
         } ).then((response) => {
             setLoans(response.data)
+            console.log(response.data)
         }).catch((err) => {
             console.log(err)
         })

@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 
 const schema = yup.object({
@@ -69,6 +70,9 @@ const LoanCalFields = ({onSubmit}:Props) => {
              {errors.loanMonths && <p className='text-red-600 text-xs'>{errors.loanMonths?.message}</p>}
         </div>
             <input type="submit" className={styles.btn_submit_label} value="Calculate"/>
+            <Link to="/loancalculator">
+            <input type="button" className={styles.btn_submit_label} value="Go Back"/>
+            </Link>
     </form>
     </div>
   )
