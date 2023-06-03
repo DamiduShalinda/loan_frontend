@@ -29,7 +29,7 @@ export const menuItems: MenuItem[] = [
     subItems :  [
       {
         name : 'View All Customers',
-        href: '/customers'
+        href: '/viewcustomers'
       },
       {
         name : 'Add new Customers',

@@ -3,12 +3,15 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import { Navbar } from "../Components/Navbar"
 import styles from './AddNewLoans.module.css'
+import axios from "axios";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const schema = yup.object({
-    customername: yup.string().required(),
+    name: yup.string().required(),
     surname: yup.string().required(),
     address: yup.string().required(),
-    dateofbirth: yup.date().required(),
+    dateofbirth: yup.string().required(),
     email: yup.string().required(),
     telephone1: yup.number().required(),
     telephone2: yup.number().required(),
@@ -16,18 +19,29 @@ const schema = yup.object({
     username: yup.string().required(),
   }).required();
 
-  type LoanFormData = yup.InferType<typeof schema>;
+  export type CustomerFormData = yup.InferType<typeof schema>;
 
 const AddNewCustomers = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm<LoanFormData>({
+    const { register, handleSubmit, formState: { errors } } = useForm<CustomerFormData>({
         resolver: yupResolver(schema)
     });
 
+    const showToastMessage = () => {
+        toast.success('Success Notification !', {
+            position: toast.POSITION.BOTTOM_RIGHT
+        });
+    };
 
-    const onSubmit = (data: LoanFormData) => {
-        console.log('clicked');
-        console.log(data)
+
+    const onSubmit = (data: CustomerFormData) => {
+        axios.post('http://localhost:8000/customers/addcustomers/', data)
+        .then(res => {
+            console.log(res.data);
+            showToastMessage();
+        });
     }
+    
+
   return (
     <div>
         <Navbar/>
@@ -49,10 +63,10 @@ const AddNewCustomers = () => {
                 Customer Name</label>
             <input className={styles.inputField}
                 type="text" 
-                {...register("customername")}
+                {...register("name")}
                 placeholder='Enter Customer Name'
             />
-             {errors.customername && <p className='text-red-600 text-sm'>* required field</p>}
+             {errors.name && <p className='text-red-600 text-sm'>* required field</p>}
         </div>
         </div>
         <div className="flex flex-row gap-6">
@@ -139,7 +153,7 @@ const AddNewCustomers = () => {
              {errors.username && <p className='text-red-600 text-sm'>* required field</p>}
         </div>
     </form>
-        
+    <ToastContainer />
     </div>
   )
 }

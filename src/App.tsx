@@ -8,6 +8,7 @@ import Protected from "./utils/Protected";
 import { AuthProvider } from "./Context/AuthContext";
 import { ViewLoans } from "./Pages/ViewLoans";
 import AddNewCustomers from "./Pages/AddNewCustomers";
+import ViewAllCustomers from "./Pages/ViewAllCustomers";
 
 const App = () => {
 
@@ -37,6 +38,12 @@ const App = () => {
         <Route path="/addnewcustomers" element={
               <Protected>
                 <AddNewCustomers/>
+              </Protected>
+            }
+          />
+        <Route path="/viewcustomers" element={
+              <Protected>
+                <ViewAllCustomers/>
               </Protected>
             }
           />
