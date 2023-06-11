@@ -5,7 +5,6 @@ import { IMaskInput } from 'react-imask';
 import { DatePickerInput } from '@mantine/dates';
 import { PasswordRegistration } from '../Components/PasswordRegistration';
 
-
 interface customerFormData {
   surname: string;
   name: string;
@@ -84,6 +83,7 @@ function AddCustomersPage() {
         placeholder="Your age"
         withAsterisk
         mt="md"
+        hideControls
         {...form.getInputProps('age')}
       />
       <Input.Wrapper id={id} label="Phone Number 1" required error = {form.errors.phoneNumber1}>
@@ -110,6 +110,10 @@ function AddCustomersPage() {
       withAsterisk
       {...form.getInputProps('dateofbirth')}
     />
+    <TextInput label="NIC number" placeholder="NIC number" withAsterisk {...form.getInputProps('nicNumber')} />
+      <Group position="right" mt="md">
+        <Button onClick={open}>Submit</Button>
+      </Group>
     <Modal opened={opened} onClose={close} title="Authentication" centered>
     <TextInput label="Username" placeholder="Username" withAsterisk {...form.getInputProps('username')} />
     <PasswordRegistration
@@ -119,10 +123,6 @@ function AddCustomersPage() {
         <Button type="submit">Submit</Button>
       </Group>
     </Modal>
-    <TextInput label="nicNumber" placeholder="NIC number" withAsterisk {...form.getInputProps('nicNumber')} />
-      <Group position="right" mt="md">
-        <Button onClick={open}>Submit</Button>
-      </Group>
 
     </Box>
   );

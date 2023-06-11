@@ -1,12 +1,11 @@
-import AddCustomersPage from "./Pages/AddCustomersPage"
-
+import { LandingPage } from './Pages/LandingPage';
 
 function App() {
 
-
   return (
       <>
-      <AddCustomersPage/>
+      
+      <LandingPage/>
       
       </>
   )

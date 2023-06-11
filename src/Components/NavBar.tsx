@@ -1,19 +1,15 @@
 import { useState } from 'react';
 import { Navbar, Center, Tooltip, UnstyledButton, createStyles, Stack, rem } from '@mantine/core';
 import {
-  IconHome2,
-  IconGauge,
-  IconDeviceDesktopAnalytics,
-  IconFingerprint,
-  IconCalendarStats,
-  IconUser,
   IconSettings,
   IconLogout,
-  IconSwitchHorizontal,
 } from '@tabler/icons-react';
 import { MantineLogo } from '@mantine/ds';
+import { useViewportSize } from '@mantine/hooks';
+import { navbarData } from '../data';
 
 const useStyles = createStyles((theme) => ({
+  
   link: {
     width: rem(50),
     height: rem(50),
@@ -62,20 +58,12 @@ function NavbarLink({ icon: Icon, label, active, onClick }: NavbarLinkProps) {
   );
 }
 
-const mockdata = [
-  { icon: IconHome2, label: 'Home' },
-  { icon: IconGauge, label: 'Dashboard' },
-  { icon: IconDeviceDesktopAnalytics, label: 'Analytics' },
-  { icon: IconCalendarStats, label: 'Releases' },
-  { icon: IconUser, label: 'Account' },
-  { icon: IconFingerprint, label: 'Security' },
-  { icon: IconSettings, label: 'Settings' },
-];
 
 export function NavbarMinimalColored() {
   const [active, setActive] = useState(2);
+  const { height, width } = useViewportSize();
 
-  const links = mockdata.map((link, index) => (
+  const links = navbarData.map((link, index) => (
     <NavbarLink
       {...link}
       key={link.label}
@@ -86,7 +74,7 @@ export function NavbarMinimalColored() {
 
   return (
     <Navbar
-      height={750}
+      height={height}
       width={{ base: 80 }}
       p="md"
       sx={(theme) => ({
@@ -104,7 +92,7 @@ export function NavbarMinimalColored() {
       </Navbar.Section>
       <Navbar.Section>
         <Stack justify="center" spacing={0}>
-          <NavbarLink icon={IconSwitchHorizontal} label="Change account" />
+          <NavbarLink icon={IconSettings} label="Settings" />
           <NavbarLink icon={IconLogout} label="Logout" />
         </Stack>
       </Navbar.Section>

@@ -1,10 +1,11 @@
 import { createStyles, Overlay, Container, Title, Button, Text, rem } from '@mantine/core';
+import { LogInField } from '../Components/LogInField';
 
 const useStyles = createStyles((theme) => ({
   hero: {
     position: 'relative',
     backgroundImage:
-      'url(https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80)',
+      'url(https://images.unsplash.com/photo-1664575602276-acd073f104c1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80)',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
   },
@@ -48,7 +49,7 @@ const useStyles = createStyles((theme) => ({
 
     [theme.fn.smallerThan('sm')]: {
       maxWidth: '100%',
-      fontSize: theme.fontSizes.sm,
+      fontSize: theme.fontSizes.xs,
     },
   },
 
@@ -72,16 +73,16 @@ export function LandingPage() {
         zIndex={0}
       />
       <Container className={classes.container}>
-        <Title className={classes.title}>A fully featured React components library</Title>
-        <Text className={classes.description} size="xl" mt="xl">
-          Build fully functional accessible web applications faster than ever – Mantine includes
-          more than 120 customizable components and hooks to cover you in any situation
+        <Title className={classes.title}>Hasaru Enterprices</Title>
+        <Text className={classes.description}  mt="xl">
+         With a strong presence and four branches conveniently located, we aim to make motorcycle ownership accessible and affordable for everyone. At Hasaru Enterprises, we understand the joy and freedom that comes with owning a motorcycle. Our mission is to empower individuals to fulfill their dreams of hitting the road on two wheels
         </Text>
 
         <Button variant="gradient" size="xl" radius="xl" className={classes.control}>
-          Get started
+          Loan Calculator
         </Button>
       </Container>
+      <LogInField/>
     </div>
   );
 }
