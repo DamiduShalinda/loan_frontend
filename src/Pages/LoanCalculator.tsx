@@ -1,6 +1,9 @@
 import LoanCalculatorInputs from '../Components/LoanCalculatorInputs'
 import { PPMT , PMT , IPMT , ROUND} from '@formulajs/formulajs'
 import React , {useEffect} from "react"
+import { TableScrollArea } from './Table'
+import { useDisclosure } from '@mantine/hooks';
+import { Modal, Button, Group } from '@mantine/core';
 
 
 interface LoanCalculatorProps {
@@ -25,6 +28,7 @@ interface LoanCalculatorProps {
 
 function LoanCalculator() {
 
+    const [opened, { open, close }] = useDisclosure(false);
     const [monthlyPayment, setMonthlyPayment] = React.useState<MonthlyPayment[]>([])
     const [jsonData , setJsonData] = React.useState<JsonData>()
     const [isSubmitted , setIsSubmitted] = React.useState<boolean>(false)
@@ -32,6 +36,7 @@ function LoanCalculator() {
     const handleSubmit = (data:LoanCalculatorProps) => {
       calculateLoan(data)
       setIsSubmitted(true)
+        open()
     }
   
     useEffect(() => {
@@ -57,8 +62,8 @@ function LoanCalculator() {
   
         const payment:MonthlyPayment = {
           month: index,
-          monthlyCapital: monthlyCapital,
           monthlyInterest: monthlyInterest,
+          monthlyCapital: monthlyCapital,
           remainder: loanAmount - monthlyCapital
         }
         
@@ -73,6 +78,8 @@ function LoanCalculator() {
         monthlyRental: monthlyRental,
         monthlyPayment: tempMonthlyPayment
       }
+      console.log(values);
+      
       setJsonData(values)
     }
   
@@ -80,11 +87,13 @@ function LoanCalculator() {
   return (
     <>
     <LoanCalculatorInputs onSubmit={(data: LoanCalculatorProps) => handleSubmit(data)}/>
+    
+    <Modal opened={opened} onClose={close} title="Monthly Payments" centered size="auto" >
+    <h3> Monthly Payment : {jsonData?.monthlyRental}</h3>  
     {isSubmitted && jsonData && 
-        <div>
-            <h1>Monthly Rental: {jsonData?.monthlyRental}</h1>
-        </div>
+        <TableScrollArea data={jsonData.monthlyPayment} headers={["month" , "monthlyInterest" , "monthlyCapital" ,  "remainder"]}/>
     }
+      </Modal>
     </>
   )
 }

@@ -26,18 +26,20 @@ const useStyles = createStyles((theme) => ({
 }));
 
 interface TableScrollAreaProps {
-  data: { name: string; email: string; company: string }[];
+  data: { [key : string]: string }[];
+  headers : string[]
 }
 
-export function TableScrollArea({ data }: TableScrollAreaProps) {
+export function TableScrollArea({ data , headers }: TableScrollAreaProps) {
   const { classes, cx } = useStyles();
   const [scrolled, setScrolled] = useState(false);
 
-  const rows = data.map((row) => (
-    <tr key={row.name}>
-      <td>{row.name}</td>
-      <td>{row.email}</td>
-      <td>{row.company}</td>
+  const rows = data.map((row , index) => (
+    <tr key={index} >
+      {headers.map((header , index) => (
+        <td key={index}>{row[header]}</td>
+      )
+      )}
     </tr>
   ));
 
@@ -45,10 +47,11 @@ export function TableScrollArea({ data }: TableScrollAreaProps) {
     <ScrollArea h={300} onScrollPositionChange={({ y }) => setScrolled(y !== 0)}>
       <Table miw={700}>
         <thead className={cx(classes.header, { [classes.scrolled]: scrolled })}>
-          <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Company</th>
+          <tr >
+            {headers.map((header , index) => (
+                <th key={index} style={{textTransform : 'capitalize'}}>{header}</th>
+                )
+                )}
           </tr>
         </thead>
         <tbody>{rows}</tbody>

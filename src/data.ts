@@ -177,4 +177,5 @@ export const tableData = [
   }
 ]
 
+export const chartData =  ['name', 'company', 'email'];
 

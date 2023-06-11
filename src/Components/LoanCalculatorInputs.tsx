@@ -1,5 +1,5 @@
 import { useForm } from '@mantine/form';
-import { NumberInput,  Button, Box } from '@mantine/core';
+import { NumberInput,  Button, Box  , Group, Anchor} from '@mantine/core';
 
 
 interface LoanCalculatorProps {
@@ -87,9 +87,16 @@ function LoanCalculatorInputs({ onSubmit }: Props) {
           {...form.getInputProps('loanMonths')}
         />
 
+        <Group position="apart">
+        <Anchor href='/'>
+        <Button type="button" mt="sm">
+          Back
+        </Button>
+        </Anchor>
         <Button type="submit" mt="sm">
           Submit
         </Button>
+        </Group>
       </form>
     </Box>
   );
