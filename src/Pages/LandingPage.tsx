@@ -1,8 +1,11 @@
-import { createStyles, Overlay, Container, Title, Button, Text, rem } from '@mantine/core';
+import { createStyles, Overlay, Container, Title, Button, Text, rem  , Flex  , Anchor} from '@mantine/core';
 import { LogInField } from '../Components/LogInField';
 
 const useStyles = createStyles((theme) => ({
+
+  
   hero: {
+    height: '100vh',
     position: 'relative',
     backgroundImage:
       'url(https://images.unsplash.com/photo-1664575602276-acd073f104c1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80)',
@@ -72,17 +75,22 @@ export function LandingPage() {
         opacity={1}
         zIndex={0}
       />
+      
+        <Flex direction={'row'} gap={'lg'} align={'baseline'}>
       <Container className={classes.container}>
         <Title className={classes.title}>Hasaru Enterprices</Title>
         <Text className={classes.description}  mt="xl">
          With a strong presence and four branches conveniently located, we aim to make motorcycle ownership accessible and affordable for everyone. At Hasaru Enterprises, we understand the joy and freedom that comes with owning a motorcycle. Our mission is to empower individuals to fulfill their dreams of hitting the road on two wheels
         </Text>
 
+        <Anchor href="/loancalculator">
         <Button variant="gradient" size="xl" radius="xl" className={classes.control}>
           Loan Calculator
         </Button>
+        </Anchor>
       </Container>
-      <LogInField/>
+        <LogInField/>
+      </Flex>
     </div>
   );
 }
