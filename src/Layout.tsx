@@ -1,8 +1,8 @@
 import { AppShell } from '@mantine/core';
-import { Footer } from './Components/Footer';
-import { footerLinks } from './data';
-import { NavbarMinimalColored } from './Components/NavBar';
+import { NavbarMinimalColored } from './Components/NavBarColoured';
 import { ReactNode } from 'react';
+import { NavbarNested } from './Components/NavBarNested/Navbarnested';
+import { NavbarMinimal } from './Components/NavBar';
 
 
 interface LayoutProps {
@@ -14,6 +14,8 @@ function Layout({children} : LayoutProps) {
     <AppShell
     // footer={<Footer links={footerLinks}/>}
     navbar={<NavbarMinimalColored/>}
+    // navbar={<NavbarNested/>}
+    // navbar={<NavbarMinimal/>}
     >
     {children}
     </AppShell>

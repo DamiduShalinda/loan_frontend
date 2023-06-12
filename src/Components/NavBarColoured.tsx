@@ -1,19 +1,15 @@
 import { useState } from 'react';
 import { Navbar, Center, Tooltip, UnstyledButton, createStyles, Stack, rem } from '@mantine/core';
 import {
-  IconHome2,
-  IconGauge,
-  IconDeviceDesktopAnalytics,
-  IconFingerprint,
-  IconCalendarStats,
-  IconUser,
   IconSettings,
   IconLogout,
-  IconSwitchHorizontal,
 } from '@tabler/icons-react';
 import { MantineLogo } from '@mantine/ds';
+import { useViewportSize } from '@mantine/hooks';
+import { navbarData } from '../data';
 
 const useStyles = createStyles((theme) => ({
+  
   link: {
     width: rem(50),
     height: rem(50),
@@ -21,17 +17,25 @@ const useStyles = createStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.colors.gray[7],
+    color: theme.white,
+    opacity: 0.85,
 
     '&:hover': {
-      backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.gray[0],
+      opacity: 1,
+      backgroundColor: theme.fn.lighten(
+        theme.fn.variant({ variant: 'filled', color: theme.primaryColor }).background!,
+        0.1
+      ),
     },
   },
 
   active: {
+    opacity: 1,
     '&, &:hover': {
-      backgroundColor: theme.fn.variant({ variant: 'light', color: theme.primaryColor }).background,
-      color: theme.fn.variant({ variant: 'light', color: theme.primaryColor }).color,
+      backgroundColor: theme.fn.lighten(
+        theme.fn.variant({ variant: 'filled', color: theme.primaryColor }).background!,
+        0.15
+      ),
     },
   },
 }));
@@ -54,20 +58,12 @@ function NavbarLink({ icon: Icon, label, active, onClick }: NavbarLinkProps) {
   );
 }
 
-const mockdata = [
-  { icon: IconHome2, label: 'Home' },
-  { icon: IconGauge, label: 'Dashboard' },
-  { icon: IconDeviceDesktopAnalytics, label: 'Analytics' },
-  { icon: IconCalendarStats, label: 'Releases' },
-  { icon: IconUser, label: 'Account' },
-  { icon: IconFingerprint, label: 'Security' },
-  { icon: IconSettings, label: 'Settings' },
-];
 
-export function NavbarMinimal() {
+export function NavbarMinimalColored() {
   const [active, setActive] = useState(2);
+  const { height, width } = useViewportSize();
 
-  const links = mockdata.map((link, index) => (
+  const links = navbarData.map((link, index) => (
     <NavbarLink
       {...link}
       key={link.label}
@@ -77,9 +73,18 @@ export function NavbarMinimal() {
   ));
 
   return (
-    <Navbar height='100vh' width={{ base: 80 }} p="md">
+    
+    <Navbar
+      height={height}
+      width={{ base: 80 }}
+      p="md"
+      sx={(theme) => ({
+        backgroundColor: theme.fn.variant({ variant: 'filled', color: theme.primaryColor })
+          .background,
+      })}
+    >
       <Center>
-        <MantineLogo type="mark" size={30} />
+        <MantineLogo type="mark" inverted size={30} />
       </Center>
       <Navbar.Section grow mt={50}>
         <Stack justify="center" spacing={0}>
@@ -88,7 +93,7 @@ export function NavbarMinimal() {
       </Navbar.Section>
       <Navbar.Section>
         <Stack justify="center" spacing={0}>
-          <NavbarLink icon={IconSwitchHorizontal} label="Change account" />
+          <NavbarLink icon={IconSettings} label="Settings" />
           <NavbarLink icon={IconLogout} label="Logout" />
         </Stack>
       </Navbar.Section>
