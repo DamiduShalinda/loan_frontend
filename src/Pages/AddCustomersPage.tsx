@@ -120,9 +120,12 @@ function AddCustomersPage() {
       {...form.getInputProps('password')}
     />
     <Group position="right" mt="md">
-        <Button type="submit">Submit</Button>
+        <Button type="button" onClick={close}>Submit</Button>
       </Group>
     </Modal>
+    <Group position="right" mt="md">
+        <Button type="submit">Sub</Button>
+      </Group>
 
     </Box>
   );

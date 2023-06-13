@@ -1,5 +1,7 @@
 import { createStyles, Overlay, Container, Title, Button, Text, rem  , Flex  , Anchor} from '@mantine/core';
 import { LogInField } from '../Components/LogInField';
+import AuthContext from '../Context/AuthContext'
+import { useContext} from 'react';
 
 const useStyles = createStyles((theme) => ({
 
@@ -65,8 +67,19 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
+export type formData = {
+  username: string;
+  password: string;
+};
+
 export function LandingPage() {
   const { classes } = useStyles();
+  const  {contextData}  = useContext(AuthContext)
+
+  const handlesubmit = (data:formData ) => {
+    
+    contextData.loginUser(data)
+  }
 
   return (
     <div className={classes.hero}>
@@ -89,7 +102,7 @@ export function LandingPage() {
         </Button>
         </Anchor>
       </Container>
-        <LogInField/>
+        <LogInField onSubmit={handlesubmit}/>
       </Flex>
     </div>
   );
