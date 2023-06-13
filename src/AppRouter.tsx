@@ -15,14 +15,26 @@ function AppRouter() {
       <AuthProvider>
         <Routes>
          <Route path="/" element={<LandingPage/>}/>
-         <Route path="/homepage" element={
-              <Protected>
-              <Layout><Homepage/></Layout>
-              </Protected>
-              } />
+         <Route path="/homepage" 
+                element={
+                  <Protected>
+                  <Layout><Homepage/></Layout>
+                  </Protected>
+                  } />
          <Route path="/loancalculator" element={<LoanCalculator/>} />
-         <Route path="/customers/addnew" element={<AddCustomersPage/>} />
-         <Route path="/customers/viewall" element={<ViewAllCustomersPage/>} />
+         <Route path="/customers/addnew" 
+                element={
+                  <Protected>
+                  <Layout><AddCustomersPage/></Layout>
+                  </Protected>
+                  } 
+                />
+         <Route path="/customers/viewall" 
+                element={
+                  <Protected>
+                  <Layout><ViewAllCustomersPage/></Layout>
+                  </Protected>
+                  }  />
         </Routes>
       </AuthProvider>
     </BrowserRouter>
