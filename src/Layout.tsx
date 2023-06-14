@@ -14,7 +14,7 @@ function Layout({children} : LayoutProps) {
     header={<HeaderAction/>}
     // footer={<Footer links={footerLinks}/>}
     navbar={<NavbarMinimal/>}
-    layout='alt'
+    layout='default'
     >
     {children}
     </AppShell>

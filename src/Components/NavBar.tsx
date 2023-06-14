@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Navbar, Center, Tooltip, UnstyledButton, createStyles, Stack, rem, Anchor} from '@mantine/core';
+import { Navbar, Center, Tooltip, UnstyledButton, createStyles, Stack, rem} from '@mantine/core';
 import {
   IconHome2,
   IconGauge,
@@ -11,7 +11,7 @@ import {
   IconSwitchHorizontal,
   IconCalculator,
 } from '@tabler/icons-react';
-import { MantineLogo } from '@mantine/ds';
+import { Link } from 'react-router-dom';
 
 const useStyles = createStyles((theme) => ({
   link: {
@@ -40,40 +40,40 @@ interface NavbarLinkProps {
   icon: React.FC<any>;
   label: string;
   active?: boolean;
-  href: string;
+  to: string;
   onClick?(): void;
 }
 
-function NavbarLink({ icon: Icon, label, active, href, onClick }: NavbarLinkProps) {
+function NavbarLink({ icon: Icon, label, active, to, onClick }: NavbarLinkProps) {
   const { classes, cx } = useStyles();
   return (
     <Tooltip label={label} position="right" transitionProps={{ duration: 0 }}>
-      <Anchor href={href}>
+      <Link to={to}>
       <UnstyledButton onClick={onClick} className={cx(classes.link, { [classes.active]: active })}>
         <Icon size="1.2rem" stroke={1.5} />
       </UnstyledButton>
-      </Anchor>
+      </Link>
     </Tooltip>
   );
 }
 
 const mockdata = [
-  { icon: IconHome2, label: 'Home' , href: '/home'},
-  { icon: IconGauge, label: 'Dashboard' , href: '/customers/addnew'},
-  { icon: IconDeviceDesktopAnalytics, label: 'Analytics' , href: '/analytics'},
-  { icon: IconCalendarStats, label: 'Releases' , href: '/releases'},
-  { icon: IconUser, label: 'Account' , href: '/account'},
-  { icon: IconCalculator, label: 'Calculator' , href: '/loancalculator'},
-  { icon: IconSettings, label: 'Settings' , href: '/settings'},
+  { icon: IconHome2, label: 'Home' , to: '/homepage'},
+  { icon: IconGauge, label: 'Dashboard' , to: '/customers/addnew'},
+  { icon: IconDeviceDesktopAnalytics, label: 'Analytics' , to: '/analytics'},
+  { icon: IconCalendarStats, label: 'Releases' , to: '/releases'},
+  { icon: IconUser, label: 'Account' , to: '/account'},
+  { icon: IconCalculator, label: 'Calculator' , to: '/loancalculator'},
+  { icon: IconSettings, label: 'Settings' , to: '/settings'},
 ];
 
 export function NavbarMinimal() {
-  const [active, setActive] = useState(1);
+  const [active, setActive] = useState(3);
 
   const links = mockdata.map((link, index) => (
     <NavbarLink
       {...link}
-      href={link.href}
+      to={link.to}
       key={link.label}
       active={index === active}
       onClick={() => setActive(index)}
@@ -82,9 +82,7 @@ export function NavbarMinimal() {
 
   return (
     <Navbar height='100vh' width={{ base: 80 }} p="md">
-      <Center>
-        <MantineLogo type="mark" size={30} />
-      </Center>
+      
       <Navbar.Section grow mt={50}>
         <Stack justify="center" spacing={0}>
           {links}
@@ -92,8 +90,8 @@ export function NavbarMinimal() {
       </Navbar.Section>
       <Navbar.Section>
         <Stack justify="center" spacing={0}>
-          <NavbarLink icon={IconSwitchHorizontal} label="Change account" href='/settings' />
-          <NavbarLink icon={IconLogout} label="Logout" href='/settings' />
+          <NavbarLink icon={IconSwitchHorizontal} label="Change account" to='/settings' />
+          <NavbarLink icon={IconLogout} label="Logout" to='/settings' />
         </Stack>
       </Navbar.Section>
     </Navbar>

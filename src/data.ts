@@ -55,7 +55,7 @@ export const navbardata = [
 
 export const headerdata = [
   {
-    "link": "/home",
+    "link": "/homepage",
     "label": "Homepage"
   },
   {
@@ -63,11 +63,11 @@ export const headerdata = [
     "label": "Loans",
     "links": [
       {
-        "link": "/docs",
+        "link": "/loans/addnew",
         "label": "Add New Loan"
       },
       {
-        "link": "/resources",
+        "link": "/loans/viewall",
         "label": "View All Loans"
       }
     ]
@@ -81,7 +81,7 @@ export const headerdata = [
         "label": "Add New Customer"
       },
       {
-        "link": "/resources",
+        "link": "/customers/viewall",
         "label": "View All Customers"
       }
     ]
