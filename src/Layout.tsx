@@ -1,9 +1,7 @@
-import { AppShell } from '@mantine/core';
+import { AppShell} from '@mantine/core';
 import { ReactNode } from 'react';
-import { NavbarNested } from './Components/NavBarNested/Navbarnested';
-import { footerLinks} from './data';
 import { HeaderAction } from './Components/Header';
-import { Footer } from './Components/Footer';
+import { NavbarMinimal } from './Components/NavBar';
 
 
 interface LayoutProps {
@@ -15,7 +13,8 @@ function Layout({children} : LayoutProps) {
     <AppShell
     header={<HeaderAction/>}
     // footer={<Footer links={footerLinks}/>}
-    navbar={<NavbarNested/>}
+    navbar={<NavbarMinimal/>}
+    layout='alt'
     >
     {children}
     </AppShell>

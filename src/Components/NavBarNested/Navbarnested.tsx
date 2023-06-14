@@ -48,13 +48,7 @@ export function NavbarNested() {
 
   return (
     <Navbar height='100vh' width={{ sm: 300 }} p="md" className={classes.navbar}>
-      <Navbar.Section className={classes.header}>
-        <Group position="apart">
-          <Logo width={136} />
-          <Code sx={{ fontWeight: 700 }}>v3.1.2</Code>
-        </Group>
-      </Navbar.Section>
-
+     
       <Navbar.Section grow className={classes.links} component={ScrollArea}>
         <div className={classes.linksInner}>{links}</div>
       </Navbar.Section>

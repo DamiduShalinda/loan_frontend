@@ -1,21 +1,23 @@
-import { useForm,  isEmail, isInRange, hasLength } from '@mantine/form';
-import { Button, Group, TextInput, NumberInput, Box , Input , Modal } from '@mantine/core';
+import { useForm,  isEmail, hasLength } from '@mantine/form';
+import { Button, Group, TextInput, Box , Input , Modal } from '@mantine/core';
 import { useId , useDisclosure } from '@mantine/hooks';
 import { IMaskInput } from 'react-imask';
 import { DatePickerInput } from '@mantine/dates';
 import { PasswordRegistration } from '../Components/PasswordRegistration';
+import axios from 'axios';
+import { API_ENDPOINTS } from '../api';
 
-interface customerFormData {
+export interface customerFormData {
   surname: string;
   name: string;
   email: string;
-  age: number;
   dateofbirth: Date;
-  phoneNumber1: string;
-  phoneNumber2: string;
-  nicNumber: string;
+  telephone1: string;
+  telephone2: string;
+  nicnumber: string;
   username: string;
   password: string;
+  address: string;
 }
 
 function AddCustomersPage() {
@@ -39,37 +41,43 @@ function AddCustomersPage() {
       surname: '',
       name: '',
       email: '',
-      age: 18,
       dateofbirth: new Date(),
-      phoneNumber1: '',
-      phoneNumber2: '',
-      nicNumber: '',
+      telephone1: '',
+      telephone2: '',
+      nicnumber: '',
       username: '',
       password: '',
+      address: '',
     },
 
     validate: {
       surname: hasLength({ min: 2, max: 10 }, 'Name must be 2-10 characters long'),
       name: hasLength({ min: 2, max: 10 }, 'Name must be 2-10 characters long'),
       email: isEmail('Invalid email'),
-      age: isInRange({ min: 18, max: 99 }, 'You must be 18-99 years old to register'),
-      phoneNumber1: hasLength(15, 'Phone number must be 10 characters long'),
-      phoneNumber2: hasLength(15, 'Phone number must be 10 characters long'),
-      nicNumber : (value) => {return value?.length === 10 && /^[0-9]{9}[vV]$/.test(value) || value?.length === 12 && /^[0-9]{12}$/.test(value) ? undefined : 'Invalid NIC number';},
+      telephone1: hasLength(15, 'Phone number must be 10 characters long'),
+      telephone2: hasLength(15, 'Phone number must be 10 characters long'),
+      nicnumber : (value) => {return value?.length === 10 && /^[0-9]{9}[vV]$/.test(value) || value?.length === 12 && /^[0-9]{12}$/.test(value) ? undefined : 'Invalid NIC number';},
       username: (value) => {return isUsernameValid(value)},
       password: (value) => (value ? undefined : 'Password is required'),
+      address: hasLength({ min: 2, max: 100 }, 'Address must be 2-100 characters long'),
 
     },
   });
 
   const handleSubmit = (values : customerFormData) => {
     console.log(values);
+    axios.post(API_ENDPOINTS.addCustomer, values)
+    .then(res => {
+        console.log(res.data);
+        form.reset();
+    });
   }
 
   return (
     <Box component="form" maw={400} mx="auto" onSubmit={form.onSubmit(() => {handleSubmit(form.values)})}>
       <TextInput label="Surname" placeholder="Surname" withAsterisk {...form.getInputProps('surname')} />
       <TextInput label="Name" placeholder="Name" withAsterisk {...form.getInputProps('name')} />
+      <TextInput label="Address" placeholder="Name" withAsterisk {...form.getInputProps('address')} />
       <TextInput
         label="Your email"
         placeholder="Your email"
@@ -78,30 +86,22 @@ function AddCustomersPage() {
         {...form.getInputProps('email')}
       />
       
-      <NumberInput
-        label="Your age"
-        placeholder="Your age"
-        withAsterisk
-        mt="md"
-        hideControls
-        {...form.getInputProps('age')}
-      />
-      <Input.Wrapper id={id} label="Phone Number 1" required error = {form.errors.phoneNumber1}>
+      <Input.Wrapper id={id} label="Phone Number 1" required error = {form.errors.telephone1}>
       <Input
         component={IMaskInput}
         mask="+94 00-000-0000"
         id={id}
         placeholder="Phone Number 1"
-        {...form.getInputProps('phoneNumber1')}
+        {...form.getInputProps('telephone1')}
       />
     </Input.Wrapper>
-      <Input.Wrapper id={id} label="Phone Number 2" required error = {form.errors.phoneNumber2}>
+      <Input.Wrapper id={id} label="Phone Number 2" required error = {form.errors.telephone2}>
       <Input
         component={IMaskInput}
         mask="+94 00-000-0000"
         id={id}
         placeholder="Phone Number 2"
-        {...form.getInputProps('phoneNumber2')}
+        {...form.getInputProps('telephone2')}
       />
     </Input.Wrapper>
     <DatePickerInput
@@ -110,7 +110,7 @@ function AddCustomersPage() {
       withAsterisk
       {...form.getInputProps('dateofbirth')}
     />
-    <TextInput label="NIC number" placeholder="NIC number" withAsterisk {...form.getInputProps('nicNumber')} />
+    <TextInput label="NIC number" placeholder="NIC number" withAsterisk {...form.getInputProps('nicnumber')} />
       <Group position="right" mt="md">
         <Button onClick={open}>Submit</Button>
       </Group>

@@ -8,10 +8,10 @@ import {
     Button,
     Burger,
     rem,
+    Anchor,
   } from '@mantine/core';
   import { useDisclosure } from '@mantine/hooks';
   import { IconChevronDown } from '@tabler/icons-react';
-  import { MantineLogo } from '@mantine/ds';
 import { headerdata } from '../data';
   
   const HEADER_HEIGHT = rem(60);
@@ -70,7 +70,7 @@ import { headerdata } from '../data';
   
       if (menuItems) {
         return (
-          <Menu key={link.label} trigger="hover" transitionProps={{ exitDuration: 0 }} withinPortal>
+          <Menu key={link.label} trigger="hover" transitionProps={{ exitDuration: 0 }} withinPortal position="bottom-start">
             <Menu.Target>
               <a
                 href={link.link}
@@ -83,7 +83,7 @@ import { headerdata } from '../data';
                 </Center>
               </a>
             </Menu.Target>
-            <Menu.Dropdown>{menuItems}</Menu.Dropdown>
+            <Menu.Dropdown >{menuItems}</Menu.Dropdown>
           </Menu>
         );
       }
@@ -105,14 +105,15 @@ import { headerdata } from '../data';
         <Container className={classes.inner} fluid>
           <Group>
             <Burger opened={opened} onClick={toggle} className={classes.burger} size="sm" />
-            <MantineLogo size={28} />
           </Group>
           <Group spacing={5} className={classes.links}>
             {items}
           </Group>
-          <Button radius="xl" h={30}>
-            Get early access
+          <Anchor href="/loancalculator">
+          <Button radius="xl" h={30} variant='light'>
+            Loan Calculator
           </Button>
+          </Anchor>
         </Container>
       </Header>
     );

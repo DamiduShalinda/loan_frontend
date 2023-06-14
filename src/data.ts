@@ -55,54 +55,48 @@ export const navbardata = [
 
 export const headerdata = [
   {
-    "link": "/about",
-    "label": "Features"
+    "link": "/home",
+    "label": "Homepage"
   },
   {
     "link": "#1",
-    "label": "Learn",
+    "label": "Loans",
     "links": [
       {
         "link": "/docs",
-        "label": "Documentation"
+        "label": "Add New Loan"
       },
       {
         "link": "/resources",
-        "label": "Resources"
-      },
-      {
-        "link": "/community",
-        "label": "Community"
-      },
-      {
-        "link": "/blog",
-        "label": "Blog"
+        "label": "View All Loans"
       }
     ]
   },
   {
-    "link": "/about",
-    "label": "About"
-  },
-  {
-    "link": "/pricing",
-    "label": "Pricing"
+    "link": "/customers/addnew",
+    "label": "Customers",
+    "links": [
+      {
+        "link": "/customers/addnew",
+        "label": "Add New Customer"
+      },
+      {
+        "link": "/resources",
+        "label": "View All Customers"
+      }
+    ]
   },
   {
     "link": "#2",
-    "label": "Support",
+    "label": "Contact",
     "links": [
       {
         "link": "/faq",
-        "label": "FAQ"
+        "label": "All Branches"
       },
       {
         "link": "/demo",
-        "label": "Book a demo"
-      },
-      {
-        "link": "/forums",
-        "label": "Forums"
+        "label": "All officers"
       }
     ]
   }

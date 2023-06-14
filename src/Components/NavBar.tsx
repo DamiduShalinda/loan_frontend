@@ -1,15 +1,15 @@
 import { useState } from 'react';
-import { Navbar, Center, Tooltip, UnstyledButton, createStyles, Stack, rem } from '@mantine/core';
+import { Navbar, Center, Tooltip, UnstyledButton, createStyles, Stack, rem, Anchor} from '@mantine/core';
 import {
   IconHome2,
   IconGauge,
   IconDeviceDesktopAnalytics,
-  IconFingerprint,
   IconCalendarStats,
   IconUser,
   IconSettings,
   IconLogout,
   IconSwitchHorizontal,
+  IconCalculator,
 } from '@tabler/icons-react';
 import { MantineLogo } from '@mantine/ds';
 
@@ -40,36 +40,40 @@ interface NavbarLinkProps {
   icon: React.FC<any>;
   label: string;
   active?: boolean;
+  href: string;
   onClick?(): void;
 }
 
-function NavbarLink({ icon: Icon, label, active, onClick }: NavbarLinkProps) {
+function NavbarLink({ icon: Icon, label, active, href, onClick }: NavbarLinkProps) {
   const { classes, cx } = useStyles();
   return (
     <Tooltip label={label} position="right" transitionProps={{ duration: 0 }}>
+      <Anchor href={href}>
       <UnstyledButton onClick={onClick} className={cx(classes.link, { [classes.active]: active })}>
         <Icon size="1.2rem" stroke={1.5} />
       </UnstyledButton>
+      </Anchor>
     </Tooltip>
   );
 }
 
 const mockdata = [
-  { icon: IconHome2, label: 'Home' },
-  { icon: IconGauge, label: 'Dashboard' },
-  { icon: IconDeviceDesktopAnalytics, label: 'Analytics' },
-  { icon: IconCalendarStats, label: 'Releases' },
-  { icon: IconUser, label: 'Account' },
-  { icon: IconFingerprint, label: 'Security' },
-  { icon: IconSettings, label: 'Settings' },
+  { icon: IconHome2, label: 'Home' , href: '/home'},
+  { icon: IconGauge, label: 'Dashboard' , href: '/customers/addnew'},
+  { icon: IconDeviceDesktopAnalytics, label: 'Analytics' , href: '/analytics'},
+  { icon: IconCalendarStats, label: 'Releases' , href: '/releases'},
+  { icon: IconUser, label: 'Account' , href: '/account'},
+  { icon: IconCalculator, label: 'Calculator' , href: '/loancalculator'},
+  { icon: IconSettings, label: 'Settings' , href: '/settings'},
 ];
 
 export function NavbarMinimal() {
-  const [active, setActive] = useState(2);
+  const [active, setActive] = useState(1);
 
   const links = mockdata.map((link, index) => (
     <NavbarLink
       {...link}
+      href={link.href}
       key={link.label}
       active={index === active}
       onClick={() => setActive(index)}
@@ -88,8 +92,8 @@ export function NavbarMinimal() {
       </Navbar.Section>
       <Navbar.Section>
         <Stack justify="center" spacing={0}>
-          <NavbarLink icon={IconSwitchHorizontal} label="Change account" />
-          <NavbarLink icon={IconLogout} label="Logout" />
+          <NavbarLink icon={IconSwitchHorizontal} label="Change account" href='/settings' />
+          <NavbarLink icon={IconLogout} label="Logout" href='/settings' />
         </Stack>
       </Navbar.Section>
     </Navbar>
