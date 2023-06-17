@@ -14,6 +14,9 @@ import { IconChevronDown } from '@tabler/icons-react';
 import { MantineLogo } from '@mantine/ds';
 import { headerdata } from '../data';
 import { Link } from 'react-router-dom';
+import LightDarkButton from './LightDarkButton';
+import AuthContext from '../Context/AuthContext';
+import { useContext } from 'react';
 
 const HEADER_HEIGHT = rem(60);
 
@@ -62,6 +65,12 @@ interface HeaderActionProps {
 }
 
 export function HeaderAction() {
+
+    const authContext = useContext(AuthContext);
+    const { contextData } = authContext;
+
+
+
   const { classes } = useStyles();
   const [opened, { toggle }] = useDisclosure(false);
   const items = headerdata.map((link) => {
@@ -92,14 +101,13 @@ export function HeaderAction() {
     }
 
     return (
-      <a
+      <Link
         key={link.label}
-        href={link.link}
+        to={link.link}
         className={classes.link}
-        onClick={(event) => event.preventDefault()}
       >
         {link.label}
-      </a>
+      </Link>
     );
   });
 
@@ -113,9 +121,12 @@ export function HeaderAction() {
         <Group spacing={5} className={classes.links}>
           {items}
         </Group>
-        <Button radius="xl" h={30}>
-          Get early access
+        <Group>
+        <LightDarkButton/>
+        <Button radius="lg" h={30} onClick={contextData.logOutUser}>
+          Sign Out
         </Button>
+        </Group>
       </Container>
     </Header>
   );

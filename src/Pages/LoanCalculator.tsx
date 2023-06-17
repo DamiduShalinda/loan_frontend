@@ -3,7 +3,9 @@ import { PPMT , PMT , IPMT , ROUND} from '@formulajs/formulajs'
 import React , {useEffect} from "react"
 import { TableScrollArea } from './Table'
 import { useDisclosure } from '@mantine/hooks';
-import { Modal, Button, Group } from '@mantine/core';
+import { Modal, useMantineTheme , ColorSchemeProvider , MantineProvider , ColorScheme  , Center} from '@mantine/core';
+import LightDarkButton from '../Components/LightDarkButton';
+import { useHotkeys, useLocalStorage } from '@mantine/hooks';
 
 
 interface LoanCalculatorProps {
@@ -32,6 +34,20 @@ function LoanCalculator() {
     const [monthlyPayment, setMonthlyPayment] = React.useState<MonthlyPayment[]>([])
     const [jsonData , setJsonData] = React.useState<JsonData>()
     const [isSubmitted , setIsSubmitted] = React.useState<boolean>(false)
+    const theme = useMantineTheme();
+
+    const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
+      key: 'mantine-color-scheme',
+      defaultValue: 'light',
+      getInitialValueInEffect: true,
+    });
+  
+    const toggleColorScheme = (value?: ColorScheme) =>
+      setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'));
+  
+    useHotkeys([['mod+J', () => toggleColorScheme()]]);
+  
+  
   
     const handleSubmit = (data:LoanCalculatorProps) => {
       calculateLoan(data)
@@ -86,6 +102,9 @@ function LoanCalculator() {
   
   return (
     <>
+    <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
+      <MantineProvider theme={{colorScheme}}>
+    
     <LoanCalculatorInputs onSubmit={(data: LoanCalculatorProps) => handleSubmit(data)}/>
     
     <Modal opened={opened} onClose={close} title="Monthly Payments" centered size="auto" >
@@ -94,6 +113,8 @@ function LoanCalculator() {
         <TableScrollArea data={jsonData.monthlyPayment} headers={["month" , "monthlyInterest" , "monthlyCapital" ,  "remainder"]}/>
     }
       </Modal>
+      </MantineProvider>
+      </ColorSchemeProvider>
     </>
   )
 }

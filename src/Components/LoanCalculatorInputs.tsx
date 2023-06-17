@@ -1,5 +1,5 @@
 import { useForm } from '@mantine/form';
-import { NumberInput,  Button, Box  , Group, Anchor} from '@mantine/core';
+import { NumberInput,  Button, Box  , Group, Anchor } from '@mantine/core';
 
 
 interface LoanCalculatorProps {
