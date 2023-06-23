@@ -20,6 +20,7 @@ const AuthContext = createContext<AuthContextProps>({
     user: null,
     loginUser: () => {},
     logOutUser: () => {},
+    authTokens: null,
   },
 });
 

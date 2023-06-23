@@ -5,6 +5,8 @@ export const API_ENDPOINTS = {
   refreshUser: `${API_BASE_URL}/users/token/refresh`,
   addCustomer: `${API_BASE_URL}/users/customer`,
   getCustomers: `${API_BASE_URL}/customers/getcustomers`,
+  getCustomername: `${API_BASE_URL}/users/viewcustomer`,
+  addLoan: `${API_BASE_URL}/loans/addloan`,
   
   // Add more API endpoints as needed
 };

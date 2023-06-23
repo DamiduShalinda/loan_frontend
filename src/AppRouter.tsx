@@ -7,6 +7,11 @@ import AddCustomersPage from "./Pages/AddCustomersPage";
 import ViewAllCustomersPage from "./Pages/ViewAllCustomersPage";
 import { AuthProvider } from "./Context/AuthContext";
 import  Protected  from "./utils/Protected"
+import AddNewEmployee from "./Pages/AddNewEmployee";
+import ViewAllEmployees from "./Pages/ViewAllEmployees";
+import AddNewLoan from "./Pages/AddNewLoan";
+import ViewAllLoanx from "./Pages/ViewAllLoans";
+import ViewAllLoans from "./Pages/ViewAllLoans";
 
 function AppRouter() {
 
@@ -35,6 +40,34 @@ function AppRouter() {
                   <Layout><ViewAllCustomersPage/></Layout>
                   </Protected>
                   }  />
+         <Route path="/employees/addnew" 
+                element={
+                  <Protected>
+                  <Layout><AddNewEmployee/></Layout>
+                  </Protected>
+                  } 
+                />
+        <Route path="/employees/viewall" 
+                element={
+                  <Protected>
+                  <Layout><ViewAllEmployees/></Layout>
+                  </Protected>
+                  } 
+                /> 
+        <Route path="/loans/addnew" 
+                element={
+                  <Protected>
+                  <Layout><AddNewLoan/></Layout>
+                  </Protected>
+                  } 
+                />
+        <Route path="/loans/viewall" 
+                element={
+                  <Protected>
+                  <Layout><ViewAllLoans/></Layout>
+                  </Protected>
+                  } 
+                />          
         </Routes>
       </AuthProvider>
     </BrowserRouter>

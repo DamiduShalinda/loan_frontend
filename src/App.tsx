@@ -1,6 +1,6 @@
 import AppRouter from './AppRouter';
 import { ColorSchemeProvider , MantineProvider , ColorScheme } from '@mantine/core'
-import { useHotkeys, useLocalStorage , useColorScheme } from '@mantine/hooks';
+import { useHotkeys, useLocalStorage  } from '@mantine/hooks';
 
 function App() {
 

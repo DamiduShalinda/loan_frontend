@@ -1,9 +1,8 @@
 import { useForm,  isEmail, hasLength } from '@mantine/form';
-import { Button, Group, TextInput, Box , Input , Modal } from '@mantine/core';
+import { Button, Group, TextInput, Box , Input , PasswordInput, Stack } from '@mantine/core';
 import { useId , useDisclosure } from '@mantine/hooks';
 import { IMaskInput } from 'react-imask';
 import { DatePickerInput } from '@mantine/dates';
-import { PasswordRegistration } from '../Components/PasswordRegistration';
 import axios from 'axios';
 import { API_ENDPOINTS } from '../api';
 
@@ -22,7 +21,7 @@ export interface customerFormData {
 
 function AddCustomersPage() {
   const id = useId();
-  const [opened, { open, close }] = useDisclosure(false);
+  const [visible, { toggle }] = useDisclosure(false);
 
   const isUsernameValid = (value : string) => {
     if (!/^[a-z]+$/.test(value)) {
@@ -74,7 +73,7 @@ function AddCustomersPage() {
   }
 
   return (
-    <Box component="form" maw={400} mx="auto" onSubmit={form.onSubmit(() => {handleSubmit(form.values)})}>
+    <Box component="form" maw='75vh' mx="auto" onSubmit={form.onSubmit(() => {handleSubmit(form.values)})}>
       <TextInput label="Surname" placeholder="Surname" withAsterisk {...form.getInputProps('surname')} />
       <TextInput label="Name" placeholder="Name" withAsterisk {...form.getInputProps('name')} />
       <TextInput label="Address" placeholder="Name" withAsterisk {...form.getInputProps('address')} />
@@ -85,7 +84,6 @@ function AddCustomersPage() {
         mt="md"
         {...form.getInputProps('email')}
       />
-      
       <Input.Wrapper id={id} label="Phone Number 1" required error = {form.errors.telephone1}>
       <Input
         component={IMaskInput}
@@ -105,27 +103,26 @@ function AddCustomersPage() {
       />
     </Input.Wrapper>
     <DatePickerInput
-      label="Pick date"
+      label="Date of Birth"
       placeholder="Pick date"
       withAsterisk
       {...form.getInputProps('dateofbirth')}
     />
     <TextInput label="NIC number" placeholder="NIC number" withAsterisk {...form.getInputProps('nicnumber')} />
-      <Group position="right" mt="md">
-        <Button onClick={open}>Submit</Button>
-      </Group>
-    <Modal opened={opened} onClose={close} title="Authentication" centered>
     <TextInput label="Username" placeholder="Username" withAsterisk {...form.getInputProps('username')} />
-    <PasswordRegistration
-      {...form.getInputProps('password')}
-    />
-    <Group position="right" mt="md">
-        <Button type="button" onClick={close}>Submit</Button>
+      <PasswordInput
+        label="Password"
+        withAsterisk
+        defaultValue="secret"
+        visible={visible}
+        onVisibilityChange={toggle}
+        {...form.getInputProps('password')}
+      />
+
+      <Group position="right" mt="md">
+        <Button type="submit" >Submit</Button>
       </Group>
-    </Modal>
-    <Group position="right" mt="md">
-        <Button type="submit">Sub</Button>
-      </Group>
+    
 
     </Box>
   );

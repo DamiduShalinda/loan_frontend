@@ -73,7 +73,7 @@ export const headerdata = [
     ]
   },
   {
-    "link": "/customers/addnew",
+    "link": "#",
     "label": "Customers",
     "links": [
       {
@@ -83,6 +83,20 @@ export const headerdata = [
       {
         "link": "/customers/viewall",
         "label": "View All Customers"
+      }
+    ]
+  },
+  {
+    "link": "#",
+    "label": "Employees",
+    "links": [
+      {
+        "link": "/employees/addnew",
+        "label": "Add New Employee"
+      },
+      {
+        "link": "/employees/viewall",
+        "label": "View All Employees"
       }
     ]
   },

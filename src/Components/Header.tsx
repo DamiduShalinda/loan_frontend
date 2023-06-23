@@ -124,7 +124,7 @@ export function HeaderAction() {
         <Group>
         <LightDarkButton/>
         <Button radius="lg" h={30} onClick={contextData.logOutUser}>
-          Sign Out
+          Sign Out , {contextData.user.username}
         </Button>
         </Group>
       </Container>
