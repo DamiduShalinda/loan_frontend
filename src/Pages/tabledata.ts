@@ -81,3 +81,32 @@
         "email": "Rico98@hotmail.com"
       }
     ]
+
+
+export const loandata =
+[
+  {
+      "username": "damidu",
+      "loaned_date": "2023-06-23",
+      "branch_location": "Diyasenpura",
+      "loaned_amount": "3.0"
+  },
+  {
+      "username": "damidu",
+      "loaned_date": "2023-06-22",
+      "branch_location": "Polonnaruwa",
+      "loaned_amount": "567.0"
+  },
+  {
+      "username": "damidu",
+      "loaned_date": "2023-06-12",
+      "branch_location": "Polonnaruwa",
+      "loaned_amount": "46456.0"
+  },
+  {
+      "username": "damidu",
+      "loaned_date": "2023-06-23",
+      "branch_location": "Polonnaruwa",
+      "loaned_amount": "456.0"
+  }
+]

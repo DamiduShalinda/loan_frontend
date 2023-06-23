@@ -19,7 +19,7 @@ type fieldValues = basefieldValues & {
   loaned_date: Date;
 }
 
-export type loanfieldValueswithString = basefieldValues & {
+type loanfieldValueswithString = basefieldValues & {
   loaned_date: string;
 }
 

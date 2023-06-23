@@ -35,9 +35,10 @@ const useStyles = createStyles((theme) => ({
 }));
 
 interface RowData {
-  name: string;
-  email: string;
-  company: string;
+  username: string;
+  loaned_date: string;
+  branch_location: string;
+  loaned_amount: string;
 }
 
 interface TableSortProps {
@@ -119,10 +120,11 @@ export function TableSort({ data }: TableSortProps) {
   };
 
   const rows = sortedData.map((row) => (
-    <tr key={row.name}>
-      <td>{row.name}</td>
-      <td>{row.email}</td>
-      <td>{row.company}</td>
+    <tr key={row.username}>
+      <td>{row.username}</td>
+      <td>{row.loaned_date}</td>
+      <td>{row.branch_location}</td>
+      <td>{row.loaned_amount}</td>
     </tr>
   ));
 
@@ -139,25 +141,32 @@ export function TableSort({ data }: TableSortProps) {
         <thead>
           <tr>
             <Th
-              sorted={sortBy === 'name'}
+              sorted={sortBy === 'username'}
               reversed={reverseSortDirection}
-              onSort={() => setSorting('name')}
+              onSort={() => setSorting('username')}
             >
-              Name
+              Username
             </Th>
             <Th
-              sorted={sortBy === 'email'}
+              sorted={sortBy === 'loaned_date'}
               reversed={reverseSortDirection}
-              onSort={() => setSorting('email')}
+              onSort={() => setSorting('loaned_date')}
             >
-              Email
+              Loaned Date
             </Th>
             <Th
-              sorted={sortBy === 'company'}
+              sorted={sortBy === 'branch_location'}
               reversed={reverseSortDirection}
-              onSort={() => setSorting('company')}
+              onSort={() => setSorting('branch_location')}
             >
-              Company
+              Branch Location
+            </Th>
+            <Th
+              sorted={sortBy === 'loaned_amount'}
+              reversed={reverseSortDirection}
+              onSort={() => setSorting('loaned_amount')}
+            >
+              Loaned Amount
             </Th>
           </tr>
         </thead>

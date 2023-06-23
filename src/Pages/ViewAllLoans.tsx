@@ -1,22 +1,27 @@
 import { useEffect , useState } from "react"
 import { API_ENDPOINTS } from "../api";
 import axios from "axios";
-import { loanfieldValueswithString } from "./AddNewLoan";
 import { Loader , Center } from "@mantine/core";
 import { TableSort } from "../Components/TableSortLoans";
-import { data } from "./tabledata";
 
+
+type loanDatatype = {
+  username: string;
+  branch_location: string;
+  loaned_amount: string;
+  loaned_date: string;
+}
 
 function ViewAllLoans() {
       
-  const [ loansDetails , setLoanDetails ] = useState<loanfieldValueswithString[]>([])
+  const [ loansDetails , setLoanDetails ] = useState<loanDatatype[]>([])
   const [ loading , setLoading ] = useState<boolean>(true)
 
   async function getLoans() {
     await axios.get(API_ENDPOINTS.getLoans)
     .then(res => {
-      const tempdata: loanfieldValueswithString[] = []
-      res.data.forEach((item: loanfieldValueswithString) => {
+      const tempdata: loanDatatype[] = []
+      res.data.forEach((item: loanDatatype) => {
         tempdata.push(item)
       })
       setLoanDetails(tempdata)
@@ -47,7 +52,7 @@ function ViewAllLoans() {
     </Center>
      :
     <div>
-      <TableSort data ={data} />
+      <TableSort data ={loansDetails} />
     </div>
           }
     </>
