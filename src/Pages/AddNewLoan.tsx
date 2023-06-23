@@ -19,14 +19,14 @@ type fieldValues = basefieldValues & {
   loaned_date: Date;
 }
 
-type fieldValueswithString = basefieldValues & {
+export type loanfieldValueswithString = basefieldValues & {
   loaned_date: string;
 }
 
 function AddNewLoan() {
 
   const [usernames , setUsernames] = useState<string[]>([])
-  const [loading , setLoading] = useState<boolean>(false)
+  const [loading , setLoading] = useState<boolean>(true)
 
   async function getUserNames() {
     try {
@@ -44,7 +44,7 @@ function AddNewLoan() {
     }
   }
 
-  async function submitLoan(values: fieldValueswithString) {
+  async function submitLoan(values: loanfieldValueswithString) {
     try {
       await axios.post(API_ENDPOINTS.addLoan , values)
       .then(res => {
@@ -62,7 +62,7 @@ function AddNewLoan() {
 
   useEffect(() => {
     if (usernames.length > 0) {
-      setLoading(true)
+      setLoading(false)
       //usernames updated two times , don't know why
     }
   }, [usernames])
@@ -93,7 +93,7 @@ function AddNewLoan() {
   });
 
   function handleSubmit(values: fieldValues) {
-    const newValues: fieldValueswithString = {
+    const newValues: loanfieldValueswithString = {
       username: values.username,
       branch_location: values.branch_location,
       loaned_amount: values.loaned_amount,
@@ -107,7 +107,7 @@ function AddNewLoan() {
 
   return (
     <>
-    {!loading ? 
+    {loading ? 
     <Center my='40vh'>
     <Loader variant='dots' size='xl'/> 
     </Center>
