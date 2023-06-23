@@ -1,18 +1,25 @@
 import { useForm } from '@mantine/form';
 import { NumberInput, TextInput, Button, Box ,  Group , Autocomplete  ,Loader , Center} from '@mantine/core';
-import { DateInput } from '@mantine/dates';
+import { DatePickerInput } from '@mantine/dates';
 import { useState , useEffect } from 'react';
 import axios from 'axios';
 import { API_ENDPOINTS } from '../api';
 
 
-interface fieldValues {
+type basefieldValues = {
   username: string;
   branch_location: string;
   loaned_amount: number;
   bike_number: string;
   first_guarantor: string;
   second_guarantor: string;
+}
+
+type fieldValues = basefieldValues & {
+  loaned_date: Date;
+}
+
+type fieldValueswithString = basefieldValues & {
   loaned_date: string;
 }
 
@@ -37,7 +44,7 @@ function AddNewLoan() {
     }
   }
 
-  async function submitLoan(values: fieldValues) {
+  async function submitLoan(values: fieldValueswithString) {
     try {
       await axios.post(API_ENDPOINTS.addLoan , values)
       .then(res => {
@@ -70,7 +77,7 @@ function AddNewLoan() {
       bike_number: '',
       first_guarantor: '',
       second_guarantor: '',
-      loaned_date: '',
+      loaned_date: new Date(),
     },
 
     // functions will be used to validate values at corresponding key
@@ -86,9 +93,17 @@ function AddNewLoan() {
   });
 
   function handleSubmit(values: fieldValues) {
-    console.log(values);
-    submitLoan(values)
+    const newValues: fieldValueswithString = {
+      username: values.username,
+      branch_location: values.branch_location,
+      loaned_amount: values.loaned_amount,
+      bike_number: values.bike_number,
+      first_guarantor: values.first_guarantor,
+      second_guarantor: values.second_guarantor,
+      loaned_date: values.loaned_date.toISOString().slice(0,10)
   }
+  submitLoan(newValues)
+}
 
   return (
     <>
@@ -127,7 +142,7 @@ function AddNewLoan() {
         required
         {...form.getInputProps('loaned_amount')}
       />
-      <DateInput mt="sm" label="Date" placeholder="Date" valueFormat="YYYY-MM-DD" {...form.getInputProps('loaned_date')} withAsterisk />
+      <DatePickerInput mt="sm" label="Date" placeholder="Date" valueFormat="YYYY-MMM-DD" {...form.getInputProps('loaned_date')} withAsterisk />
       <Autocomplete
         mt="sm"
         placeholder="Customer's Branch"
