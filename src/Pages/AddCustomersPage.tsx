@@ -74,9 +74,9 @@ function AddCustomersPage() {
 
   return (
     <Box component="form" maw='75vh' mx="auto" onSubmit={form.onSubmit(() => {handleSubmit(form.values)})}>
-      <TextInput label="Surname" placeholder="Surname" withAsterisk {...form.getInputProps('surname')} />
-      <TextInput label="Name" placeholder="Name" withAsterisk {...form.getInputProps('name')} />
-      <TextInput label="Address" placeholder="Name" withAsterisk {...form.getInputProps('address')} />
+      <TextInput label="Surname" placeholder="Surname" mt="md" withAsterisk {...form.getInputProps('surname')} />
+      <TextInput label="Name" placeholder="Name" withAsterisk {...form.getInputProps('name')} mt="md" />
+      <TextInput label="Address" placeholder="Name" withAsterisk {...form.getInputProps('address')} mt="md" />
       <TextInput
         label="Your email"
         placeholder="Your email"
@@ -84,7 +84,7 @@ function AddCustomersPage() {
         mt="md"
         {...form.getInputProps('email')}
       />
-      <Input.Wrapper id={id} label="Phone Number 1" required error = {form.errors.telephone1}>
+      <Input.Wrapper id={id} label="Phone Number 1" required error = {form.errors.telephone1} mt="md">
       <Input
         component={IMaskInput}
         mask="+94 00-000-0000"
@@ -93,12 +93,13 @@ function AddCustomersPage() {
         {...form.getInputProps('telephone1')}
       />
     </Input.Wrapper>
-      <Input.Wrapper id={id} label="Phone Number 2" required error = {form.errors.telephone2}>
+      <Input.Wrapper id={id} label="Phone Number 2" required error = {form.errors.telephone2} mt="md">
       <Input
         component={IMaskInput}
         mask="+94 00-000-0000"
         id={id}
         placeholder="Phone Number 2"
+        
         {...form.getInputProps('telephone2')}
       />
     </Input.Wrapper>
@@ -106,16 +107,18 @@ function AddCustomersPage() {
       label="Date of Birth"
       placeholder="Pick date"
       withAsterisk
+      mt="md"
       {...form.getInputProps('dateofbirth')}
     />
-    <TextInput label="NIC number" placeholder="NIC number" withAsterisk {...form.getInputProps('nicnumber')} />
-    <TextInput label="Username" placeholder="Username" withAsterisk {...form.getInputProps('username')} />
+    <TextInput label="NIC number" placeholder="NIC number" withAsterisk {...form.getInputProps('nicnumber')} mt="md"/>
+    <TextInput label="Username" placeholder="Username" withAsterisk {...form.getInputProps('username')} mt="md"/>
       <PasswordInput
         label="Password"
         withAsterisk
         defaultValue="secret"
         visible={visible}
         onVisibilityChange={toggle}
+        mt="md"
         {...form.getInputProps('password')}
       />
 
