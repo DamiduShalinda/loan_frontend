@@ -2,7 +2,7 @@ import { useForm } from '@mantine/form';
 import { NumberInput, TextInput, Button, Box ,  Group , Autocomplete  ,Loader , Center, Text} from '@mantine/core';
 import { DatePickerInput } from '@mantine/dates';
 import { useState , useEffect } from 'react';
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { API_ENDPOINTS } from '../api';
 
 
@@ -31,7 +31,7 @@ function AddNewLoan() {
   async function getUserNames() {
     try {
       await axios.get(API_ENDPOINTS.getCustomername)
-      .then(res => {
+      .then((res : AxiosResponse) => {
        const data = res.data
        const fetchData:string[] = [] 
        data.forEach((item) => {
@@ -173,3 +173,6 @@ function AddNewLoan() {
 }
 
 export default AddNewLoan;
+
+//TODO: add validation for bike number
+//TODO: add loan number field
