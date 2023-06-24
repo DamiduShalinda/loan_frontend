@@ -1,5 +1,5 @@
 import { useForm } from '@mantine/form';
-import { NumberInput, TextInput, Button, Box ,  Group , Autocomplete  ,Loader , Center} from '@mantine/core';
+import { NumberInput, TextInput, Button, Box ,  Group , Autocomplete  ,Loader , Center, Text} from '@mantine/core';
 import { DatePickerInput } from '@mantine/dates';
 import { useState , useEffect } from 'react';
 import axios from 'axios';
@@ -63,7 +63,7 @@ function AddNewLoan() {
   useEffect(() => {
     if (usernames.length > 0) {
       setLoading(false)
-      //usernames updated two times , don't know why
+      //TODO:usernames updated two times , don't know why
     }
   }, [usernames])
   
@@ -159,7 +159,8 @@ function AddNewLoan() {
         data={usernames}
         {...form.getInputProps('second_guarantor')}
       />
-      <Group position='right'>
+      <Group position='apart' mt={30}>
+        <Text size='lg'>Required</Text>
       <Button type="submit" mt="sm">
         Submit
       </Button>

@@ -12,7 +12,7 @@ type extendCustomerFormData = customerFormData & {
 }
 
 type newCustomerFormData = {
-  id: number;
+  id: string;
   name: string;	
   address: string;
   email: string;
@@ -20,51 +20,51 @@ type newCustomerFormData = {
 
 const mockData: newCustomerFormData[] = [
   {
-    "id": 14,
+    "id": "14",
     "name": "damidu",
     "address": "damidu",
     "email": "damiu@dmaidu.com"
   },
   {
-    "id": 15,
+    "id": "15",
     "name": "putha",
     "address": "shanputha",
     "email": "shan@putha.com"
   },
   {
-    id: 16,
+    id: "16",
     name: "John",
     address: "New York",
     email: "john@example.com"
   },
   {
-    id: 17,
+    id: "17"	,
     name: "Jane",
     address: "London",
     email: "jane@example.com"
   },
   // Add more objects as needed
   {
-    id: 18,
+    id: "18",
     name: "Alice",
     address: "Paris",
     email: "alice@example.com"
   },
   {
-    id: 19,
+    id: "19",
     name: "Bob",
     address: "Sydney",
     email: "bob@example.com"
   },
   // Add more objects as needed
   {
-    id: 20,
+    id: "20",
     name: "Emma",
     address: "Berlin",
     email: "emma@example.com"
   },
   {
-    id: 21,
+    id: "21" ,
     name: "David",
     address: "Tokyo",
     email: "david@example.com"
@@ -104,11 +104,12 @@ const splitJson = (json: newCustomerFormData[]) => {
 
 
 useEffect(() => {
-    getData()
+    //getData()
 }, [])
 
-const handleSubmit = (id: number) => {
-  setPersonsData(extractDataById(id))
+const handleSubmit = (id: string) => {
+  const id_number = parseInt(id)
+  setPersonsData(extractDataById(id_number))
   open()
 }
 

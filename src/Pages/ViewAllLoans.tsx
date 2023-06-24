@@ -1,11 +1,13 @@
 import { useEffect , useState } from "react"
 import { API_ENDPOINTS } from "../api";
 import axios from "axios";
-import { Loader , Center } from "@mantine/core";
+import { Loader , Center ,Modal, Group} from "@mantine/core";
 import { TableSort } from "../Components/TableSortLoans";
-
+import { useDisclosure } from '@mantine/hooks';
+import LoanView from "../Components/LoanView";
 
 type loanDatatype = {
+  loan_id: string;
   username: string;
   branch_location: string;
   loaned_amount: string;
@@ -14,8 +16,10 @@ type loanDatatype = {
 
 function ViewAllLoans() {
       
+  const [opened, { open, close }] = useDisclosure(false);
   const [ loansDetails , setLoanDetails ] = useState<loanDatatype[]>([])
   const [ loading , setLoading ] = useState<boolean>(true)
+  const [ userId , setUserId ] = useState<number>()
 
   async function getLoans() {
     await axios.get(API_ENDPOINTS.getLoans)
@@ -36,12 +40,15 @@ function ViewAllLoans() {
 
   useEffect(() => {
     if(loansDetails.length > 0)
-    console.log(loansDetails);
     setLoading(false)
-    //fetching twice
+    //TODO:fetching twice
   }, [loansDetails])
   
 
+  function handleSubmit(id: number) {
+    open()
+    setUserId(id)
+  }
 
   
   return (
@@ -52,7 +59,12 @@ function ViewAllLoans() {
     </Center>
      :
     <div>
-      <TableSort data ={loansDetails} />
+      <TableSort data ={loansDetails} onSubmit={handleSubmit} />
+      <Modal opened={opened} onClose={close} title="Detailed Loan View" centered>
+        {userId &&
+        <LoanView id={userId}/>
+        }
+      </Modal>
     </div>
           }
     </>

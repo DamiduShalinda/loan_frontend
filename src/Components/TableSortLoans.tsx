@@ -35,6 +35,7 @@ const useStyles = createStyles((theme) => ({
 }));
 
 interface RowData {
+  loan_id: string;
   username: string;
   loaned_date: string;
   branch_location: string;
@@ -43,6 +44,7 @@ interface RowData {
 
 interface TableSortProps {
   data: RowData[];
+  onSubmit:(id: number) => void;
 }
 
 interface ThProps {
@@ -89,7 +91,7 @@ function sortData(
   }
 
   return filterData(
-    [...data].sort((a, b) => {
+    [...data].sort((a, b) => { 
       if (payload.reversed) {
         return b[sortBy].localeCompare(a[sortBy]);
       }
@@ -100,7 +102,7 @@ function sortData(
   );
 }
 
-export function TableSort({ data }: TableSortProps) {
+export function TableSort({ data , onSubmit }: TableSortProps) {
   const [search, setSearch] = useState('');
   const [sortedData, setSortedData] = useState(data);
   const [sortBy, setSortBy] = useState<keyof RowData | null>(null);
@@ -120,7 +122,7 @@ export function TableSort({ data }: TableSortProps) {
   };
 
   const rows = sortedData.map((row) => (
-    <tr key={row.username}>
+    <tr key={row.loan_id}  onClick={() => {onSubmit(parseInt(row.loan_id))}}>
       <td>{row.username}</td>
       <td>{row.loaned_date}</td>
       <td>{row.branch_location}</td>

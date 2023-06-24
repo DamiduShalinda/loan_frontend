@@ -35,7 +35,7 @@ const useStyles = createStyles((theme) => ({
 }));
 
 interface RowData {
-  id: any;
+  id: string;
   name: string;	
   address: string;
   email: string;
@@ -44,7 +44,7 @@ interface RowData {
 
 interface TableSortProps {
   data: RowData[];
-  onSubmit:(id: number) => void;
+  onSubmit:(id: string) => void;
 }
 
 interface ThProps {

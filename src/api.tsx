@@ -8,6 +8,7 @@ export const API_ENDPOINTS = {
   getCustomername: `${API_BASE_URL}/users/viewcustomer`,
   addLoan: `${API_BASE_URL}/loans/addloan`,
   getLoans: `${API_BASE_URL}/loans/getloans`,
+  getMoreDetails: (id: number) => `${API_BASE_URL}/loans/getloans/${id}`,
   
   // Add more API endpoints as needed
 };

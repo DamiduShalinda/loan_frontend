@@ -12,6 +12,7 @@ import ViewAllEmployees from "./Pages/ViewAllEmployees";
 import AddNewLoan from "./Pages/AddNewLoan";
 import ViewAllLoanx from "./Pages/ViewAllLoans";
 import ViewAllLoans from "./Pages/ViewAllLoans";
+import LoanPayments from "./Components/LoanPayments";
 
 function AppRouter() {
 
@@ -65,6 +66,13 @@ function AppRouter() {
                 element={
                   <Protected>
                   <Layout><ViewAllLoans/></Layout>
+                  </Protected>
+                  } 
+                />          
+        <Route path="/loans/moredetails" 
+                element={
+                  <Protected>
+                  <LoanPayments/>
                   </Protected>
                   } 
                 />          
