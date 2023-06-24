@@ -9,6 +9,7 @@ export const API_ENDPOINTS = {
   addLoan: `${API_BASE_URL}/loans/addloan`,
   getLoans: `${API_BASE_URL}/loans/getloans`,
   getMoreDetails: (id: number) => `${API_BASE_URL}/loans/getloans/${id}`,
+  getAllLoans: `${API_BASE_URL}/loans/allnumbers`,
   
   // Add more API endpoints as needed
 };
