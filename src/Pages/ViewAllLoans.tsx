@@ -60,7 +60,7 @@ function ViewAllLoans() {
      :
     <div>
       <TableSort data ={loansDetails} onSubmit={handleSubmit} />
-      <Modal opened={opened} onClose={close} title="Detailed Loan View" centered>
+      <Modal opened={opened} onClose={close} title="Detailed Loan View" centered size="55%">
         {userId &&
         <LoanView id={userId}/>
         }
