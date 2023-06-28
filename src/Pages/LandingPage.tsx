@@ -1,4 +1,4 @@
-import { createStyles, Overlay, Container, Title, Button, Text, rem  , Flex  , Anchor} from '@mantine/core';
+import { createStyles, Overlay, Container, Title, Button, Text, rem  , Flex  , Anchor , BackgroundImage} from '@mantine/core';
 import { LogInField } from '../Components/LogInField';
 import AuthContext from '../Context/AuthContext'
 import { useContext} from 'react';
@@ -15,7 +15,7 @@ const useStyles = createStyles((theme) => ({
   },
 
   container: {
-    height: rem(502),
+    height: rem(700),
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
@@ -87,7 +87,6 @@ export function LandingPage() {
         opacity={1}
         zIndex={0}
       />
-      
         <Flex direction={'row'} gap={'lg'} align={'baseline'}>
       <Container className={classes.container}>
         <Title className={classes.title}>Hasaru Enterprices</Title>

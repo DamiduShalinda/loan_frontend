@@ -34,19 +34,19 @@ function HomepageInputs( {onSubmit} : Inputprops ) {
 
   });
 
-    
-  async function getLoanNumbers() {
-    await axios.get(API_ENDPOINTS.getAllLoans)
-    .then(res => {
-      const tempdata: loanNumbertype[] = []
-      res.data.forEach((item: loanNumbertype) => {
-        tempdata.push(item)
-      }
-      )
-      setLoanNumbers(tempdata)
-    })
-  }
-
+  
+  
+async function getLoanNumbers() {
+  await axios.get(API_ENDPOINTS.getAllLoans)
+  .then(res => {
+    const tempdata: loanNumbertype[] = []
+    res.data.forEach((item: loanNumbertype) => {
+      tempdata.push(item)
+    }
+    )
+    setLoanNumbers(tempdata)
+  })
+}
   useEffect(() => {
     getLoanNumbers()
 

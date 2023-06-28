@@ -1,5 +1,5 @@
 import { useForm,  isEmail, hasLength } from '@mantine/form';
-import { Button, Group, TextInput, Box , Input , PasswordInput } from '@mantine/core';
+import { Button, Group, TextInput, Box , Input , PasswordInput  , Grid } from '@mantine/core';
 import { useId , useDisclosure } from '@mantine/hooks';
 import { IMaskInput } from 'react-imask';
 import { DatePickerInput } from '@mantine/dates';
@@ -73,7 +73,9 @@ function AddCustomersPage() {
   }
 
   return (
-    <Box component="form" maw='75vh' mx="auto" onSubmit={form.onSubmit(() => {handleSubmit(form.values)})}>
+        <Box component="form"   onSubmit={form.onSubmit(() => {handleSubmit(form.values)})}>
+    <Grid pos={'relative'} mx={'xl'}>
+      <Grid.Col span={5} >
       <TextInput label="Surname" placeholder="Surname" mt="md" withAsterisk {...form.getInputProps('surname')} />
       <TextInput label="Name" placeholder="Name" withAsterisk {...form.getInputProps('name')} mt="md" />
       <TextInput label="Address" placeholder="Name" withAsterisk {...form.getInputProps('address')} mt="md" />
@@ -110,8 +112,14 @@ function AddCustomersPage() {
       mt="md"
       {...form.getInputProps('dateofbirth')}
     />
-    <TextInput label="NIC number" placeholder="NIC number" withAsterisk {...form.getInputProps('nicnumber')} mt="md"/>
-    <TextInput label="Username" placeholder="Username" withAsterisk {...form.getInputProps('username')} mt="md"/>
+
+      <TextInput label="NIC number" placeholder="NIC number" withAsterisk {...form.getInputProps('nicnumber')} mt="md"/>
+    
+
+      </Grid.Col>
+      <Grid.Col span={1} ></Grid.Col>
+      <Grid.Col span={5} >
+      <TextInput label="Username" placeholder="Username" withAsterisk {...form.getInputProps('username')} mt="md"/>
       <PasswordInput
         label="Password"
         withAsterisk
@@ -121,13 +129,13 @@ function AddCustomersPage() {
         mt="md"
         {...form.getInputProps('password')}
       />
-
       <Group position="right" mt="md">
         <Button type="submit" >Submit</Button>
       </Group>
-    
-
+      </Grid.Col>
+    </Grid>
     </Box>
+    
   );
 }
 

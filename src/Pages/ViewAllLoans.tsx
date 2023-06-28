@@ -21,26 +21,27 @@ function ViewAllLoans() {
   const [ loading , setLoading ] = useState<boolean>(true)
   const [ userId , setUserId ] = useState<number>()
 
-  async function getLoans() {
-    await axios.get(API_ENDPOINTS.getLoans)
-    .then(res => {
-      const tempdata: loanDatatype[] = []
-      res.data.forEach((item: loanDatatype) => {
-        tempdata.push(item)
-      })
-      setLoanDetails(tempdata)
-    }
-    )
-  }
-
+  
   useEffect(() => {
-   getLoans()
+    getLoans()
+    async function getLoans() {
+      await axios.get(API_ENDPOINTS.getLoans)
+      .then(res => {
+        const tempdata: loanDatatype[] = []
+        res.data.forEach((item: loanDatatype) => {
+          tempdata.push(item)
+        })
+        setLoanDetails(tempdata)
+      }
+      )
+    }
 
   }, [])
 
   useEffect(() => {
     if(loansDetails.length > 0)
     setLoading(false)
+    console.log(loansDetails)
     //TODO:fetching twice
   }, [loansDetails])
   
