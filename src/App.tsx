@@ -1,6 +1,7 @@
 import AppRouter from './AppRouter';
 import { ColorSchemeProvider , MantineProvider , ColorScheme } from '@mantine/core'
 import { useHotkeys, useLocalStorage  } from '@mantine/hooks';
+
 function App() {
 
   const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({

@@ -45,7 +45,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({
   
 const loginUser = (data:FormData) => {
   axios
-    .post(API_ENDPOINTS.getUser, data)
+    .post('http://127.0.0.1:8000/users/token/', data)
     .then((response) => {
 
       if (response.status == 200) {

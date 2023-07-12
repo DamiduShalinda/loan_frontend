@@ -13,6 +13,7 @@ type basefieldValues = {
   bike_number: string;
   first_guarantor: string;
   second_guarantor: string;
+  loan_period : number;
 }
 
 type fieldValues = basefieldValues & {
@@ -35,7 +36,7 @@ function AddNewLoan() {
        const data = res.data
        const fetchData:string[] = [] 
        data.forEach((item) => {
-        fetchData.push(item.username)
+        fetchData.push(item.name)
        });
         setUsernames(fetchData)
         })
@@ -48,6 +49,7 @@ function AddNewLoan() {
     try {
       await axios.post(API_ENDPOINTS.addLoan , values)
       .then(res => {
+        console.log(values)
         console.log(res);
         console.log(res.data);
       })
@@ -78,6 +80,8 @@ function AddNewLoan() {
       first_guarantor: '',
       second_guarantor: '',
       loaned_date: new Date(),
+      loan_period : 12
+      //TODO : add input field for loan_period
     },
 
     // functions will be used to validate values at corresponding key
@@ -100,7 +104,8 @@ function AddNewLoan() {
       bike_number: values.bike_number,
       first_guarantor: values.first_guarantor,
       second_guarantor: values.second_guarantor,
-      loaned_date: values.loaned_date.toISOString().slice(0,10)
+      loaned_date: values.loaned_date.toISOString().slice(0,10),
+      loan_period : values.loan_period
   }
   submitLoan(newValues)
 }
@@ -141,6 +146,16 @@ function AddNewLoan() {
         withAsterisk
         required
         {...form.getInputProps('loaned_amount')}
+      />
+      <NumberInput
+        mt="sm"
+        label="Loan Period (Months)"
+        placeholder="Loaned Period"
+        min={0}
+        hideControls
+        withAsterisk
+        required
+        {...form.getInputProps('loan_period')}
       />
       <DatePickerInput mt="sm" label="Date" placeholder="Date" valueFormat="YYYY-MMM-DD" {...form.getInputProps('loaned_date')} withAsterisk />
       <Autocomplete

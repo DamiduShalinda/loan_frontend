@@ -2,12 +2,16 @@ import axios from 'axios'
 import { API_ENDPOINTS } from '../api'
 import { useEffect, useState } from 'react'
 import { useForm } from '@mantine/form';
-import {  Button , Box, Autocomplete  } from '@mantine/core';
+import {  Button , Box, Autocomplete    ,LoadingOverlay} from '@mantine/core';
 
+type usertype = {
+  name: string ,
+  id: number ,
+}
 
 type loanNumbertype = {
   loan_id: number ,
-  username: string ,
+  username: usertype ,
   loan_amount: number ,
   loan_number: string ,
 }
@@ -45,29 +49,30 @@ async function getLoanNumbers() {
     }
     )
     setLoanNumbers(tempdata)
+    
   })
 }
   useEffect(() => {
     getLoanNumbers()
-
-  }, [])
+  }, [loanNumbers.length])
   
   useEffect(() => {
     if(loanNumbers.length > 0){
-      const uniqueUsernames: string[] = Array.from(new Set(loanNumbers.map(item => item.username)));
+      const uniqueUsernames: string[] = Array.from(new Set(loanNumbers.map(item => item.username.name)));
       const uniqueLoanNumber: string[] = Array.from(new Set(loanNumbers.map(item => item.loan_number)));
   
       // Update state with unique values
       setUsernames(uniqueUsernames);
       setLoan_numbers(uniqueLoanNumber);
     
-    setLoading(false)}
+    setLoading(false)
+  }
     //TODO:fetching twice
-  }, [loanNumbers])
+  }, [loanNumbers.length])
 
 
   function findbyUsername(username: string) {
-    const loan = loanNumbers.find(item => item.username === username)
+    const loan = loanNumbers.find(item => item.username.name === username)
     if(loan)
     setloanId(loan.loan_id)
   }
@@ -91,7 +96,8 @@ async function getLoanNumbers() {
 
   return (
     <>
-    
+      {loading ? <LoadingOverlay visible={loading}/> :
+      
         <Box maw={320} mx="auto" my="20%">
           <form onSubmit={form.onSubmit(() => {handleSubmit(form.values)})}>
         <Autocomplete
@@ -114,9 +120,9 @@ async function getLoanNumbers() {
         </Button>
       </form>
     </Box>
+    }
     </>
   )
 }
 
 export default HomepageInputs
-

@@ -2,15 +2,15 @@ const API_BASE_URL = "http://localhost:8000";
 
 export const API_ENDPOINTS = {
   getUser: `${API_BASE_URL}/users/token`,
-  refreshUser: `${API_BASE_URL}/users/token/refresh`,
-  addCustomer: `${API_BASE_URL}/users/customer`,
+  refreshUser: `${API_BASE_URL}/users/token/refresh/`,
+  addCustomer: `${API_BASE_URL}/users/customer/add`,
   getCustomers: `${API_BASE_URL}/customers/getcustomers`,
-  getCustomername: `${API_BASE_URL}/users/viewcustomer`,
-  addLoan: `${API_BASE_URL}/loans/addloan`,
+  getCustomername: `${API_BASE_URL}/customers/getnames`,
+  addLoan: `${API_BASE_URL}/loans/addloans`,
   getLoans: `${API_BASE_URL}/loans/getloans`,
-  getMoreDetails: (id: number) => `${API_BASE_URL}/loans/getloans/${id}`,
+  getMoreDetails: (id: number) => `${API_BASE_URL}/loans/get/${id}`,
   getAllLoans: `${API_BASE_URL}/loans/allnumbers`,
-  addPayment: `${API_BASE_URL}/loandetails/update/`,
+  addPayment: `${API_BASE_URL}/loanvalues/update/`,
   getAllpayments: (id : number) => `${API_BASE_URL}/loandetails/all/${id}`,
   
   // Add more API endpoints as needed

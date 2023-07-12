@@ -3,9 +3,14 @@ import { DatePickerInput } from '@mantine/dates';
 import { useForm } from '@mantine/form';
 import axios from 'axios';
 import { API_ENDPOINTS } from '../api';
+import { useState } from 'react';
+import React, { useRef } from 'react';
+import ReactToPrint from 'react-to-print';
+import { Recipts } from './Recipts';
 
 type PaymentInputsProps = {
     id : number;
+    onsubmit? : (valus : formValuesDateStr) => void;
 }
 
 type formValues = {
@@ -20,7 +25,10 @@ type formValuesDateStr = {
     loan_number: number;
 }
 
-function PaymentInputs({id}: PaymentInputsProps) {
+function PaymentInputs({id , onsubmit}: PaymentInputsProps) {
+
+    const componentRef = useRef();
+    const [ clicked , setClicked ] = useState(false)
 
     const form = useForm({
         initialValues: { payment_amount: 0 , payment_date: new Date() , loan_number: id },
@@ -40,6 +48,9 @@ function PaymentInputs({id}: PaymentInputsProps) {
             loan_number: values.loan_number,
         }
         updateLoan(valuesDateStr);
+        setClicked(true);
+        onsubmit && onsubmit(valuesDateStr);
+        
     }
 
 
@@ -52,24 +63,34 @@ function PaymentInputs({id}: PaymentInputsProps) {
         try {
             await axios.post(API_ENDPOINTS.addPayment, values)
             .then(res => {
-                console.log(res.data);
+                alert("Date :" + res.data.payment_date + "\nAmount : " + res.data.payment_amount + "\nLoan Number : " + res.data.loan_number);
             })
         } catch (error) {
             console.log(error);
         }
     }
+
+        const reciptsRef = useRef(null);
+      
+        const handlePrint = () => {
+          const reciptsContent = reciptsRef.current;
+          if (reciptsContent) {
+            window.print();
+          }
+        };
   return (
     <div>
+        <button onClick={handlePrint}>Print</button>
+        <Recipts ref={reciptsRef} />
         <form onSubmit={form.onSubmit(() => handleSubmit(form.values))}>
         <Box mx="lg" mt={"xl"} miw={300}>
         <TextInput mt="sm" label="Payment Amount" placeholder="Payment Amount"  {...form.getInputProps('payment_amount')} withAsterisk />
         <DatePickerInput mt="sm" label="Date" placeholder="Date" valueFormat="YYYY-MMM-DD" dropdownType='modal'{...form.getInputProps('payment_date')} withAsterisk/>
-        <Button type="submit" mt="xl">
+        <Button type="submit" disabled={clicked} mt={'xl'}>
             Submit
         </Button>
         </Box>
         </form>
-        
     </div>
   )
 }

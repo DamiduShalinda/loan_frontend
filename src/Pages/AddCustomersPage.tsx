@@ -1,10 +1,30 @@
 import { useForm,  isEmail, hasLength } from '@mantine/form';
-import { Button, Group, TextInput, Box , Input , PasswordInput  , Grid } from '@mantine/core';
+import { Button, Group, TextInput, Box , Input , PasswordInput  , Grid, Container } from '@mantine/core';
 import { useId , useDisclosure } from '@mantine/hooks';
 import { IMaskInput } from 'react-imask';
 import { DatePickerInput } from '@mantine/dates';
 import axios from 'axios';
 import { API_ENDPOINTS } from '../api';
+import { ImageDropzone } from '../Components/ImageDropzone';
+import Demo from '../Components/DropZone';
+
+interface usertypeData {
+  username: string;
+  password: string;
+  email: string;
+  usertype: string;
+}
+
+interface loanData {
+  user : usertypeData;
+  surname: string;
+  name: string;
+  dateofbirth: string;
+  telephone1: string;
+  telephone2: string;
+  nicnumber: string;
+  address: string;
+}
 
 export interface customerFormData {
   surname: string;
@@ -18,6 +38,7 @@ export interface customerFormData {
   password: string;
   address: string;
 }
+
 
 function AddCustomersPage() {
   const id = useId();
@@ -35,14 +56,36 @@ function AddCustomersPage() {
     return undefined;
   };
 
+  function convertFormData(values:customerFormData) : loanData {
+    
+    const data : loanData = {
+      user : {
+        username : values.username,
+        password : values.password,
+        email : values.email,
+        usertype : "customer",
+      },
+      surname : values.surname,
+      name : values.name,
+      dateofbirth : values.dateofbirth.toISOString().slice(0,10),
+      telephone1 : values.telephone1,
+      telephone2 : values.telephone2,
+      nicnumber : values.nicnumber,
+      address : values.address,
+    }
+    return data;
+  }
+
+
   const form = useForm<customerFormData>({
+
     initialValues: {
       surname: '',
       name: '',
       email: '',
       dateofbirth: new Date(),
-      telephone1: '',
-      telephone2: '',
+      telephone1: '555-5678',
+      telephone2: '666-5678',
       nicnumber: '',
       username: '',
       password: '',
@@ -51,21 +94,21 @@ function AddCustomersPage() {
 
     validate: {
       surname: hasLength({ min: 2, max: 10 }, 'Name must be 2-10 characters long'),
-      name: hasLength({ min: 2, max: 10 }, 'Name must be 2-10 characters long'),
+      name: hasLength({ min: 2, max: 50 }, 'Name must be 2-50 characters long'),
       email: isEmail('Invalid email'),
-      telephone1: hasLength(15, 'Phone number must be 10 characters long'),
-      telephone2: hasLength(15, 'Phone number must be 10 characters long'),
+      // telephone1: hasLength(15, 'Phone number must be 10 characters long'),
+      // telephone2: hasLength(15, 'Phone number must be 10 characters long'),
       nicnumber : (value) => {return value?.length === 10 && /^[0-9]{9}[vV]$/.test(value) || value?.length === 12 && /^[0-9]{12}$/.test(value) ? undefined : 'Invalid NIC number';},
       username: (value) => {return isUsernameValid(value)},
       password: (value) => (value ? undefined : 'Password is required'),
       address: hasLength({ min: 2, max: 100 }, 'Address must be 2-100 characters long'),
-
     },
   });
 
   const handleSubmit = (values : customerFormData) => {
-    console.log(values);
-    axios.post(API_ENDPOINTS.addCustomer, values)
+    const data = convertFormData(values);
+    console.log(data);
+    axios.post(API_ENDPOINTS.addCustomer, data)
     .then(res => {
         console.log(res.data);
         form.reset();
@@ -114,6 +157,9 @@ function AddCustomersPage() {
     />
 
       <TextInput label="NIC number" placeholder="NIC number" withAsterisk {...form.getInputProps('nicnumber')} mt="md"/>
+      <Container mt='xl'>
+        <Demo/>
+      </Container>
     
 
       </Grid.Col>

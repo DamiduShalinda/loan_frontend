@@ -53,7 +53,7 @@ function HomepageLoanDetails( {id} : HomepageLoanDetailsProps) {
             <List.Item>Bike Number : {loanDetails?.bike_number}</List.Item>
         </List>
         <Modal opened={opened} onClose={close} title="Make a Payment" >
-        <PaymentInputs id={id}/>
+        <PaymentInputs id={id} onsubmit={() => close}/>
       </Modal>
         <Group position="left" mt="xl">
             <Button variant="filled" color="blue" onClick={open}>Make a Payment</Button>
