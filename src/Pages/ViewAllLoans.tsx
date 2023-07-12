@@ -5,10 +5,19 @@ import { Loader , Center ,Modal} from "@mantine/core";
 import { TableSort } from "../Components/TableSortLoans";
 import { useDisclosure } from '@mantine/hooks';
 import LoanView from "../Components/LoanView";
+import { userDatatype } from "../Components/HomePageInputs";
+
+type loanDatatypefromAPI = {
+  loan_id: string;
+  username: userDatatype;
+  branch_location: string;
+  loaned_amount: string;
+  loaned_date: string;
+}
 
 type loanDatatype = {
   loan_id: string;
-  username: string;
+  username: string ;
   branch_location: string;
   loaned_amount: string;
   loaned_date: string;
@@ -28,8 +37,15 @@ function ViewAllLoans() {
       await axios.get(API_ENDPOINTS.getLoans)
       .then(res => {
         const tempdata: loanDatatype[] = []
-        res.data.forEach((item: loanDatatype) => {
-          tempdata.push(item)
+        res.data.forEach((item: loanDatatypefromAPI) => {
+          const loanData: loanDatatype = {
+            loan_id: item.loan_id,
+            username: item.username.name,
+            branch_location: item.branch_location,
+            loaned_amount: item.loaned_amount,
+            loaned_date: item.loaned_date
+          }
+          tempdata.push(loanData)
         })
         setLoanDetails(tempdata)
       }

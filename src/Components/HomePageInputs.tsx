@@ -4,14 +4,14 @@ import { useEffect, useState } from 'react'
 import { useForm } from '@mantine/form';
 import {  Button , Box, Autocomplete    ,LoadingOverlay} from '@mantine/core';
 
-type usertype = {
+export type userDatatype = {
   name: string ,
   id: number ,
 }
 
 type loanNumbertype = {
   loan_id: number ,
-  username: usertype ,
+  username: userDatatype ,
   loan_amount: number ,
   loan_number: string ,
 }
