@@ -22,7 +22,7 @@ export interface loanArrearsInterface {
     arr_cal_date : string;
 }
 
-interface loanArrearsSubmitInterfaceBasic {
+ interface loanArrearsSubmitInterfaceBasic {
     loan_id : number;
     staff? : number;
     additional_fees : number;
@@ -32,13 +32,11 @@ interface loanArrearsSubmitInterface extends loanArrearsSubmitInterfaceBasic {
     arr_cal_date : Date;
 }
 
-interface loanArrearsSubmitInterfacewitString extends loanArrearsSubmitInterfaceBasic {
+export interface loanArrearsSubmitInterfacewitString extends loanArrearsSubmitInterfaceBasic {
     arr_cal_date : string;
 }
 
 function ViewLoanArrears({ id }: Props) {
-
-    id = 5
 
     const [ loading , setLoading ] = useState<boolean>(true)
     const [ payments , setPayments ] = useState<formValues[]>([])

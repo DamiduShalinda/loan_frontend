@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react"
-import { loanArrearsInterface } from "./ViewLoanArrears"
+import { loanArrearsInterface, loanArrearsSubmitInterfaceBasic, loanArrearsSubmitInterfacewitString } from "./ViewLoanArrears"
 import axios from "axios"
 import { API_ENDPOINTS } from "../api"
-import { Loader  , Container} from "@mantine/core"
+import { Loader } from "@mantine/core"
 import { TableAllLoanArrears } from "../Components/Tables/TableAllLoanArrears"
-import { tabledata } from "../data"
+import { loanNumbertype } from "../Components/HomePageInputs"
 
 interface trimmedArrearsInterface {
   id: string;
@@ -19,6 +19,9 @@ function ViewAllArrears() {
 
   const [ loading, setLoading ] = useState<boolean>(true)
   const [ allarrears, setAllArrears ] = useState<trimmedArrearsInterface[]>([])
+  const [ loanid , setloanId] = useState<number[]>()
+  const today = new Date()
+  const currentDate = today.toISOString().split('T')[0]
   
   
   async function getAllArrears() {
@@ -44,6 +47,35 @@ function ViewAllArrears() {
   }, [allarrears])
   
   
+  async function getAllNumbers() {
+    await axios.get(API_ENDPOINTS.getAllLoans)
+    .then(res => {
+      const tempdata: number[] = []
+      res.data.forEach((item: loanNumbertype) => {
+        tempdata.push(item.loan_id)
+      }
+      )
+      setloanId(tempdata)
+    })
+  }
+
+  async function findLoanIDByNumber(loanNumber : string) {
+    try {
+      const response = await axios.get(API_ENDPOINTS.getAllLoans);
+      return new Promise((resolve) => {
+        for (let i = 0; i < response.data.length; i++) {
+          if (response.data[i].loan_number === loanNumber) {
+            resolve(response.data[i].loan_id);
+          }
+        }
+        resolve(null); // Loan number not found
+      });
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  }
+
   function trimLoanArrears(values:loanArrearsInterface[]) {
     const tempdata: trimmedArrearsInterface[] = []
     values.forEach((item: loanArrearsInterface) => {
@@ -59,11 +91,41 @@ function ViewAllArrears() {
     return tempdata
   }
 
+  async function CalculateAllArrears() {
+    try {
+      await getAllNumbers();
+      const tempdata: loanArrearsSubmitInterfacewitString[] = [];
+      loanid?.forEach((item: number) => {
+        tempdata.push({
+          loan_id: item,
+          additional_fees: 0,
+          arr_cal_date: currentDate,
+        });
+      });
+      console.log(tempdata);
+      const response = await axios.post(API_ENDPOINTS.getAllArrearsOnce, tempdata);
+      alert(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  
+
+  function handleClickMore(id: string) {
+    findLoanIDByNumber(id)
+      .then((loanID) => {
+        console.log(loanID);})
+  }
+
   return (
     <div>{loading && !allarrears ? <Loader/> : 
     <div>
       { allarrears.length === 0 ? <h1>No Arrears</h1> : 
-      <TableAllLoanArrears data={allarrears}/>
+      <TableAllLoanArrears 
+        data={allarrears} 
+        onSubmitCalculate={() => CalculateAllArrears()}
+        onClickMore={(id : string) => {handleClickMore(id)}}
+        />
       }
       
     </div>

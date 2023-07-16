@@ -15,6 +15,7 @@ export const API_ENDPOINTS = {
   getArrears: (id:number) => `${API_BASE_URL}/arrears/getbyloanid/${id}`,
   calculateArrears: `${API_BASE_URL}/arrears/add`,
   getAllArrears: `${API_BASE_URL}/arrears/getall`,
+  getAllArrearsOnce: `${API_BASE_URL}/arrears/calall`,
   
   // Add more API endpoints as needed
 };

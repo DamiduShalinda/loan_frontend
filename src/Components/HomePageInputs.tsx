@@ -9,7 +9,7 @@ export type userDatatype = {
   id: number ,
 }
 
-type loanNumbertype = {
+export type loanNumbertype = {
   loan_id: number ,
   username: userDatatype ,
   loan_amount: number ,

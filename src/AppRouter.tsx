@@ -17,7 +17,7 @@ import ViewLoanArrears from "./Pages/ViewLoanArrears";
 import ViewAllArrears from "./Pages/ViewAllArrears";
 
 function AppRouter() {
-
+//TODO : need to pass the id of the loan to the view loan arrears page
   return (
     <BrowserRouter>
       <AuthProvider>
@@ -81,7 +81,7 @@ function AppRouter() {
         <Route path="/arrears/one" 
                 element={
                   <Protected>
-                  <Layout><ViewLoanArrears id={5}/></Layout>
+                  <Layout><ViewLoanArrears id={6}/></Layout>
                   </Protected>
                   } 
                 />             
