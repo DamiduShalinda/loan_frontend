@@ -1,14 +1,16 @@
 import axios from "axios";
 import { API_ENDPOINTS } from "../api";
 import { useEffect, useState } from "react";
-import { TableScrollArea } from "./Table";
+import { TableScrollArea } from "./Tables/Table";
+import { Button, Group } from "@mantine/core";
+import { Link } from "react-router-dom";
 
 
 interface Props {
   id : number
 }
 
-interface formValues {
+export interface formValues {
   payment_amount: number;
   payment_date: string;
   interest : number;
@@ -28,6 +30,7 @@ function LoanPayments({ id }: Props) {
     try {
       await axios.get(API_ENDPOINTS.getAllpayments(id))
       .then(res => {
+        console.log(res.data);
         const tempdata: formValues[] = []
         res.data.forEach((item: formValues) => {
           tempdata.push(item)
@@ -52,11 +55,17 @@ function LoanPayments({ id }: Props) {
     }
   }, [paymentValues])
   
+  //TODO : Principal is not getting
   return (
     <div>
       {loading ? <div>Loading...</div> :
       <div>
         <TableScrollArea data={paymentValues} headers={['payment_amount' , 'payment_date' , 'interest' , 'principal' , 'balance']}/>
+        <Group position="right">
+          <Link to='/arrears/one'>
+          <Button>Arrears</Button>
+          </Link>
+        </Group>
       </div>
       }
     </div>

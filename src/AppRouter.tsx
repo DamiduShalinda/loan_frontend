@@ -13,6 +13,8 @@ import AddNewLoan from "./Pages/AddNewLoan";
 import ViewAllLoanx from "./Pages/ViewAllLoans";
 import ViewAllLoans from "./Pages/ViewAllLoans";
 import LoanPayments from "./Components/LoanPayments";
+import ViewLoanArrears from "./Pages/ViewLoanArrears";
+import ViewAllArrears from "./Pages/ViewAllArrears";
 
 function AppRouter() {
 
@@ -75,7 +77,21 @@ function AppRouter() {
                   <LoanPayments/>
                   </Protected>
                   } 
-                />          
+                />
+        <Route path="/arrears/one" 
+                element={
+                  <Protected>
+                  <Layout><ViewLoanArrears id={5}/></Layout>
+                  </Protected>
+                  } 
+                />             
+        <Route path="/viewallarrears" 
+                element={
+                  <Protected>
+                  <Layout><ViewAllArrears/></Layout>
+                  </Protected>
+                  } 
+                />             
         </Routes>
       </AuthProvider>
     </BrowserRouter>

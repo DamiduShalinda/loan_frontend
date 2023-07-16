@@ -1,5 +1,5 @@
 import { useState , useEffect} from 'react'
-import { TableSort } from '../Components/TableSort'
+import { TableSort } from '../Components/Tables/TableSort'
 import { customerFormData } from './AddCustomersPage'
 import { API_ENDPOINTS } from '../api'
 import axios, { AxiosResponse } from 'axios'

@@ -115,3 +115,22 @@ export const headerdata = [
     ]
   }
 ]
+
+
+export const tabledata = 
+  [
+    {
+        "id": "38",
+        "loan_id": "2019-001-71",
+        "monthly_payment": "31045.18",
+        "monthly_arrears": "61486.16",
+        "arr_cal_date": "2023-08-17"
+    },
+    {
+        "id": "39",
+        "loan_id": "2019-001-61",
+        "monthly_payment": "12454.57",
+        "monthly_arrears": "34433.53",
+        "arr_cal_date": "2023-04-30"
+    }
+]

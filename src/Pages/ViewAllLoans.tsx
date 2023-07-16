@@ -2,7 +2,7 @@ import { useEffect , useState } from "react"
 import { API_ENDPOINTS } from "../api";
 import axios from "axios";
 import { Loader , Center ,Modal} from "@mantine/core";
-import { TableSort } from "../Components/TableSortLoans";
+import { TableSort } from "../Components/Tables/TableSortLoans";
 import { useDisclosure } from '@mantine/hooks';
 import LoanView from "../Components/LoanView";
 import { userDatatype } from "../Components/HomePageInputs";

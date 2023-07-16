@@ -60,7 +60,7 @@ function NavbarLink({ icon: Icon, label, active, to, onClick }: NavbarLinkProps)
 
 const mockdata = [
   { icon: IconHome2, label: 'Home' , to: '/homepage'},
-  { icon: IconGauge, label: 'Dashboard' , to: '/customers/addnew'},
+  { icon: IconGauge, label: 'Arrears' , to: '/viewallarrears'},
   { icon: IconDeviceDesktopAnalytics, label: 'Analytics' , to: '/analytics'},
   { icon: IconCalendarStats, label: 'Releases' , to: '/releases'},
   { icon: IconUser, label: 'Account' , to: '/account'},

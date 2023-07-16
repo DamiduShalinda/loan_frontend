@@ -1,7 +1,7 @@
 import LoanCalculatorInputs from '../Components/LoanCalculatorInputs'
 import { PPMT , PMT , IPMT , ROUND} from '@formulajs/formulajs'
 import React , {useEffect} from "react"
-import { TableScrollArea } from '../Components/Table'
+import { TableScrollArea } from '../Components/Tables/Table'
 import { useDisclosure } from '@mantine/hooks';
 import { Modal, useMantineTheme , ColorSchemeProvider , MantineProvider , ColorScheme  , Center} from '@mantine/core';
 import { useHotkeys, useLocalStorage } from '@mantine/hooks';
