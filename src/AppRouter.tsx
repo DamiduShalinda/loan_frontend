@@ -1,4 +1,4 @@
-import { BrowserRouter , Route , Routes } from "react-router-dom";
+import { BrowserRouter , Route , Routes , useParams } from "react-router-dom";
 import { LandingPage } from "./Pages/LandingPage";
 import LoanCalculator from "./Pages/LoanCalculator";
 import Layout from "./Layout";
@@ -18,6 +18,11 @@ import ViewAllArrears from "./Pages/ViewAllArrears";
 
 function AppRouter() {
 //TODO : need to pass the id of the loan to the view loan arrears page
+
+const ViewLoanArrears = () => {
+  const { id } = useParams();
+}
+
   return (
     <BrowserRouter>
       <AuthProvider>
@@ -74,14 +79,14 @@ function AppRouter() {
         <Route path="/loans/moredetails" 
                 element={
                   <Protected>
-                  <LoanPayments/>
+                  <LoanPayments id={0}/>
                   </Protected>
                   } 
                 />
-        <Route path="/arrears/one" 
+        <Route path="/arrears/one/:id" 
                 element={
                   <Protected>
-                  <Layout><ViewLoanArrears id={6}/></Layout>
+                  <Layout><ViewLoanArrears/></Layout>
                   </Protected>
                   } 
                 />             

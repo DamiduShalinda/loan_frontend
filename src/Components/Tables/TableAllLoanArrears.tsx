@@ -48,6 +48,7 @@ interface TableSortProps {
   data: RowData[];
   onSubmitCalculate: () => void;
   onClickMore: (id: string) => void;
+  onClickAdd: () => void;
 }
 
 interface ThProps {
@@ -105,7 +106,7 @@ function sortData(
   );
 }
 
-export function TableAllLoanArrears({ data , onSubmitCalculate , onClickMore}: TableSortProps) {
+export function TableAllLoanArrears({ data , onSubmitCalculate , onClickMore , onClickAdd}: TableSortProps) {
   const [search, setSearch] = useState('');
   const [sortedData, setSortedData] = useState(data);
   const [sortBy, setSortBy] = useState<keyof RowData | null>(null);
@@ -130,7 +131,7 @@ export function TableAllLoanArrears({ data , onSubmitCalculate , onClickMore}: T
       <td>{row.monthly_payment}</td>
       <td>{row.arr_cal_date}</td>
       <td>{row.monthly_arrears}</td>
-      <td><Button variant='light' onClick={ () => onClickMore(row.loan_id)}>More</Button></td>
+      <td><Button variant='outline' onClick={ () => onClickMore(row.loan_id)}>More</Button></td>
     </tr>
   ));
 
@@ -151,7 +152,7 @@ export function TableAllLoanArrears({ data , onSubmitCalculate , onClickMore}: T
           <Button variant='light' onClick={() => onSubmitCalculate() }>Calculate</Button>
         </Grid.Col>
         <Grid.Col span={1}>
-          <Button variant='light'>Add</Button>
+          <Button variant='light' onClick={() => onClickAdd() }>Add</Button>
         </Grid.Col>
       </Grid>
       <Table horizontalSpacing="md" verticalSpacing="xs" miw={700} sx={{ tableLayout: 'fixed' }}>

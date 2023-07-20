@@ -2,9 +2,11 @@ import { useEffect, useState } from "react"
 import { loanArrearsInterface, loanArrearsSubmitInterfaceBasic, loanArrearsSubmitInterfacewitString } from "./ViewLoanArrears"
 import axios from "axios"
 import { API_ENDPOINTS } from "../api"
-import { Loader } from "@mantine/core"
+import { Loader  , Drawer} from "@mantine/core"
 import { TableAllLoanArrears } from "../Components/Tables/TableAllLoanArrears"
 import { loanNumbertype } from "../Components/HomePageInputs"
+import { useDisclosure } from "@mantine/hooks"
+import SearchComponents from "../Components/SearchComponents"
 
 interface trimmedArrearsInterface {
   id: string;
@@ -22,6 +24,7 @@ function ViewAllArrears() {
   const [ loanid , setloanId] = useState<number[]>()
   const today = new Date()
   const currentDate = today.toISOString().split('T')[0]
+  const [opened, { open, close }] = useDisclosure(false);
   
   
   async function getAllArrears() {
@@ -120,11 +123,15 @@ function ViewAllArrears() {
   return (
     <div>{loading && !allarrears ? <Loader/> : 
     <div>
+      <Drawer opened={opened} onClose={close} title="Search and Filter" size="35%">
+        <SearchComponents/>
+      </Drawer>
       { allarrears.length === 0 ? <h1>No Arrears</h1> : 
       <TableAllLoanArrears 
         data={allarrears} 
         onSubmitCalculate={() => CalculateAllArrears()}
         onClickMore={(id : string) => {handleClickMore(id)}}
+        onClickAdd={() => open()}
         />
       }
       
