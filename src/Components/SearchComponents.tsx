@@ -8,6 +8,7 @@ import { IconCheck } from '@tabler/icons-react';
 function SearchComponents() {
     const [value, setValue] = useState<[Date | null, Date | null]>([null, null]);
     const [ disabled, setDisabled ] = useState<boolean>(true)
+    const [chipvalue, setChipvalue] = useState<string[]>([]);
 
     const form = useForm({
         initialValues: {
@@ -24,7 +25,7 @@ function SearchComponents() {
     <>
     <div>
     <Divider my="md" label="Locations" labelPosition='center'/>
-    <Chip.Group multiple>
+    <Chip.Group multiple onChange={setChipvalue} value={chipvalue}>
         <Group position="left" mt="md">
           <Chip value="polonnaruwa">Polonnaruwa</Chip>
           <Chip value="dehiattakandiya">Dehiattakandiya</Chip>
@@ -34,7 +35,7 @@ function SearchComponents() {
         </Group>
       </Chip.Group>
       <Group position='right' mt='xl'>
-        <Button type='submit' variant='outline' color='blue'>Submit</Button>
+        <Button type='submit' variant='outline' color='blue'onClick={() => console.log(chipvalue)}>Submit</Button>
       </Group>
     </div>
     <div>
