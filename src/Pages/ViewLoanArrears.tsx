@@ -8,9 +8,6 @@ import { useForm } from '@mantine/form';
 import { DateInput } from '@mantine/dates';
 import { useParams } from 'react-router-dom';
 
-interface AccessParams {
-    id : string;
-}
 
 export interface loanArrearsInterface {
     id : number;

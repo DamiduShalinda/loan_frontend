@@ -1,6 +1,7 @@
 import AppRouter from './AppRouter';
 import { ColorSchemeProvider , MantineProvider , ColorScheme } from '@mantine/core'
 import { useHotkeys, useLocalStorage  } from '@mantine/hooks';
+import { Notifications } from '@mantine/notifications';
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
   return (
     <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
       <MantineProvider withGlobalStyles withNormalizeCSS theme={{colorScheme}}>
+      <Notifications />
       <AppRouter/>
       </MantineProvider>
     </ColorSchemeProvider>

@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react"
-import { loanArrearsInterface, loanArrearsSubmitInterfaceBasic, loanArrearsSubmitInterfacewitString } from "./ViewLoanArrears"
+import { loanArrearsInterface,  loanArrearsSubmitInterfacewitString } from "./ViewLoanArrears"
 import axios from "axios"
 import { API_ENDPOINTS } from "../api"
 import { Loader  , Drawer} from "@mantine/core"
 import { TableAllLoanArrears } from "../Components/Tables/TableAllLoanArrears"
 import { loanNumbertype } from "../Components/HomePageInputs"
 import { useDisclosure } from "@mantine/hooks"
-import SearchComponents from "../Components/SearchComponents"
+import SearchComponents from "../Components/SearchComponentsDrawer"
 
 interface trimmedArrearsInterface {
   id: string;

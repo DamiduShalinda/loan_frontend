@@ -5,6 +5,8 @@ import { IMaskInput } from 'react-imask';
 import { DatePickerInput } from '@mantine/dates';
 import axios from 'axios';
 import { API_ENDPOINTS } from '../api';
+import { notifications  } from '@mantine/notifications'; 
+import { IconCheck } from '@tabler/icons-react'; 
 
 interface usertypeData {
   username: string;
@@ -127,8 +129,12 @@ function AddCustomersPage() {
         }
       })
       .then(res => {
-          console.log(res.data);
           form.reset();
+          notifications.show({
+            title: 'Success',
+            message: 'New Customer Added Successfully',
+            icon: <IconCheck />,
+          })
       });
   }
 

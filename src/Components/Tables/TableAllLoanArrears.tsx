@@ -131,13 +131,13 @@ export function TableAllLoanArrears({ data , onSubmitCalculate , onClickMore , o
       <td>{row.monthly_payment}</td>
       <td>{row.arr_cal_date}</td>
       <td>{row.monthly_arrears}</td>
-      <td><Button variant='outline' onClick={ () => onClickMore(row.loan_id)}>More</Button></td>
+      <td><Button variant='subtle' onClick={ () => onClickMore(row.loan_id)}>More</Button></td>
     </tr>
   ));
 
   //TODO: add a  burger and drawer
   return (
-    <ScrollArea>
+    <>
       <Grid>
         <Grid.Col span={10}>
         <TextInput
@@ -202,6 +202,6 @@ export function TableAllLoanArrears({ data , onSubmitCalculate , onClickMore , o
           )}
         </tbody>
       </Table>
-    </ScrollArea>
+    </>
   );
 }

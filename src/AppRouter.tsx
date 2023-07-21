@@ -1,4 +1,4 @@
-import { BrowserRouter , Route , Routes , useParams } from "react-router-dom";
+import { BrowserRouter , Route , Routes } from "react-router-dom";
 import { LandingPage } from "./Pages/LandingPage";
 import LoanCalculator from "./Pages/LoanCalculator";
 import Layout from "./Layout";
@@ -10,7 +10,6 @@ import  Protected  from "./utils/Protected"
 import AddNewEmployee from "./Pages/AddNewEmployee";
 import ViewAllEmployees from "./Pages/ViewAllEmployees";
 import AddNewLoan from "./Pages/AddNewLoan";
-import ViewAllLoanx from "./Pages/ViewAllLoans";
 import ViewAllLoans from "./Pages/ViewAllLoans";
 import LoanPayments from "./Components/LoanPayments";
 import ViewLoanArrears from "./Pages/ViewLoanArrears";

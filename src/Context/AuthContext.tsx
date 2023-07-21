@@ -5,6 +5,8 @@ import { FormData } from "../Components/Inputfield";
 import jwtDecode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 import { API_ENDPOINTS } from "../api";
+import { notifications  } from '@mantine/notifications'; 
+import { IconX } from '@tabler/icons-react';
 
 type AuthContextProps = {
   contextData: {
@@ -57,12 +59,24 @@ const loginUser = (data:FormData) => {
         Navigate("/homepage")
       }else {
         console.log("error")
-      }
-
+        notifications.show({
+          title: 'Login Failed',
+          message: 'Please check your username and password',
+          color: 'red',
+          autoClose: 5000,
+          icon : <IconX/>
+      })
+    }
     })
     .catch((error) => {
       // Handle login error
-      console.error("Login failed:", error);
+      notifications.show({
+        title: 'Login Failed',
+        message: 'Please check your username and password',
+        color: 'red',
+        autoClose: 5000,
+        icon : <IconX/>
+    })
     });
 };
 

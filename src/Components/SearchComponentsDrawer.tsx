@@ -1,24 +1,49 @@
-import { Chip , Title , Group, Button , Divider, PasswordInput, TextInput, Container, Grid, NumberInput} from '@mantine/core';
+import { Chip  , Group, Button , Divider, PasswordInput, TextInput, Container, Grid, NumberInput, ScrollArea} from '@mantine/core';
 import { DatePickerInput } from '@mantine/dates';
 import { useState } from 'react';
 import { useForm } from '@mantine/form';
 import { IconCheck } from '@tabler/icons-react';
+import axios from 'axios';
+import { API_ENDPOINTS} from '../api';
+import jwtDecode from 'jwt-decode';
 
+
+type UserType ={
+    username: string;
+    user_id: number;
+    is_collector: boolean;
+}
 
 function SearchComponents() {
     const [value, setValue] = useState<[Date | null, Date | null]>([null, null]);
     const [ disabled, setDisabled ] = useState<boolean>(true)
     const [chipvalue, setChipvalue] = useState<string[]>([]);
+    const [user, setUser] = useState<UserType>()
+
 
     const form = useForm({
         initialValues: {
-            name: '',
+            username: '',
             password: '',
         },
     });
     
     function handleSubmitDate(): void {
         throw new Error('Function not implemented.');
+    }
+
+    function handleSubmitValidation(): void {
+       axios.post(API_ENDPOINTS.getUser, form.values)
+        .then(res => {
+            if (res.status == 200) {
+                setUser(jwtDecode(res.data.access))
+                if (user?.is_collector == true) {
+                    setDisabled(false)
+                }
+            }else {
+                console.log("error")
+            }
+        })
     }
 
   return (
@@ -86,14 +111,14 @@ function SearchComponents() {
       mt='md'
       clearable
     />
-    <form onSubmit={form.onSubmit(console.log)}>
+    <form onSubmit={form.onSubmit(handleSubmitValidation)}>
     <Divider mt="xl" label="Enter password of a collector" labelPosition='left'/>
      <TextInput
         placeholder="username"
         label="Full name"
         withAsterisk
         mt={'md'}
-        {...form.getInputProps('name')}
+        {...form.getInputProps('username')}
     />
     <PasswordInput
         placeholder="Password"
@@ -107,7 +132,6 @@ function SearchComponents() {
             type='submit' 
             variant='outline' 
             color='green' 
-            onClick={() => setDisabled(false)} 
             leftIcon={!disabled && <IconCheck/>}
                 >Submit User</Button>
     </Group>

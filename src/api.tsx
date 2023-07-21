@@ -1,7 +1,7 @@
 const API_BASE_URL = "http://localhost:8000";
 
 export const API_ENDPOINTS = {
-  getUser: `${API_BASE_URL}/users/token`,
+  getUser: `${API_BASE_URL}/users/token/`,
   refreshUser: `${API_BASE_URL}/users/token/refresh/`,
   addCustomer: `${API_BASE_URL}/users/customer/add`,
   getCustomers: `${API_BASE_URL}/customers/getcustomers`,
