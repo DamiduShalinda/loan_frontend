@@ -19,9 +19,6 @@ import ViewAllArrears from "./Pages/ViewAllArrears";
 function AppRouter() {
 //TODO : need to pass the id of the loan to the view loan arrears page
 
-const ViewLoanArrears = () => {
-  const { id } = useParams();
-}
 
   return (
     <BrowserRouter>
@@ -76,10 +73,10 @@ const ViewLoanArrears = () => {
                   </Protected>
                   } 
                 />          
-        <Route path="/loans/moredetails" 
+        <Route path="/loans/moredetails/:id" 
                 element={
                   <Protected>
-                  <LoanPayments id={0}/>
+                  <Layout><LoanPayments/></Layout>
                   </Protected>
                   } 
                 />

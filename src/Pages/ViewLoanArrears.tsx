@@ -6,9 +6,10 @@ import axios from 'axios';
 import { TableScrollArea } from '../Components/Tables/Table';
 import { useForm } from '@mantine/form';
 import { DateInput } from '@mantine/dates';
+import { useParams } from 'react-router-dom';
 
-interface Props {
-    id : number
+interface AccessParams {
+    id : string;
 }
 
 export interface loanArrearsInterface {
@@ -36,15 +37,18 @@ export interface loanArrearsSubmitInterfacewitString extends loanArrearsSubmitIn
     arr_cal_date : string;
 }
 
-function ViewLoanArrears({ id }: Props) {
+function ViewLoanArrears() {
 
     const [ loading , setLoading ] = useState<boolean>(true)
     const [ payments , setPayments ] = useState<formValues[]>([])
     const [ arrears , setArrears ] = useState<loanArrearsInterface>()
+    const { id } = useParams<{id : string}>();
+    const loanid = Number(id)
+
 
     const form = useForm({
         initialValues: { 
-            loan_id : id,
+            loan_id : loanid,
             staff : arrears?.staff,
             arr_cal_date : arrears?.arr_cal_date,
             additional_fees : 0
@@ -73,7 +77,7 @@ async function submitArrears(values: loanArrearsSubmitInterfacewitString) {
               await axios.post(API_ENDPOINTS.calculateArrears , values)
               .then(res => {
                     console.log(res.data)
-                    getArrears(id)
+                    getArrears(loanid)
               })
           } catch (error) {
               console.log(error);
@@ -108,18 +112,18 @@ async function getArrears(id : number) {
 }
 
 useEffect(() => {
-    getPayments(id)
-    getArrears(id)
+    getPayments(loanid)
+    getArrears(loanid)
     form.setValues({
-        loan_id : id,
+        loan_id : loanid,
         staff : arrears?.staff,
         arr_cal_date : arrears?.arr_cal_date
     })
     setLoading(false)
-}, [id])
+}, [loanid])
 
   return (
-    <div>{loading ? <Loader variant='dots'/> : 
+    <div>{loading || !id ? <Loader variant='dots'/> : 
         
     <div>
         <h3>Arrears</h3>

@@ -4,11 +4,8 @@ import { useEffect, useState } from "react";
 import { TableScrollArea } from "./Tables/Table";
 import { Button, Group } from "@mantine/core";
 import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
-
-interface Props {
-  id : number
-}
 
 export interface formValues {
   payment_amount: number;
@@ -21,10 +18,12 @@ export interface formValues {
 }
   
 
-function LoanPayments({ id }: Props) {
+function LoanPayments() {
 
   const [ paymentValues , setPaymentValues ] = useState<formValues[]>([])
   const [ loading , setLoading ] = useState<boolean>(true)
+  const { id } = useParams<{id : string}>()
+  const loanid = Number(id)
   
   async function getPayments(id : number) {
     try {
@@ -45,7 +44,7 @@ function LoanPayments({ id }: Props) {
 
   useEffect(() => {
    
-    getPayments(id)
+    getPayments(loanid)
   }, [])
   
   useEffect(() => {
@@ -58,11 +57,11 @@ function LoanPayments({ id }: Props) {
   //TODO : Principal is not getting
   return (
     <div>
-      {loading ? <div>Loading...</div> :
+      {loading || !id? <div>Loading...</div> :
       <div>
         <TableScrollArea data={paymentValues} headers={['payment_amount' , 'payment_date' , 'interest' , 'principal' , 'balance']}/>
         <Group position="right">
-          <Link to='/arrears/one'>
+          <Link to={`/arrears/one/${loanid}`}>
           <Button>Arrears</Button>
           </Link>
         </Group>

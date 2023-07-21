@@ -1,12 +1,10 @@
 import { useForm,  isEmail, hasLength } from '@mantine/form';
-import { Button, Group, TextInput, Box , Input , PasswordInput  , Grid, Container } from '@mantine/core';
+import { Button, Group, TextInput, Box , Input , PasswordInput  , Grid, FileInput } from '@mantine/core';
 import { useId , useDisclosure } from '@mantine/hooks';
 import { IMaskInput } from 'react-imask';
 import { DatePickerInput } from '@mantine/dates';
 import axios from 'axios';
 import { API_ENDPOINTS } from '../api';
-import { ImageDropzone } from '../Components/ImageDropzone';
-import Demo from '../Components/DropZone';
 
 interface usertypeData {
   username: string;
@@ -24,6 +22,7 @@ interface loanData {
   telephone2: string;
   nicnumber: string;
   address: string;
+  profileimage: File;
 }
 
 export interface customerFormData {
@@ -37,6 +36,7 @@ export interface customerFormData {
   username: string;
   password: string;
   address: string;
+  profileimage?: File;
 }
 
 
@@ -56,26 +56,37 @@ function AddCustomersPage() {
     return undefined;
   };
 
-  function convertFormData(values:customerFormData) : loanData {
-    
-    const data : loanData = {
-      user : {
-        username : values.username,
-        password : values.password,
-        email : values.email,
-        usertype : "customer",
-      },
-      surname : values.surname,
-      name : values.name,
-      dateofbirth : values.dateofbirth.toISOString().slice(0,10),
-      telephone1 : values.telephone1,
-      telephone2 : values.telephone2,
-      nicnumber : values.nicnumber,
-      address : values.address,
+  function convertFormData(values: customerFormData): FormData {
+    const formData = new FormData();
+  
+    // Append the properties of the "user" object separately
+    formData.append('username', values.username);
+    formData.append('password', values.password);
+    formData.append('email', values.email);
+    formData.append('usertype', 'customer');
+  
+    formData.append('surname', values.surname);
+    formData.append('name', values.name);
+    formData.append('dateofbirth', values.dateofbirth.toISOString().slice(0, 10));
+    formData.append('telephone1', values.telephone1);
+    formData.append('telephone2', values.telephone2);
+    formData.append('nicnumber', values.nicnumber);
+    formData.append('address', values.address);
+  
+    if (values.profileimage) {
+      formData.append('profileimage', values.profileimage);
     }
-    return data;
+  
+    return formData;
   }
+  
 
+  function logFormData(formData : FormData) {
+    for (const pair of formData.entries()) {
+      console.log(pair[0], pair[1]);
+    }
+  }
+  
 
   const form = useForm<customerFormData>({
 
@@ -90,6 +101,7 @@ function AddCustomersPage() {
       username: '',
       password: '',
       address: '',
+      profileimage: new File([], ''),
     },
 
     validate: {
@@ -107,12 +119,17 @@ function AddCustomersPage() {
 
   const handleSubmit = (values : customerFormData) => {
     const data = convertFormData(values);
-    console.log(data);
-    axios.post(API_ENDPOINTS.addCustomer, data)
-    .then(res => {
-        console.log(res.data);
-        form.reset();
-    });
+    logFormData(data);
+    axios
+      .post(API_ENDPOINTS.addCustomer, data , {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      })
+      .then(res => {
+          console.log(res.data);
+          form.reset();
+      });
   }
 
   return (
@@ -157,9 +174,8 @@ function AddCustomersPage() {
     />
 
       <TextInput label="NIC number" placeholder="NIC number" withAsterisk {...form.getInputProps('nicnumber')} mt="md"/>
-      <Container mt='xl'>
-        <Demo/>
-      </Container>
+      <FileInput label="Customer's Image" placeholder="Upload files" accept="image/png,image/jpeg" mt="md" withAsterisk {...form.getInputProps('profileimage')}/>
+        {/* <Demo/> */}
     
 
       </Grid.Col>
