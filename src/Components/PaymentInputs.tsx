@@ -1,4 +1,4 @@
-import { Box, Button, TextInput } from '@mantine/core';
+import { Box, Button, Group, TextInput } from '@mantine/core';
 import { DatePickerInput } from '@mantine/dates';
 import { useForm } from '@mantine/form';
 import axios from 'axios';
@@ -7,6 +7,9 @@ import { useState } from 'react';
 import React, { useRef } from 'react';
 import ReactToPrint from 'react-to-print';
 import { Recipts } from './Recipts';
+import { Link } from 'react-router-dom';
+import Invoice from './Invoice';
+import { useNavigate } from 'react-router-dom';
 
 type PaymentInputsProps = {
     id : number;
@@ -26,9 +29,9 @@ type formValuesDateStr = {
 }
 
 function PaymentInputs({id , onsubmit}: PaymentInputsProps) {
-
-    const componentRef = useRef();
     const [ clicked , setClicked ] = useState(false)
+    const Navigate = useNavigate()
+    const [ invoice , setInvoice ] = useState(false)
 
     const form = useForm({
         initialValues: { payment_amount: 0 , payment_date: new Date() , loan_number: id },
@@ -69,26 +72,20 @@ function PaymentInputs({id , onsubmit}: PaymentInputsProps) {
             console.log(error);
         }
     }
-
-        const reciptsRef = useRef(null);
-      
-        const handlePrint = () => {
-          const reciptsContent = reciptsRef.current;
-          if (reciptsContent) {
-            window.print();
-          }
-        };
   return (
     <div>
-        <button onClick={handlePrint}>Print</button>
-        <Recipts ref={reciptsRef} />
         <form onSubmit={form.onSubmit(() => handleSubmit(form.values))}>
         <Box mx="lg" mt={"xl"} miw={300}>
         <TextInput mt="sm" label="Payment Amount" placeholder="Payment Amount"  {...form.getInputProps('payment_amount')} withAsterisk />
         <DatePickerInput mt="sm" label="Date" placeholder="Date" valueFormat="YYYY-MMM-DD" dropdownType='modal'{...form.getInputProps('payment_date')} withAsterisk/>
+        <Group mt="sm" position="apart" >
+        <Button type="button" disabled={clicked} variant='filled' mt={'xl'} onClick={() => setInvoice(true)}>
+            Invoice Preview
+        </Button>
         <Button type="submit" disabled={clicked} mt={'xl'}>
             Submit
         </Button>
+        </Group>
         </Box>
         </form>
     </div>

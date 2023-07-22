@@ -6,17 +6,18 @@ import {
   Container,
   Group,
   Button,
-  Burger,
   rem,
+  Text,
+  Space,
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { IconChevronDown } from '@tabler/icons-react';
-import { MantineLogo } from '@mantine/ds';
 import { headerdata } from '../data';
 import { Link } from 'react-router-dom';
 import LightDarkButton from './LightDarkButton';
 import AuthContext from '../Context/AuthContext';
 import { useContext } from 'react';
+import  Logo from '../assets/svg/Logo';
 
 const HEADER_HEIGHT = rem(60);
 
@@ -115,8 +116,9 @@ export function HeaderAction() {
     <Header height={HEADER_HEIGHT} sx={{ borderBottom: 0 }} mb={120}>
       <Container className={classes.inner} fluid>
         <Group>
-          <Burger opened={opened} onClick={toggle} className={classes.burger} size="sm" />
-          <MantineLogo size={28} />
+          <Space w={5}/>
+          <Logo size={50} color='#FCF55F'/>
+          <Text fz={20} color='#FCF55F' fw={'bolder'} ff={'unset'}>Hasaru Enterprises</Text>
         </Group>
         <Group spacing={5} className={classes.links}>
           {items}

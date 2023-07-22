@@ -11,7 +11,7 @@ import {
     Center,
     Box
   } from '@mantine/core';
-  import logo from '../assets/images/logo.svg';
+  import logo from '../assets/svg/logo.svg';
   import { useForm } from '@mantine/form';
   
 

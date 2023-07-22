@@ -2,11 +2,11 @@ import { useEffect, useState } from "react"
 import { loanArrearsInterface,  loanArrearsSubmitInterfacewitString } from "./ViewLoanArrears"
 import axios from "axios"
 import { API_ENDPOINTS } from "../api"
-import { Loader  , Drawer} from "@mantine/core"
+import { Loader  , Drawer, Title, Button, Center} from "@mantine/core"
 import { TableAllLoanArrears } from "../Components/Tables/TableAllLoanArrears"
 import { loanNumbertype } from "../Components/HomePageInputs"
 import { useDisclosure } from "@mantine/hooks"
-import SearchComponents from "../Components/SearchComponentsDrawer"
+import SearchComponents, { filtertypes } from "../Components/SearchComponentsDrawer"
 
 interface trimmedArrearsInterface {
   id: string;
@@ -105,9 +105,8 @@ function ViewAllArrears() {
           arr_cal_date: currentDate,
         });
       });
-      console.log(tempdata);
       const response = await axios.post(API_ENDPOINTS.getAllArrearsOnce, tempdata);
-      alert(response.data);
+      console.log(response.data);
     } catch (error) {
       console.error(error);
     }
@@ -120,13 +119,52 @@ function ViewAllArrears() {
         console.log(loanID);})
   }
 
+  function handlefilter(value: filtertypes): void {
+    let apiurl = API_ENDPOINTS.getAllArrears
+    if (value.location !== '') {
+      apiurl = apiurl + `?location=${value.location}`
+    }
+    if (value.min !== 0) {
+      apiurl = apiurl + `&pricemin=${value.min}`
+    }
+    if (value.max !== 0) {
+      apiurl = apiurl + `&pricemax=${value.max}`
+    }
+    axios.get(apiurl)
+    .then(res => {
+      const tempdata: loanArrearsInterface[] = []
+      res.data.forEach((item: loanArrearsInterface) => {
+        tempdata.push(item)
+      }
+      )
+      setAllArrears(trimLoanArrears(tempdata))
+      console.log(trimLoanArrears(tempdata))
+    })
+  }
+
+  function handleDateSubmit(value: Date): void {
+    console.log(value)
+  }
+
+
   return (
     <div>{loading && !allarrears ? <Loader/> : 
     <div>
       <Drawer opened={opened} onClose={close} title="Search and Filter" size="35%">
-        <SearchComponents/>
+        <SearchComponents
+            onDateSubmit={(value: Date) => handleDateSubmit(value)}
+            onFilterSubmit={(value: filtertypes) => handlefilter(value)}
+            />
       </Drawer>
-      { allarrears.length === 0 ? <h1>No Arrears</h1> : 
+      { allarrears.length === 0 ?
+       <>
+       <Title order={1} style={{textAlign:"center"}}>No Arrears Found</Title>
+       <Center mt={"xl"}>
+       <Button onClick={() => CalculateAllArrears()}>Calculate Arrears</Button>
+       </Center>
+       </> 
+       
+       : 
       <TableAllLoanArrears 
         data={allarrears} 
         onSubmitCalculate={() => CalculateAllArrears()}

@@ -13,7 +13,7 @@ import {
   Grid,
 } from '@mantine/core';
 import { keys } from '@mantine/utils';
-import { IconSelector, IconChevronDown, IconChevronUp, IconSearch } from '@tabler/icons-react';
+import { IconSelector, IconChevronDown, IconChevronUp, IconSearch , IconMenu2 } from '@tabler/icons-react';
 
 const useStyles = createStyles((theme) => ({
   th: {
@@ -131,7 +131,7 @@ export function TableAllLoanArrears({ data , onSubmitCalculate , onClickMore , o
       <td>{row.monthly_payment}</td>
       <td>{row.arr_cal_date}</td>
       <td>{row.monthly_arrears}</td>
-      <td><Button variant='subtle' onClick={ () => onClickMore(row.loan_id)}>More</Button></td>
+      <td><Group position='center'><Button variant='subtle' onClick={ () => onClickMore(row.loan_id)}>More</Button></Group></td>
     </tr>
   ));
 
@@ -139,21 +139,21 @@ export function TableAllLoanArrears({ data , onSubmitCalculate , onClickMore , o
   return (
     <>
       <Grid>
-        <Grid.Col span={10}>
-        <TextInput
-          placeholder="Search by any field"
-          mb="md"
-          icon={<IconSearch size="0.9rem" stroke={1.5} />}
-          value={search}
-          onChange={handleSearchChange}
-        />
-        </Grid.Col>
-        <Grid.Col span={1}>
-          <Button variant='light' onClick={() => onSubmitCalculate() }>Calculate</Button>
-        </Grid.Col>
-        <Grid.Col span={1}>
-          <Button variant='light' onClick={() => onClickAdd() }>Add</Button>
-        </Grid.Col>
+          <Grid.Col span={9}>
+          <TextInput
+            placeholder="Search by any field"
+            mb="md"
+            icon={<IconSearch size="0.9rem" stroke={1.5} />}
+            value={search}
+            onChange={handleSearchChange}
+          />
+          </Grid.Col>
+          <Grid.Col span={1}>
+            <Button variant='light' onClick={() => onSubmitCalculate() }>Calculate</Button>
+          </Grid.Col>
+          <Grid.Col span={1}>
+            <Button variant='light' onClick={() => onClickAdd() } leftIcon={<IconMenu2/>}>Sort Arrears</Button>
+          </Grid.Col>
       </Grid>
       <Table horizontalSpacing="md" verticalSpacing="xs" miw={700} sx={{ tableLayout: 'fixed' }}>
         <thead>
