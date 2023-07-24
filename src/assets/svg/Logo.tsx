@@ -18,6 +18,7 @@ const Logo = ({size , color} : Props) => {
         transform="translate(0.000000,225.000000) scale(0.100000,-0.100000)"
         fill={color}
         stroke="none"
+
       >
         <path d="M1398 1743 c7 -3 16 -2 19 1 4 3 -2 6 -13 5 -11 0 -14 -3 -6 -6z" />
         <path

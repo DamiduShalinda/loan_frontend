@@ -6,6 +6,7 @@ import { IconCheck } from '@tabler/icons-react';
 import axios from 'axios';
 import { API_ENDPOINTS} from '../api';
 import jwtDecode from 'jwt-decode';
+import { Link } from 'react-router-dom';
 
 
 type UserType ={
@@ -54,6 +55,7 @@ function SearchComponents({ onDateSubmit, onFilterSubmit }: inputProps) {
                 setUser(jwtDecode(res.data.access))
                 if (user?.is_collector == true) {
                     setDisabled(false)
+
                 }
             }else {
                 console.log("error")
@@ -155,7 +157,9 @@ function SearchComponents({ onDateSubmit, onFilterSubmit }: inputProps) {
     </Group>
     </form>
     <Group position='right' mt='xl'>
+        <Link to={`/viewarrearscard/${user?.user_id}/${date}`}>
         <Button type='submit' variant='outline' color='blue' onClick={() => {date && onDateSubmit(date)}} disabled={disabled}>Submit</Button>
+        </Link>
     </Group>
     </Container>
     </div>

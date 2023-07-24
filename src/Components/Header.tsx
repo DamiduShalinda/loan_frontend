@@ -59,7 +59,12 @@ const useStyles = createStyles((theme) => ({
   linkLabel: {
     marginRight: rem(5),
   },
-}));
+
+  logo : {
+    color : theme.colorScheme === 'dark' ? '#FCF55F' : theme.colors.gray[9],
+  },
+}
+));
 
 interface HeaderActionProps {
   links: { link: string; label: string; links: { link: string; label: string }[] }[];
@@ -117,8 +122,8 @@ export function HeaderAction() {
       <Container className={classes.inner} fluid>
         <Group>
           <Space w={5}/>
-          <Logo size={50} color='#FCF55F'/>
-          <Text fz={20} color='#FCF55F' fw={'bolder'} ff={'unset'}>Hasaru Enterprises</Text>
+          <Logo size={45} color='#FCF55F'/>
+          <Text fz={20} className={classes.logo} fw={'bolder'} ff={'unset'}>Hasaru Enterprises</Text>
         </Group>
         <Group spacing={5} className={classes.links}>
           {items}

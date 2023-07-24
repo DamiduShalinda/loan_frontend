@@ -4,12 +4,7 @@ import { useForm } from '@mantine/form';
 import axios from 'axios';
 import { API_ENDPOINTS } from '../api';
 import { useState } from 'react';
-import React, { useRef } from 'react';
-import ReactToPrint from 'react-to-print';
-import { Recipts } from './Recipts';
-import { Link } from 'react-router-dom';
-import Invoice from './Invoice';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 type PaymentInputsProps = {
     id : number;
@@ -30,6 +25,7 @@ type formValuesDateStr = {
 
 function PaymentInputs({id , onsubmit}: PaymentInputsProps) {
     const [ clicked , setClicked ] = useState(false)
+    const [ preview , setPreview ] = useState(true)
     const Navigate = useNavigate()
     const [ invoice , setInvoice ] = useState(false)
 
@@ -53,6 +49,7 @@ function PaymentInputs({id , onsubmit}: PaymentInputsProps) {
         updateLoan(valuesDateStr);
         setClicked(true);
         onsubmit && onsubmit(valuesDateStr);
+        setPreview(false);
         
     }
 
@@ -66,7 +63,7 @@ function PaymentInputs({id , onsubmit}: PaymentInputsProps) {
         try {
             await axios.post(API_ENDPOINTS.addPayment, values)
             .then(res => {
-                alert("Date :" + res.data.payment_date + "\nAmount : " + res.data.payment_amount + "\nLoan Number : " + res.data.loan_number);
+                Navigate(`/viewinvoice/${values.payment_amount}/${values.payment_date}/${values.loan_number}`)
             })
         } catch (error) {
             console.log(error);
@@ -79,9 +76,11 @@ function PaymentInputs({id , onsubmit}: PaymentInputsProps) {
         <TextInput mt="sm" label="Payment Amount" placeholder="Payment Amount"  {...form.getInputProps('payment_amount')} withAsterisk />
         <DatePickerInput mt="sm" label="Date" placeholder="Date" valueFormat="YYYY-MMM-DD" dropdownType='modal'{...form.getInputProps('payment_date')} withAsterisk/>
         <Group mt="sm" position="apart" >
-        <Button type="button" disabled={clicked} variant='filled' mt={'xl'} onClick={() => setInvoice(true)}>
+        <Link to={`/viewinvoice/${form.values.payment_amount}/${convertDateToString(form.values.payment_date)}/${form.values.loan_number}.`}>
+        <Button type="button" variant='filled' mt={'xl'} onClick={() => setInvoice(true)} disabled={preview}>
             Invoice Preview
         </Button>
+        </Link>
         <Button type="submit" disabled={clicked} mt={'xl'}>
             Submit
         </Button>

@@ -12,7 +12,6 @@ function Layout({children} : LayoutProps) {
   return (
     <AppShell
     header={<HeaderAction/>}
-    // footer={<Footer links={footerLinks}/>}
     navbar={<NavbarMinimal/>}
     layout='default'
     >

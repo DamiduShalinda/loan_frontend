@@ -14,7 +14,9 @@ import ViewAllLoans from "./Pages/ViewAllLoans";
 import LoanPayments from "./Components/LoanPayments";
 import ViewLoanArrears from "./Pages/ViewLoanArrears";
 import ViewAllArrears from "./Pages/ViewAllArrears";
-import Invoice from "./Components/Invoice";
+import LightThemeWrapper from "./Components/LightThemeWrapper";
+import InvoicePrint from "./Pages/InvoicePrint";
+import ArrearsCardPrint from "./Pages/ArrearsCardPrint";
 
 function AppRouter() {
 //TODO : need to pass the id of the loan to the view loan arrears page
@@ -95,10 +97,21 @@ function AppRouter() {
                   } 
                 />
         <Route path="*" element={<h1>404</h1>} />
-        <Route path='/viewinvoice'
+        <Route path='/viewinvoice/:payment_amount/:payment_date/:loan_number'
                 element={
                   <Protected>
-                  <Invoice companyName={"Hasaru Enterprices"} companyAddress={"Polonnaruwa"} customerName={"Damidu"} customerAddress={"Jayanthipura"} loanNumber={"2019-001-71"} payingAmount={50000} date={"2023-07-21"} />
+                  <LightThemeWrapper>
+                  <InvoicePrint/>
+                  </LightThemeWrapper>
+                  </Protected>
+                  }  
+                />           
+        <Route path='/viewarrearscard/:id/:date'
+                element={
+                  <Protected>
+                  <LightThemeWrapper>
+                  <ArrearsCardPrint/>
+                  </LightThemeWrapper>
                   </Protected>
                   }  
                 />           

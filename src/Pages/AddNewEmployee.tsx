@@ -1,6 +1,11 @@
 import { useForm } from '@mantine/form';
-import { NumberInput, TextInput, Button, Box, Group, PasswordInput, Checkbox } from '@mantine/core';
+import { Modal, TextInput, Button, Box, Group, PasswordInput, Checkbox, Divider } from '@mantine/core';
 import { DatePickerInput } from '@mantine/dates';
+import { useDisclosure } from '@mantine/hooks';
+import axios from 'axios';
+import { API_ENDPOINTS } from '../api';
+import { useState } from 'react';
+import jwtDecode from 'jwt-decode';
 
 interface staffinterface {
   name: string;
@@ -16,9 +21,16 @@ interface staffinterface {
   usertype: string;
 }
 
+type userType = {
+  username: string;
+  user_id: number;
+  is_manager: boolean;
+}
+
 function AddNewEmployee() {
 
-  
+  const [opened, { open, close }] = useDisclosure(true);
+  const [ user , setUser ] = useState<userType>()
   const form = useForm<staffinterface>({
     initialValues: { 
       name: '', 
@@ -41,8 +53,54 @@ function AddNewEmployee() {
     },
   });
 
+  const authform = useForm({
+    initialValues: {
+        username: '',
+        password: '',
+    },
+});
+
+function handleSubmitValidation(): void {
+  axios.post(API_ENDPOINTS.getUser, form.values)
+   .then(res => {
+       if (res.status == 200) {
+           setUser(jwtDecode(res.data.access))
+           if (user?.is_manager == true) {
+               close()
+           }
+       }else {
+           console.log("error")
+       }
+   })
+}
+
   return (
     <>
+      <Modal opened={opened} withCloseButton={false}  onClose={close} title="Authentication" centered closeOnClickOutside={false}>
+      <form onSubmit={authform.onSubmit(handleSubmitValidation)}>
+    <Divider mt="xl" label="Enter password of a collector" labelPosition='center'/>
+     <TextInput
+        placeholder="username"
+        label="Full name"
+        withAsterisk
+        mt={'md'}
+        {...form.getInputProps('username')}
+    />
+    <PasswordInput
+        placeholder="Password"
+        label="Password"
+        withAsterisk
+        mt={'md'}
+        {...form.getInputProps('password')}
+    />
+    <Group position='right' mt='xl'>
+        <Button 
+            type='submit' 
+            variant='outline'
+                >Submit User</Button>
+    </Group>
+    </form>
+      </Modal>
       <Box maw='35%' mx="auto">
       <form onSubmit={form.onSubmit(console.log)}>
         <TextInput label="Name" placeholder="Name" {...form.getInputProps('name')} withAsterisk />
@@ -54,8 +112,8 @@ function AddNewEmployee() {
             label="Pick date"
             placeholder="Pick date"
             mx="auto"
-            maw={400}
             mt="md"
+            withAsterisk
             {...form.getInputProps('dateofbirth')}
             />
         <TextInput mt="md" label="NIC Number" placeholder="NIC Number" {...form.getInputProps('nicnumber')}  withAsterisk/>

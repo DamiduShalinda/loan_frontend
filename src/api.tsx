@@ -16,6 +16,9 @@ export const API_ENDPOINTS = {
   calculateArrears: `${API_BASE_URL}/arrears/add`,
   getAllArrears: `${API_BASE_URL}/arrears/getall`,
   getAllArrearsOnce: `${API_BASE_URL}/arrears/calall`,
+  getOneCustomer: (id: number) => `${API_BASE_URL}/customers/getone/${id}`,
+  getArrearsByStaff : (name : string) => `${API_BASE_URL}/arrears/getbystaff/?staff=${name}`,
+  getStaffId : (id : number) => `${API_BASE_URL}/staff/get/${id}`,
   
   // Add more API endpoints as needed
 };
