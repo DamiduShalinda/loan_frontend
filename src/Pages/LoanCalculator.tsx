@@ -66,6 +66,7 @@ function LoanCalculator() {
       const totalMonths = loanYears * 12 + loanMonths
       let monthlyRental = PMT(interestRate, totalMonths, -300000, 0, 0)
       monthlyRental = ROUND(monthlyRental, 2)
+      let remainder = loanAmount
   
       const tempMonthlyPayment: MonthlyPayment[] = [];
   
@@ -79,9 +80,10 @@ function LoanCalculator() {
           month: index,
           monthlyInterest: monthlyInterest,
           monthlyCapital: monthlyCapital,
-          remainder: loanAmount - monthlyCapital
+          remainder: ROUND(remainder, 2)
         }
         
+        remainder = ROUND(remainder - monthlyCapital, 2)
         tempMonthlyPayment.push(payment)
   
         

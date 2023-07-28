@@ -1,4 +1,4 @@
-import { createStyles, Overlay, Container, Title, Button, Text, rem  , Flex  , Anchor , BackgroundImage} from '@mantine/core';
+import { createStyles, Overlay, Container, Title, Button, Text, rem  , Flex  , Anchor} from '@mantine/core';
 import { LogInField } from '../Components/LogInField';
 import AuthContext from '../Context/AuthContext'
 import { useContext} from 'react';

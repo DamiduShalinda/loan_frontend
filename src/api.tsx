@@ -6,7 +6,7 @@ export const API_ENDPOINTS = {
   addCustomer: `${API_BASE_URL}/users/customer/add`,
   getCustomers: `${API_BASE_URL}/customers/getcustomers`,
   getCustomername: `${API_BASE_URL}/customers/getnames`,
-  addLoan: `${API_BASE_URL}/loans/addloans`,
+  addLoan: `${API_BASE_URL}/loans/add`,
   getLoans: `${API_BASE_URL}/loans/getall`,
   getMoreDetails: (id: number) => `${API_BASE_URL}/loans/get/${id}`,
   getAllLoans: `${API_BASE_URL}/loans/allnumbers`,

@@ -52,6 +52,7 @@ function LoanCalculatorInputs({ onSubmit }: Props) {
           label="Loan Amount"
           placeholder="Loan Amount"
           min={0}
+          max={1000000}
           hideControls
           withAsterisk
           {...form.getInputProps('loanAmount')}
@@ -71,7 +72,7 @@ function LoanCalculatorInputs({ onSubmit }: Props) {
           label="Loan Years"
           placeholder="Loan Years"
           min={0}
-          max={99}
+          max={4}
           hideControls
           withAsterisk
           {...form.getInputProps('loanyears')}

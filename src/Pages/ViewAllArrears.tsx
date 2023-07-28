@@ -7,6 +7,8 @@ import { TableAllLoanArrears } from "../Components/Tables/TableAllLoanArrears"
 import { loanNumbertype } from "../Components/HomePageInputs"
 import { useDisclosure } from "@mantine/hooks"
 import SearchComponents, { filtertypes } from "../Components/SearchComponentsDrawer"
+import { notifications } from "@mantine/notifications"
+import { IconCheck } from '@tabler/icons-react'; 
 
 interface trimmedArrearsInterface {
   id: string;
@@ -107,6 +109,13 @@ function ViewAllArrears() {
       });
       const response = await axios.post(API_ENDPOINTS.getAllArrearsOnce, tempdata);
       console.log(response.data);
+      notifications.show({
+        title: 'Success !',
+        message: 'All Arrears Calculated Successfully',
+        color: 'red',
+        autoClose: 5000,
+        icon : <IconCheck/>
+    })
     } catch (error) {
       console.error(error);
     }
