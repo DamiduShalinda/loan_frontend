@@ -6,6 +6,7 @@ import { TableSort } from "../Components/Tables/TableSortLoans";
 import { useDisclosure } from '@mantine/hooks';
 import LoanView from "../Components/LoanView";
 import { userDatatype } from "../Components/HomePageInputs";
+import { useNavigate } from "react-router-dom";
 
 type loanDatatypefromAPI = {
   loan_id: string;
@@ -25,10 +26,10 @@ type loanDatatype = {
 
 function ViewAllLoans() {
       
-  const [opened, { open, close }] = useDisclosure(false);
   const [ loansDetails , setLoanDetails ] = useState<loanDatatype[]>([])
   const [ loading , setLoading ] = useState<boolean>(true)
   const [ userId , setUserId ] = useState<number>()
+  const navigate = useNavigate()
 
   
   useEffect(() => {
@@ -63,7 +64,7 @@ function ViewAllLoans() {
   
 
   function handleSubmit(id: number) {
-    open()
+    navigate(`/arrears/one/${id}`)
     setUserId(id)
   }
 
@@ -77,11 +78,6 @@ function ViewAllLoans() {
      :
     <div>
       <TableSort data ={loansDetails} onSubmit={handleSubmit} />
-      <Modal opened={opened} onClose={close} title="Detailed Loan View" centered size="55%">
-        {userId &&
-        <LoanView id={userId}/>
-        }
-      </Modal>
     </div>
           }
     </>

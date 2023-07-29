@@ -9,6 +9,7 @@ import {
   Center,
   TextInput,
   rem,
+  Button,
 } from '@mantine/core';
 import { keys } from '@mantine/utils';
 import { IconSelector, IconChevronDown, IconChevronUp, IconSearch } from '@tabler/icons-react';
@@ -122,11 +123,12 @@ export function TableSort({ data , onSubmit }: TableSortProps) {
   };
 
   const rows = sortedData.map((row) => (
-    <tr key={row.loan_id}  onClick={() => {onSubmit(parseInt(row.loan_id))}}>
+    <tr key={row.loan_id}>
       <td>{row.username}</td>
       <td>{row.loaned_date}</td>
       <td>{row.branch_location}</td>
       <td>{row.loaned_amount}</td>
+      <td><Button variant='subtle' onClick={() => onSubmit(parseInt(row.loan_id))}>More</Button></td>
     </tr>
   ));
 

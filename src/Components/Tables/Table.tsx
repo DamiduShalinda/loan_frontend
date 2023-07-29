@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { createStyles, Table, ScrollArea, rem } from '@mantine/core';
+import { createStyles, Table, ScrollArea, rem, Center } from '@mantine/core';
 
 const useStyles = createStyles((theme) => ({
   header: {
@@ -45,9 +45,10 @@ export function TableScrollArea({ data , headers }: TableScrollAreaProps) {
 
   return (
     <ScrollArea h={300} onScrollPositionChange={({ y }) => setScrolled(y !== 0)}>
-      <Table miw={700}>
+      <Center>
+      <Table maw={1100}  withColumnBorders>
         <thead className={cx(classes.header, { [classes.scrolled]: scrolled })}>
-          <tr >
+          <tr>
             {headers.map((header , index) => (
                 <th key={index} style={{textTransform : 'capitalize'}}>{header}</th>
                 )
@@ -56,6 +57,7 @@ export function TableScrollArea({ data , headers }: TableScrollAreaProps) {
         </thead>
         <tbody>{rows}</tbody>
       </Table>
+      </Center>
     </ScrollArea>
   );
 }

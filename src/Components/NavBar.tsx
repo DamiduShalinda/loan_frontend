@@ -65,7 +65,7 @@ const mockdata = [
   { icon: IconCalendarStats, label: 'Releases' , to: '/releases'},
   { icon: IconUser, label: 'Account' , to: '/account'},
   { icon: IconCalculator, label: 'Calculator' , to: '/loancalculator'},
-  { icon: IconSettings, label: 'Settings' , to: '/settings'},
+  { icon: IconSettings, label: 'Settings' , to: 'http://127.0.0.1:8000/admin/'},
 ];
 
 export function NavbarMinimal() {

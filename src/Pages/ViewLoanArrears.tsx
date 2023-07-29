@@ -1,23 +1,24 @@
 import { useEffect, useState } from 'react'
-import { Loader , Grid  , Button , Box , NumberInput, Group} from '@mantine/core'
+import { Loader , Grid  , Button , Box , NumberInput, Group, Divider , Space, Title, List} from '@mantine/core'
 import { formValues } from '../Components/LoanPayments'
 import { API_ENDPOINTS } from '../api';
 import axios from 'axios';
 import { TableScrollArea } from '../Components/Tables/Table';
 import { useForm } from '@mantine/form';
 import { DateInput } from '@mantine/dates';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 
 export interface loanArrearsInterface {
     id : number;
     monthly_payment : number;
     loan_id : string;
-    staff : number;
+    staff : string;
     loan_values: number;
     additional_fees : number;
     monthly_arrears : number;
     arr_cal_date : string;
+    customer_id : number;
 }
 
  interface loanArrearsSubmitInterfaceBasic {
@@ -117,23 +118,30 @@ useEffect(() => {
         arr_cal_date : arrears?.arr_cal_date
     })
     setLoading(false)
-}, [loanid])
+}, [loanid , ])
 
   return (
     <div>{loading || !id ? <Loader variant='dots'/> : 
         
     <div>
-        <h3>Arrears</h3>
         <h2>Loan ID : {arrears?.loan_id}</h2>
         <Grid>
-            <Grid.Col span={7}>
+            <Grid.Col span={6}>
                 {arrears?.loan_id ? 
             <div>
-                <h4>Monthly Payment : {arrears?.monthly_payment}</h4>
-                <h4>Monthly Arrears : {arrears?.monthly_arrears}</h4>
-                <h4>Arrears Calculation Date : {arrears?.arr_cal_date}</h4>
-                <h4>Additional Fees : {arrears?.additional_fees ? arrears.additional_fees : "none"}</h4>
-                <h4>Staff : {arrears?.staff}</h4>
+                <List mt={'md'}>
+                    <List.Item mb={'1vh'}><b>Monthly Payment : </b>{arrears?.monthly_payment}</List.Item>
+                    <List.Item mb={'1vh'}><b>Additional Fees : </b>{arrears?.additional_fees}</List.Item>
+                    <List.Item mb={'1vh'}><b>Monthly Arrears : </b>{arrears?.monthly_arrears}</List.Item>
+                    <List.Item mb={'1vh'}><b>Arrears Calculation Date : </b>{arrears?.arr_cal_date}</List.Item>
+                    <List.Item mb={'1vh'}><b>Assigned Staff : </b>{arrears?.staff}</List.Item>
+                </List>
+                <Group>
+                    <Link to={`/customer/${arrears?.customer_id}`}>
+                        <Button variant='outline' color='blue' mt={'md'} ml={'xl'}>View Customer Details</Button>
+                    </Link>
+                </Group>
+                
             </div>
                 : <h4>No Arrears Calculated</h4>}
             </Grid.Col>
@@ -169,7 +177,8 @@ useEffect(() => {
             <Grid.Col span={1}>
             </Grid.Col>
         </Grid>
-        <h3>Payments</h3>
+        <Divider label="ALL PAYMENTS" labelPosition='center' />
+        <Space h="lg" />
         <TableScrollArea data={payments} headers={['payment_amount' , 'payment_date' , 'interest' , 'principal' , 'balance']}/>
     </div>
     }

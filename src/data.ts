@@ -69,6 +69,10 @@ export const headerdata = [
       {
         "link": "/loans/viewall",
         "label": "View All Loans"
+      },
+      {
+        "link": "/viewallarrears",
+        "label": "View All Arrears"
       }
     ]
   },
@@ -101,17 +105,18 @@ export const headerdata = [
     ]
   },
   {
-    "link": "#2",
-    "label": "Contact",
+    "link": "#",
+    "label": "Reports",
     "links": [
       {
-        "link": "/faq",
-        "label": "All Branches"
+        "link": "/reports/addnew",
+        "label": "Monthly Reports"
       },
       {
-        "link": "/demo",
-        "label": "All officers"
+        "link": "/reports/viewall",
+        "label": "Yearly Reports"
       }
     ]
-  }
+  },
+  
 ]

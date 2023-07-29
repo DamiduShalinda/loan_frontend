@@ -9,6 +9,7 @@ import { useDisclosure } from "@mantine/hooks"
 import SearchComponents, { filtertypes } from "../Components/SearchComponentsDrawer"
 import { notifications } from "@mantine/notifications"
 import { IconCheck } from '@tabler/icons-react'; 
+import { useNavigate } from "react-router-dom"
 
 interface trimmedArrearsInterface {
   id: string;
@@ -27,7 +28,8 @@ function ViewAllArrears() {
   const today = new Date()
   const currentDate = today.toISOString().split('T')[0]
   const [opened, { open, close }] = useDisclosure(false);
-  
+  const navigate = useNavigate()
+
   
   async function getAllArrears() {
     await axios.get(API_ENDPOINTS.getAllArrears)
@@ -125,7 +127,8 @@ function ViewAllArrears() {
   function handleClickMore(id: string) {
     findLoanIDByNumber(id)
       .then((loanID) => {
-        console.log(loanID);})
+        navigate(`/arrears/one/${loanID}`);
+      })
   }
 
   function handlefilter(value: filtertypes): void {

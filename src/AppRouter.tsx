@@ -17,6 +17,8 @@ import ViewAllArrears from "./Pages/ViewAllArrears";
 import LightThemeWrapper from "./Components/LightThemeWrapper";
 import InvoicePrint from "./Pages/InvoicePrint";
 import ArrearsCardPrint from "./Pages/ArrearsCardPrint";
+import ViewOneCustomer from "./Pages/ViewOneCustomer";
+import { NothingFoundBackground } from "./Pages/404Page";
 
 function AppRouter() {
 //TODO : need to pass the id of the loan to the view loan arrears page
@@ -96,7 +98,14 @@ function AppRouter() {
                   </Protected>
                   } 
                 />
-        <Route path="*" element={<h1>404</h1>} />
+        <Route path="/customer/:id" 
+                element={
+                  <Protected>
+                  <Layout><ViewOneCustomer/></Layout>
+                  </Protected>
+                  } 
+                />
+        <Route path="*" element={<NothingFoundBackground/>} />
         <Route path='/viewinvoice/:payment_amount/:payment_date/:loan_number'
                 element={
                   <Protected>

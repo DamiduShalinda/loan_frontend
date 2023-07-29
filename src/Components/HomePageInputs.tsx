@@ -2,7 +2,7 @@ import axios from 'axios'
 import { API_ENDPOINTS } from '../api'
 import { useEffect, useState } from 'react'
 import { useForm } from '@mantine/form';
-import {  Button , Box, Autocomplete    ,LoadingOverlay} from '@mantine/core';
+import {  Button , Box, Autocomplete    ,LoadingOverlay, Group, Space , Text, Center} from '@mantine/core';
 
 export type userDatatype = {
   name: string ,
@@ -23,15 +23,17 @@ type formValues = {
 
 type Inputprops = {
     onSubmit: (id : number) => void;
+    onClickPayment: () => void;
 }
 
-function HomepageInputs( {onSubmit} : Inputprops ) {
+function HomepageInputs( {onSubmit , onClickPayment} : Inputprops ) {
 
   const [ loading , setLoading ] = useState<boolean>(true)
   const [ loanNumbers , setLoanNumbers ] = useState<loanNumbertype[]>([])
   const [ usernames , setUsernames ] = useState<string[]>([])
   const [ loan_numbers , setLoan_numbers ] = useState<string[]>([])
   const [ loanID , setloanId] = useState<number>()
+  const [ haveId , setHaveId] = useState<boolean>(false)
 
   const form = useForm({
     initialValues: { username: '', loan_number: '' },
@@ -89,17 +91,31 @@ async function getLoanNumbers() {
       findbyUsername(values.username)
     if(values.loan_number !== '')
       findbyLoanNumber(values.loan_number)
-
-    if(loanID)
-        onSubmit(loanID)
   }
+
+  function handleClickPayment() {
+    onClickPayment()
+  }
+
+  useEffect(() => {
+    async function submitForm() {
+      if (loanID) {
+        onSubmit(loanID);
+        form.reset();
+        setHaveId(true)
+      }
+    }
+
+    submitForm();
+  }, [loanID]);
 
   return (
     <>
       {loading ? <LoadingOverlay visible={loading}/> :
       
         <Box maw={320} mx="auto" my="20%">
-          <form onSubmit={form.onSubmit(() => {handleSubmit(form.values)})}>
+          <Text>Enter Customers Name or Loan ID for a Payment</Text>
+          <form onSubmit={form.onSubmit(handleSubmit)}>
         <Autocomplete
           mt='xl'
           label="Customers username"
@@ -115,9 +131,16 @@ async function getLoanNumbers() {
           {...form.getInputProps('loan_number')}
         />
         
-        <Button type="submit" mt="xl">
+        <Center><Button type="submit" mt="xl">
           Search
+        </Button></Center>
+        <Space h="4vh"/>
+        { haveId && 
+        <Group><Button  color='green' radius='sm' w='110vh' h='8vh' onClick={handleClickPayment}>
+          <Text size={'md'}>Proceed to a Payment</Text>
         </Button>
+        </Group>}
+        
       </form>
     </Box>
     }
