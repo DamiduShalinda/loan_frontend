@@ -39,6 +39,7 @@ export interface customerFormData {
   password: string;
   address: string;
   profileimage?: File;
+  is_active: boolean;
 }
 
 
@@ -104,10 +105,11 @@ function AddCustomersPage() {
       password: '',
       address: '',
       profileimage: new File([], ''),
+      is_active: false,
     },
 
     validate: {
-      surname: hasLength({ min: 2, max: 10 }, 'Name must be 2-10 characters long'),
+      surname: hasLength({ min: 2, max: 30 }, 'Name must be 2-10 characters long'),
       name: hasLength({ min: 2, max: 50 }, 'Name must be 2-50 characters long'),
       email: isEmail('Invalid email'),
       // telephone1: hasLength(15, 'Phone number must be 10 characters long'),
@@ -132,7 +134,7 @@ function AddCustomersPage() {
           form.reset();
           notifications.show({
             title: 'Success',
-            message: 'New Customer Added Successfully',
+            message: 'New Customer Added ...Submitted for approval',
             icon: <IconCheck />,
           })
       });

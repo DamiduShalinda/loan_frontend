@@ -10,7 +10,6 @@ import {
   Text,
   Space,
 } from '@mantine/core';
-import { useDisclosure } from '@mantine/hooks';
 import { IconChevronDown } from '@tabler/icons-react';
 import { headerdata } from '../data';
 import { Link } from 'react-router-dom';
@@ -65,9 +64,6 @@ const useStyles = createStyles((theme) => ({
 }
 ));
 
-interface HeaderActionProps {
-  links: { link: string; label: string; links: { link: string; label: string }[] }[];
-}
 
 export function HeaderAction() {
 
@@ -77,7 +73,6 @@ export function HeaderAction() {
 
 
   const { classes } = useStyles();
-  const [opened, { toggle }] = useDisclosure(false);
   const items = headerdata.map((link) => {
     const menuItems = link.links?.map((item) => (
       <Link to={item.link} key={item.link} style={{textDecoration : 'none'}}>

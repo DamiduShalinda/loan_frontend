@@ -8,6 +8,7 @@ import { API_ENDPOINTS } from "../api";
 import { notifications  } from '@mantine/notifications'; 
 import { IconX } from '@tabler/icons-react';
 
+
 type AuthContextProps = {
   contextData: {
     user: any;
@@ -45,18 +46,19 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({
   const Navigate = useNavigate()
 
   
-const loginUser = (data:FormData) => {
-  axios
+ const loginUser = async (data:FormData) => {
+  await axios
     .post('http://127.0.0.1:8000/users/token/', data)
     .then((response) => {
 
       if (response.status == 200) {
         setAuthTokens(response.data)
         setUser(jwtDecode(response.data.access))
-        console.log("success")
-        console.log(authTokens)
+        console.log(user)
         localStorage.setItem("authTokens", JSON.stringify(response.data)) 
-        Navigate("/homepage")
+        if (user.usertype == "staff") {
+          Navigate("/homepage")
+        }
       }else {
         console.log("error")
         notifications.show({

@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer } from 'recharts';
 import { API_ENDPOINTS } from "../../api";
 import axios, { AxiosResponse } from "axios";
-import { Loader , Center } from "@mantine/core";
+import { Loader , Center, Container , Text } from "@mantine/core";
 
 type chartData = {
   calculated_date : string;
@@ -31,7 +32,29 @@ function Totalloanschart() {
 
   return (
     <div>
-      {loading ? <div><Center><Loader/></Center></div> : <div> Loans Loaded</div>}
+      {loading ? <div><Center><Loader/></Center></div> : 
+        <Container m='auto' mt='7rem'>
+        <Text align='center' mt='3rem' weight={700} size='lg' mb='1rem'>Added Loan Count over Years</Text>
+        <ResponsiveContainer width="100%" height={300}>
+          <LineChart
+            width={500}
+            height={300}
+            data={chartData}
+            margin={{
+              top: 5,
+              right: 30,
+              left: 20,
+              bottom: 5,
+            }}
+          >
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="calculated_date" />
+            <YAxis />
+            <Line type="monotone" dataKey="loan_count" stroke="#8884d8" activeDot={{ r: 5 }} />
+          </LineChart>
+        </ResponsiveContainer>
+      </Container>
+      }
     </div>
   )
 }

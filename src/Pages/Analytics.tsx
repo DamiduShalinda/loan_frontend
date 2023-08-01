@@ -1,4 +1,4 @@
-import { Center , Title  , Text, Loader, Divider, Card, Grid, Box, Space } from "@mantine/core"
+import { Center , Title  , Text, Loader, Divider, Card, Grid, Box, Space, Container } from "@mantine/core"
 import axios, { AxiosResponse } from "axios"
 import { API_ENDPOINTS } from "../api"
 import { useEffect, useState } from "react"
@@ -76,18 +76,17 @@ function Analytics() {
 
   return (
     <Grid>
-        <Grid.Col span={6}>
+        <Grid.Col span={4}>
         <>
         {
           loading ? <Loader/> : <>
           <Text size="2rem" ta={"start"} lts="15" fw={"bolder"}>ANALYTICS </Text>
-          <Text size="1rem" ta={"start"} lts="1" fw={"bolder"}>Reports Created On : {analyticsData?.calculated_date} </Text>
           <Divider size="md" w='25rem' mt='md'/>
-          <Text size="1rem" ta={"start"} lts="1" fw={"bolder"} mb='3rem'>Reports Created On : {analyticsData?.date_requested} </Text>
+          <Text size="1rem" ta={"start"} lts="1" fw={"bolder"} mb='3rem'>{analyticsData?.date_requested} Month Summary</Text>
           <Box w='25rem'>
             <Grid>
               <Grid.Col span={6}>
-                <AnalyticsCard title="Total Customers" value={analyticsData?.loan_count} onclick={handleSubmitLoans}/>
+                <AnalyticsCard title="Total Loans" value={analyticsData?.loan_count} onclick={handleSubmitLoans}/>
             </Grid.Col>
             <Grid.Col span={6}>
                 <AnalyticsCard title="Total Payments" value={analyticsData?.total_payments} onclick={handleSubmitPayments}/>
@@ -104,7 +103,7 @@ function Analytics() {
         }
     </>
          </Grid.Col>
-          <Grid.Col span={6}>
+          <Grid.Col span={8}>
           {  chartType === 'loans' ? <Totalloanschart/> :
                   chartType === 'payments' ? <Totalpaymentschart/> : 
                     chartType === 'arrears' ? <Totalarrearschart/> : 

@@ -1,8 +1,6 @@
-import { Navbar, Group, Code, ScrollArea, createStyles, rem } from '@mantine/core';
+import { Navbar, ScrollArea, createStyles, rem } from '@mantine/core';
 import { UserButton } from './UserButton';
 import { LinksGroup } from './NavbarLinksGroup';
-import { Logo } from './Logo';
-import { navbardata } from '../../data';
 
 
 
