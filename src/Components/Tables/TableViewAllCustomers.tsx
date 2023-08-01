@@ -10,6 +10,7 @@ import {
   TextInput,
   rem,
   Button,
+  Space,
 } from '@mantine/core';
 import { keys } from '@mantine/utils';
 import { IconSelector, IconChevronDown, IconChevronUp, IconSearch } from '@tabler/icons-react';
@@ -36,16 +37,18 @@ const useStyles = createStyles((theme) => ({
 }));
 
 interface RowData {
+  name: string;
+  telephone1: string;
+  nicnumber: string;
+  loan_number: string;
+  customer_id: string;
   loan_id: string;
-  username: string;
-  loaned_date: string;
-  branch_location: string;
-  loaned_amount: string;
 }
 
 interface TableSortProps {
-  data: RowData[];
-  onSubmit:(id: number) => void;
+    data: RowData[];
+    onCustomerSelect: (id: number) => void;
+    onLoanSelect: (id: number) => void;
 }
 
 interface ThProps {
@@ -92,7 +95,7 @@ function sortData(
   }
 
   return filterData(
-    [...data].sort((a, b) => { 
+    [...data].sort((a, b) => {
       if (payload.reversed) {
         return b[sortBy].localeCompare(a[sortBy]);
       }
@@ -103,7 +106,7 @@ function sortData(
   );
 }
 
-export function TableSort({ data , onSubmit }: TableSortProps) {
+export function TableViewAllCustomers({ data , onCustomerSelect , onLoanSelect }: TableSortProps) {
   const [search, setSearch] = useState('');
   const [sortedData, setSortedData] = useState(data);
   const [sortBy, setSortBy] = useState<keyof RowData | null>(null);
@@ -123,12 +126,15 @@ export function TableSort({ data , onSubmit }: TableSortProps) {
   };
 
   const rows = sortedData.map((row) => (
-    <tr key={row.loan_id}>
-      <td>{row.username}</td>
-      <td>{row.loaned_date}</td>
-      <td>{row.branch_location}</td>
-      <td>{row.loaned_amount}</td>
-      <td><Button variant='light' onClick={() => onSubmit(parseInt(row.loan_id))}>More</Button></td>
+    <tr key={row.name}>
+      <td>{row.name}</td>
+      <td>{row.telephone1}</td>
+      <td>{row.nicnumber}</td>
+      <td>{row.loan_number}</td>
+      <td><Button size='xs' mr='md' variant='light' onClick={() => onCustomerSelect(parseInt(row.customer_id))}
+      >Customers</Button>
+      <Button size='xs' variant='light' onClick={() => onLoanSelect(parseInt(row.loan_id))}
+      >Loan</Button></td>
     </tr>
   ));
 
@@ -145,32 +151,32 @@ export function TableSort({ data , onSubmit }: TableSortProps) {
         <thead>
           <tr>
             <Th
-              sorted={sortBy === 'username'}
+              sorted={sortBy === 'name'}
               reversed={reverseSortDirection}
-              onSort={() => setSorting('username')}
+              onSort={() => setSorting('name')}
             >
-              Username
+              Name
             </Th>
             <Th
-              sorted={sortBy === 'loaned_date'}
+              sorted={sortBy === 'telephone1'}
               reversed={reverseSortDirection}
-              onSort={() => setSorting('loaned_date')}
+              onSort={() => setSorting('telephone1')}
             >
-              Loaned Date
+              Telephone
             </Th>
             <Th
-              sorted={sortBy === 'branch_location'}
+              sorted={sortBy === 'nicnumber'}
               reversed={reverseSortDirection}
-              onSort={() => setSorting('branch_location')}
+              onSort={() => setSorting('nicnumber')}
             >
-              Branch Location
+                NIC Number
             </Th>
             <Th
-              sorted={sortBy === 'loaned_amount'}
+              sorted={sortBy === 'loan_number'}
               reversed={reverseSortDirection}
-              onSort={() => setSorting('loaned_amount')}
+              onSort={() => setSorting('loan_number')}
             >
-              Loaned Amount
+                Loan Number
             </Th>
           </tr>
         </thead>

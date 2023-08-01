@@ -1,13 +1,3 @@
-import {
-  IconNotes,
-  IconGauge,
-  IconCalendarStats,
-  IconPresentationAnalytics,
-  IconFileAnalytics,
-  IconAdjustments,
-  IconLock,
-} from '@tabler/icons-react';
-
 
 export const footerLinks = [
   { link: "#", label: "Contact" },
@@ -15,43 +5,6 @@ export const footerLinks = [
   { link: "#", label: "Blog" },
   { link: "#", label: "Careers" },
 ];
-
-export const navbardata = [
-  { label: 'Dashboard', icon: IconGauge  , link : 'home'},
-  {
-    label: 'Market news',
-    icon: IconNotes,
-    initiallyOpened: false,
-    links: [
-      { label: 'Overview', link: 'home' },
-      { label: 'Forecasts', link: '/' },
-      { label: 'Outlook', link: '/' },
-      { label: 'Real time', link: '/' },
-    ],
-  },
-  {
-    label: 'Releases',
-    icon: IconCalendarStats,
-    links: [
-      { label: 'Upcoming releases', link: '/' },
-      { label: 'Previous releases', link: '/' },
-      { label: 'Releases schedule', link: '/' },
-    ],
-  },
-  { label: 'Analytics', icon: IconPresentationAnalytics },
-  { label: 'Contracts', icon: IconFileAnalytics },
-  { label: 'Settings', icon: IconAdjustments },
-  {
-    label: 'Security',
-    icon: IconLock,
-    links: [
-      { label: 'Enable 2FA', link: '/' },
-      { label: 'Change password', link: '/' },
-      { label: 'Recovery codes', link: '/' },
-    ],
-  },
-];
-
 
 export const headerdata = [
   {
@@ -76,6 +29,7 @@ export const headerdata = [
       }
     ]
   },
+
   {
     "link": "#",
     "label": "Customers",
@@ -120,3 +74,74 @@ export const headerdata = [
   },
   
 ]
+
+
+export const statGridData =
+[
+  {
+    "title": "Revenue",
+    "icon": "receipt",
+    "value": "13,456",
+    "diff": 34
+  },
+  {
+    "title": "Profit",
+    "icon": "coin",
+    "value": "4,145",
+    "diff": -13
+  },
+  {
+    "title": "Coupons usage",
+    "icon": "discount",
+    "value": "745",
+    "diff": 18
+  },
+  {
+    "title": "New customers",
+    "icon": "user",
+    "value": "188",
+    "diff": -30
+  }
+]
+export const statGridData2 =
+[
+  {
+    "title": "Revenue",
+    "icon": "receipt",
+    "value": "13,456",
+    "diff": 34
+  },
+  {
+    "title": "Profit",
+    "icon": "coin",
+    "value": "4,145",
+    "diff": -13
+  },
+  {
+    "title": "Coupons usage",
+    "icon": "discount",
+    "value": "745",
+    "diff": 18
+  }
+]
+
+
+export const statGraphData = 
+[
+  {
+    "title": "Revenue",
+    "value": "$13,456",
+    "diff": 34
+  },
+  {
+    "title": "Profit",
+    "value": "$4,145",
+    "diff": -13
+  },
+  {
+    "title": "Coupons usage",
+    "value": "745",
+    "diff": 18
+  }
+]
+

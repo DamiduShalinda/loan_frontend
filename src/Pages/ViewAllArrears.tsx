@@ -50,7 +50,6 @@ function ViewAllArrears() {
 
   useEffect(() => {
     setLoading(false)
-    console.log(allarrears)
   }, [allarrears])
   
   
@@ -109,6 +108,7 @@ function ViewAllArrears() {
           arr_cal_date: currentDate,
         });
       });
+      console.log(tempdata);
       const response = await axios.post(API_ENDPOINTS.getAllArrearsOnce, tempdata);
       console.log(response.data);
       notifications.show({

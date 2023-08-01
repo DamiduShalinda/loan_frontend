@@ -1,0 +1,109 @@
+import { Center , Title  , Text, Loader, Divider, Card, Grid, Box, Space } from "@mantine/core"
+import axios, { AxiosResponse } from "axios"
+import { API_ENDPOINTS } from "../api"
+import { useEffect, useState } from "react"
+
+
+type AnalyticsData = {
+  id : number;
+  date_requested : string;
+  calculated_date : number;
+  loan_count : number;
+  total_payments : number;
+  total_loanArrears_accountes : number;
+  lastmonth_customer_count : number;
+}
+
+
+type AnalyticsCardProps = {
+  title : string;
+  value : number;
+  onclick : () => void;
+}
+
+function Analytics() {
+
+  const [analyticsData, setAnalyticsData] = useState<AnalyticsData>()
+  const [ loading, setLoading ] = useState<boolean>(true)
+
+
+  async function updateAnalyticsData(){
+    await axios.post(API_ENDPOINTS.getAnalytics, {})
+    
+    .catch((err) => {
+      console.log(err)
+    })
+  }
+
+  const getAnalyticsData = () => async () => {
+    await axios.get(API_ENDPOINTS.getAnalytics)
+    .then((res : AxiosResponse<AnalyticsData>) => {
+      setAnalyticsData(res.data)
+      console.log(res.data)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  }
+
+  useEffect(() => {
+    updateAnalyticsData()
+    .then(getAnalyticsData())
+    .then(() => {setLoading(false)})
+  }, [])
+
+  function handleSubmit(): void {
+    console.log("clicked")
+  }
+
+  return (
+    <>
+        {
+          loading ? <Loader/> : <>
+          <Text size="2rem" ta={"start"} lts="15" fw={"bolder"}>ANALYTICS </Text>
+          <Text size="1rem" ta={"start"} lts="1" fw={"bolder"}>Reports Created On : {analyticsData?.calculated_date} </Text>
+          <Divider size="md" w='25rem' mt='md'/>
+          <Text size="1rem" ta={"start"} lts="1" fw={"bolder"} mb='3rem'>Reports Created On : {analyticsData?.date_requested} </Text>
+          <Box w='25rem'>
+            <Grid>
+              <Grid.Col span={6}>
+                <AnalyticsCard title="Total Customers" value={analyticsData ? analyticsData?.loan_count : 0} onclick={handleSubmit}/>
+            </Grid.Col>
+            <Grid.Col span={6}>
+                <AnalyticsCard title="Total Payments" value={analyticsData ? analyticsData?.total_payments : 0} onclick={handleSubmit}/>
+            </Grid.Col>
+            <Grid.Col span={6}>
+            <AnalyticsCard title="Total Arrears" value={analyticsData ? analyticsData?.total_loanArrears_accountes : 0} onclick={handleSubmit}/>
+            </Grid.Col>
+            <Grid.Col span={6}>
+            <AnalyticsCard title="Last Month Customer Count" value={analyticsData ? analyticsData?.lastmonth_customer_count : 0} onclick={handleSubmit}/>
+            </Grid.Col>
+            </Grid>
+          </Box>
+
+          </>
+        }
+    </>
+  )
+}
+
+export default Analytics
+
+
+
+const AnalyticsCard = ({ title, value , onclick } : AnalyticsCardProps) => {
+  return (
+    <Card 
+      shadow="sm" padding="md" radius="md" style={{ marginBottom: '15px' }} w='11rem' h='9rem'
+      onClick={onclick}
+      >
+      <Text size="0.81rem" ta="start" lts="1" fw="bold">
+        {title}
+      </Text>
+      <Space mt='sm'/>
+      <Text size="2rem" ta="start" lts="1" fw="bolder">
+        {value}
+      </Text>
+    </Card>
+  );
+};

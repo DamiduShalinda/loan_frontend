@@ -122,8 +122,7 @@ export function HeaderAction() {
       <Container className={classes.inner} fluid>
         <Group>
           <Space w={5}/>
-          <Logo size={45} color='#FCF55F'/>
-          <Text fz={20} className={classes.logo} fw={'bolder'} ff={'unset'}>Hasaru Enterprises</Text>
+          <Text fz={17} fw={'bolder'} lts='2'>Hasaru Enterprises</Text>
         </Group>
         <Group spacing={5} className={classes.links}>
           {items}

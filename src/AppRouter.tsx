@@ -19,9 +19,9 @@ import InvoicePrint from "./Pages/InvoicePrint";
 import ArrearsCardPrint from "./Pages/ArrearsCardPrint";
 import ViewOneCustomer from "./Pages/ViewOneCustomer";
 import { NothingFoundBackground } from "./Pages/404Page";
+import Analytics from "./Pages/Analytics";
 
 function AppRouter() {
-//TODO : need to pass the id of the loan to the view loan arrears page
 
 
   return (
@@ -102,6 +102,13 @@ function AppRouter() {
                 element={
                   <Protected>
                   <Layout><ViewOneCustomer/></Layout>
+                  </Protected>
+                  } 
+                />
+        <Route path="/analytics" 
+                element={
+                  <Protected>
+                  <Layout><Analytics/></Layout>
                   </Protected>
                   } 
                 />

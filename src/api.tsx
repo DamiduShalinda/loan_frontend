@@ -4,7 +4,7 @@ export const API_ENDPOINTS = {
   getUser: `${API_BASE_URL}/users/token/`,
   refreshUser: `${API_BASE_URL}/users/token/refresh/`,
   addCustomer: `${API_BASE_URL}/users/customer/add`,
-  getCustomers: `${API_BASE_URL}/customers/getcustomers`,
+  getCustomers: `${API_BASE_URL}/customers/getbasiccustomerdata/`,
   getCustomername: `${API_BASE_URL}/customers/getnames`,
   addLoan: `${API_BASE_URL}/loans/add`,
   getLoans: `${API_BASE_URL}/loans/getall`,
@@ -20,7 +20,8 @@ export const API_ENDPOINTS = {
   getArrearsByStaff : (name : string) => `${API_BASE_URL}/arrears/getbystaff/?staff=${name}`,
   getStaffId : (id : number) => `${API_BASE_URL}/staff/get/${id}`,
   getHomeData : (id : number) => `${API_BASE_URL}/loans/getwebdata/${id}`,
-  
+  addStaff : `${API_BASE_URL}/users/staff/add`,
+  getAnalytics : `${API_BASE_URL}/analytics/`,
   // Add more API endpoints as needed
 };
 

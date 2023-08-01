@@ -6,15 +6,15 @@ import { useDisclosure } from '@mantine/hooks';
 import PaymentInputs from '../Components/PaymentInputs';
 
 
-
-
 function Homepage() {
 
   const [loanID , setLoanID] = useState<number>()
   const [opened, { open, close }] = useDisclosure(false);
   
   function handleSubmit(id: number) {
+    console.log(id);
     setLoanID(id)
+
   }
  
   return (

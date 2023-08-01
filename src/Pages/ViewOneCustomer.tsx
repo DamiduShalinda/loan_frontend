@@ -2,7 +2,7 @@ import axios, { AxiosResponse } from "axios"
 import { useParams } from "react-router-dom"
 import { API_ENDPOINTS } from "../api"
 import { useEffect, useState } from "react"
-import { Grid, List, Loader, Title , Image , Text } from '@mantine/core';
+import { Grid, List, Loader, Title , Image , Container, Space, Group } from '@mantine/core';
 
 type customerData = {
   name: string,
@@ -42,10 +42,12 @@ function ViewOneCustomer() {
       !id && !loading ? 
       <h1><Loader variant="bars"/></h1> : 
       <>
+      <Container mt='10vh'>
       <Grid>
-        <Grid.Col span={6}>
-          <Image src={customerData?.profileimage} width={500} height={500} alt="customer image" radius={"md"}/>
+        <Grid.Col span={3}>
+            <Image src={customerData?.profileimage} width={400} height={400} alt="customer image" radius={"md"}/>
         </Grid.Col>
+        <Grid.Col span={3}></Grid.Col>
         <Grid.Col span={6}>
           <Title order={1} size='7vh'>{customerData?.name}</Title>
           <List m={"xl"}>
@@ -59,6 +61,7 @@ function ViewOneCustomer() {
           </List>
         </Grid.Col>
       </Grid>
+      </Container>
       </>
       }</div>
   )

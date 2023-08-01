@@ -4,70 +4,93 @@ import { DatePickerInput } from '@mantine/dates';
 import { useState , useEffect } from 'react';
 import axios, { AxiosResponse } from 'axios';
 import { API_ENDPOINTS } from '../api';
+import { notifications } from '@mantine/notifications';
+import { IconCheck , IconX } from '@tabler/icons-react'; 
 
 
 type basefieldValues = {
-  username: string;
   branch_location: string;
   loaned_amount: number;
   bike_number: string;
-  first_guarantor: string;
-  second_guarantor: string;
   loan_period : number;
 }
 
 type fieldValues = basefieldValues & {
   loaned_date: Date;
+  username: string;
+  first_guarantor: string;
+  second_guarantor: string;
 }
 
 type loanfieldValueswithString = basefieldValues & {
   loaned_date: string;
+  username: number;
+  first_guarantor: number;
+  second_guarantor: number;
 }
+
+type customerDetails = {
+  id: number;
+  name: string;
+}
+
 
 function AddNewLoan() {
 
   const [usernames , setUsernames] = useState<string[]>([])
+  const [ customerDetails , setCustomerDetails ] = useState<customerDetails[]>([])
   const [loading , setLoading] = useState<boolean>(true)
 
   async function getUserNames() {
     try {
-      await axios.get(API_ENDPOINTS.getCustomername)
-      .then((res : AxiosResponse) => {
-       const data = res.data
-       const fetchData:string[] = [] 
-       data.forEach((item) => {
-        fetchData.push(item.name)
-       });
-        setUsernames(fetchData)
-        })
+      const res = await axios.get(API_ENDPOINTS.getCustomername);
+      setCustomerDetails(res.data);
+      const fetchData: string[] = res.data.map((item : customerDetails) => item.name);
+      setUsernames(fetchData);
     } catch (error) {
       console.log(error);
     }
   }
+  
+
+  const getUserId = (name : string) => {
+    let id = 0 
+    customerDetails.forEach((item) => {
+      if (item.name === name) {
+        id = item.id
+      }
+    })
+    return id
+  }
+
+
+
 
   async function submitLoan(values: loanfieldValueswithString) {
+    console.log(values);
     try {
       await axios.post(API_ENDPOINTS.addLoan , values)
       .then(res => {
-        console.log(values)
-        console.log(res);
-        console.log(res.data);
+        notifications.show({title: 'Loan Added Successfully' , color : 'green' , message : 'Loan Added Successfully' , icon : <IconCheck />})
+        form.reset()
       })
     } catch (error) {
       console.log(error);
+      notifications.show({title: 'Error' , color : 'red' , message : 'Error' , icon : <IconX />})
     }
   }
 
   useEffect(() => {
     getUserNames()
-  }, [])
-
-  useEffect(() => {
-    if (usernames.length > 0) {
-      setLoading(false)
-      //TODO:usernames updated two times , don't know why
-    }
-  }, [usernames])
+      .then(() => {
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.log(error);
+        setLoading(false); // Set loading to false in case of an error as well
+      });
+  }, []);
+  
   
 
 
@@ -98,15 +121,13 @@ function AddNewLoan() {
 
   function handleSubmit(values: fieldValues) {
     const newValues: loanfieldValueswithString = {
-      username: values.username,
-      branch_location: values.branch_location,
-      loaned_amount: values.loaned_amount,
-      bike_number: values.bike_number,
-      first_guarantor: values.first_guarantor,
-      second_guarantor: values.second_guarantor,
-      loaned_date: values.loaned_date.toISOString().slice(0,10),
-      loan_period : values.loan_period
-  }
+      ...values,
+      username: getUserId(values.username),
+      first_guarantor: getUserId(values.first_guarantor),
+      second_guarantor: getUserId(values.second_guarantor),
+      loaned_date: values.loaned_date.toISOString().slice(0, 10)
+    }
+
   submitLoan(newValues)
 }
 
@@ -130,7 +151,7 @@ function AddNewLoan() {
       />
       <Autocomplete
         mt="sm"
-        placeholder="Customer's Branch"
+        placeholder="Customer's Username"
         label="Customer's Username"
         withAsterisk
         data={usernames}
