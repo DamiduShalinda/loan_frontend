@@ -21,7 +21,14 @@ export const API_ENDPOINTS = {
   getStaffId : (id : number) => `${API_BASE_URL}/staff/get/${id}`,
   getHomeData : (id : number) => `${API_BASE_URL}/loans/getwebdata/${id}`,
   addStaff : `${API_BASE_URL}/users/staff/add`,
-  getAnalytics : `${API_BASE_URL}/analytics/`,
+  getAnalytics : {
+    basic : `${API_BASE_URL}/analytics/`,
+    customers : `${API_BASE_URL}/analytics/customers/`,
+    loans : `${API_BASE_URL}/analytics/loans/`,
+    payments : `${API_BASE_URL}/analytics/payments/`,
+    arrears : `${API_BASE_URL}/analytics/arrears/`,
+
+  },
   // Add more API endpoints as needed
 };
 
