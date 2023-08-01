@@ -17,7 +17,6 @@ import { Link } from 'react-router-dom';
 import LightDarkButton from './LightDarkButton';
 import AuthContext from '../Context/AuthContext';
 import { useContext } from 'react';
-import  Logo from '../assets/svg/Logo';
 
 const HEADER_HEIGHT = rem(60);
 
