@@ -132,7 +132,7 @@ export function TableViewAllCustomers({ data , onCustomerSelect , onLoanSelect }
       <td>{row.nicnumber}</td>
       <td>{row.loan_number}</td>
       <td><Button size='xs' mr='md' variant='light' onClick={() => onCustomerSelect(parseInt(row.customer_id))}
-      >Customers</Button>
+      >More Details</Button>
       <Button size='xs' variant='light' onClick={() => onLoanSelect(parseInt(row.loan_id))}
       >Loan</Button></td>
     </tr>

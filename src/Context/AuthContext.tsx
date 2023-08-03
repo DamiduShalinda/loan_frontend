@@ -72,13 +72,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({
     })
     .catch((error) => {
       // Handle login error
-      notifications.show({
-        title: 'Login Failed',
-        message: 'Please check your username and password',
-        color: 'red',
-        autoClose: 5000,
-        icon : <IconX/>
-    })
+      console.log(error);
     });
 };
 

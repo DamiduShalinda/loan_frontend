@@ -131,7 +131,7 @@ export function TableAllLoanArrears({ data , onSubmitCalculate , onClickMore , o
       <td>{row.monthly_payment}</td>
       <td>{row.arr_cal_date}</td>
       <td>{row.monthly_arrears}</td>
-      <td><Group position='center'><Button variant='subtle' onClick={ () => onClickMore(row.loan_id)}>More</Button></Group></td>
+      <td><Group position='center'><Button variant='light' onClick={ () => onClickMore(row.loan_id)}>More</Button></Group></td>
     </tr>
   ));
 

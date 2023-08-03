@@ -2,11 +2,12 @@ import { useEffect, useState } from 'react'
 import { Loader , Grid  , Button , Box , NumberInput, Group, Divider , Space, Title, List} from '@mantine/core'
 import { formValues } from '../Components/LoanPayments'
 import { API_ENDPOINTS } from '../api';
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { TableScrollArea } from '../Components/Tables/Table';
 import { useForm } from '@mantine/form';
 import { DateInput } from '@mantine/dates';
 import { Link, useParams } from 'react-router-dom';
+import { TableViewPayments } from '../Components/Tables/TableViewPayments';
 
 
 export interface loanArrearsInterface {
@@ -20,6 +21,28 @@ export interface loanArrearsInterface {
     arr_cal_date : string;
     customer_id : number;
 }
+
+interface paymentValuesBasic {
+    payment_date: string;
+    loan_number: string;
+}
+
+interface paymentValues extends paymentValuesBasic {
+    payment_amount: number;
+    interest : number;
+    principle : number;
+    balance : number;
+    id : number;
+}
+
+interface paymentValueStr extends paymentValuesBasic {
+    payment_amount: string;
+    interest : string;
+    principle : string;
+    balance : string;
+    id : string;
+}
+
 
  interface loanArrearsSubmitInterfaceBasic {
     loan_id : number;
@@ -85,13 +108,9 @@ async function submitArrears(values: loanArrearsSubmitInterfacewitString) {
 async function getPayments(id : number) {
     try {
         await axios.get(API_ENDPOINTS.getAllpayments(id))
-        .then(res => {
-            const tempdata: formValues[] = []
-            res.data.forEach((item: formValues) => {
-                tempdata.push(item)
-            }
-            )
-            setPayments(tempdata)
+        .then((res : AxiosResponse<paymentValues[]>) => {
+            setPayments(res.data);
+            
         })
     } catch (error) {
         console.log(error);
@@ -110,7 +129,7 @@ async function getArrears(id : number) {
 }
 
 useEffect(() => {
-    getPayments(loanid)
+    getPayments(loanid).then(() => {console.log(payments);})
     getArrears(loanid)
     form.setValues({
         loan_id : loanid,
@@ -179,7 +198,7 @@ useEffect(() => {
         </Grid>
         <Divider label="ALL PAYMENTS" labelPosition='center' />
         <Space h="lg" />
-        <TableScrollArea data={payments} headers={['payment_amount' , 'payment_date' , 'interest' , 'principal' , 'balance']}/>
+        <TableViewPayments data={payments}/>
     </div>
     }
     </div>

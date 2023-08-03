@@ -34,6 +34,7 @@ function ViewOneCustomer() {
     useEffect(() => {
       id && getCustomerData(parseInt(id))
       setLoading(true)
+      console.log(customerData?.profileimage)
     }, [])
     
 
@@ -45,7 +46,7 @@ function ViewOneCustomer() {
       <Container mt='10vh'>
       <Grid>
         <Grid.Col span={3}>
-            <Image src={customerData?.profileimage} width={400} height={400} alt="customer image" radius={"md"}/>
+            <Image src={"https://res.cloudinary.com/dfvhftecz/" + customerData?.profileimage} width={400} height={400} alt="customer image" radius={"md"}/>
         </Grid.Col>
         <Grid.Col span={3}></Grid.Col>
         <Grid.Col span={6}>
